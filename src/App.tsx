@@ -5,11 +5,14 @@ import { RegisterPage } from './components/RegisterPage/RegisterPage';
 
 function App() {
   return (
+  
     <div>
       <HomePage /> 
       <Footer />
       <RegisterPage />
 
+
+      
     </div>
   
   );
