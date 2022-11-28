@@ -26,6 +26,13 @@ export const ApiDownloader = () => {
             <h1>Search for a book</h1>
             <input type="text" onChange={(e) => setSearch(e.target.value)}/>
             <button onClick={displaySearches}>Search</button>
+            <div className="books">
+                {searchedData.map((data: any, number:any) => (
+                    <div className="card" key={number}>
+                        {data.volumeInfo.title}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

@@ -1,12 +1,22 @@
 import React from 'react';
-
-import { ApiDownloader } from './components/shared/HomePage/ApiDownloader';
+import logo from './logo.svg';
+import './App.css';
+import { HomePage } from './components/HomePage/HomePage';
+import { Footer } from './components/Footer/Footer';
+import { RegisterPage } from './components/RegisterPage/RegisterPage';
 
 function App() {
   return (
-    <div className="App">
-      <ApiDownloader />
+  
+    <div>
+      <HomePage /> 
+      <Footer/>
+      <RegisterPage />
+
+
+      
     </div>
+  
   );
 }
 
