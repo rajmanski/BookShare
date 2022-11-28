@@ -7,6 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormControl from '@mui/material/FormControl';
 
 
 export const RegisterPage = () => {
@@ -52,11 +53,11 @@ export const RegisterPage = () => {
       autoComplete="off"
     >
       <TextField id="standard-basic" label="Email" variant="standard" />
-      <TextField id="standard-basic" label="Password" variant="standard" />
-      <TextField id="standard-basic" label="Confirm password" variant="standard" />      
+        
+
+      <FormControl fullWidth sx={{ m: 1 }} variant="standard"> 
       <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
       <Input
-
             id="standard-adornment-password"
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
@@ -72,8 +73,29 @@ export const RegisterPage = () => {
                   </IconButton>
                 </InputAdornment>
               }
+            /> 
+        </FormControl>    
 
-            />          
+        <FormControl fullWidth sx={{ m: 1 }} variant="standard"> 
+      <InputLabel htmlFor="standard-adornment-password">Confirm password</InputLabel>
+      <Input
+            id="standard-adornment-password"
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            onChange={handleChange('password')}
+            endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            /> 
+        </FormControl>           
     </Box>
    )
 }
