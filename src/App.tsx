@@ -1,14 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Footer } from './components/Footer/Footer';
+import { HomePage } from './components/HomePage/HomePage';
 import { RegisterPage } from './components/RegisterPage/RegisterPage';
 
 function App() {
   return (
   
     <div>
-      <Footer/>
+      <HomePage /> 
+      <Footer />
       <RegisterPage />
 
 

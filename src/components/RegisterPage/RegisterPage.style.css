@@ -1,0 +1,17 @@
+.register-page-container {
+    width: 544px;
+    height: 490px;
+    background-color: #FFFFFF;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-page-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-page-input {
+    width: 415px;
+}

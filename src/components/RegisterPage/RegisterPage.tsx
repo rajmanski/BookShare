@@ -7,6 +7,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormControl from '@mui/material/FormControl';
+import "./RegisterPage.style.css"
 
 
 export const RegisterPage = () => {
@@ -43,21 +45,25 @@ export const RegisterPage = () => {
       };
 
    return (
+    <div className='register-page-container'>
+        <h2>Sing up</h2>
+
+    <div className='register-page-inputs'>
     <Box
       component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
+      sx={{'& > :not(style)': { m: 1, width: '415px' },}}
       noValidate
-      autoComplete="off"
-    >
-      <TextField id="standard-basic" label="Email" variant="standard" />
-      <TextField id="standard-basic" label="Password" variant="standard" />
-      <TextField id="standard-basic" label="Confirm password" variant="standard" />      
-      <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-      <Input
+      autoComplete="off">
+    
+      <TextField id="register-page-emial" label="Email" variant="standard" className="register-page-input" />
+      </Box>
+        
 
-            id="standard-adornment-password"
+      <FormControl fullWidth sx={{ m: 1 }} variant="standard"> 
+      <InputLabel htmlFor="register-page-password">Password</InputLabel>
+      <Input
+            className="register-page-input"
+            id="register-page-password"
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
@@ -72,8 +78,42 @@ export const RegisterPage = () => {
                   </IconButton>
                 </InputAdornment>
               }
+            /> 
+        </FormControl>    
 
-            />          
-    </Box>
+        <FormControl fullWidth sx={{ m: 1 }} variant="standard"> 
+      <InputLabel htmlFor="register-page-confirm-password">Confirm password</InputLabel>
+      <Input
+            className="register-page-input"
+            id="register-page-confirm-password"
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            onChange={handleChange('password')}
+            endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            /> 
+        </FormControl>           
+    </div>    
+
+    <div className='register-page-buttons'>
+        <button>SING UP</button>
+        <p>OR</p>
+        <button>SING UP WITH GOOGLE</button>
+        <p>If you have account, sing in.</p>
+    </div>
+
+
+     
+    </div>
+    
    )
 }
