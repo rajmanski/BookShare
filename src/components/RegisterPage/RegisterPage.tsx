@@ -17,42 +17,78 @@ import { Footer } from '../Footer/Footer'
 export const RegisterPage = () => {
 
 
-    interface State {
+  interface State {
         amount: string;
         password: string;
         weight: string;
         weightRange: string;
-        showPassword: boolean;} 
+        showPassword: boolean;
+        
+      } 
+
+  interface ConfState {
+        amount: string;
+        confPassword: string;
+        weight: string;
+        weightRange: string;
+        showConfPassword: boolean;
+  }
 
       
 
-    const [values, setValues] = useState<State>({
+   const [values, setValues] = useState<State>({
         amount: '',
         password: '',
         weight: '',
         weightRange: '',
         showPassword: false,
-    });     
+    });
+    
+  const [confValues, setConfValues] = useState<ConfState>({
+      amount: '',
+      confPassword: '',
+      weight: '',
+      weightRange: '',
+      showConfPassword: false,
+  });
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confPassword, setConfPassword] = useState('')
 
-    const handleChange =
+  const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [prop]: event.target.value });
       setPassword(event.target.value)
     };
+
+  const handleChangeConf =
+    (prop: keyof ConfState) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setConfValues({ ...confValues, [prop]: event.target.value });
+      setConfPassword(event.target.value)
+    };
     
-    const handleClickShowPassword = () => {
+  const handleClickShowPassword = () => {
         setValues({
           ...values,
           showPassword: !values.showPassword,
         });
       };
+
+  const handleClickShowConfPassword = () => {
+      setConfValues({
+       ...confValues,
+      showConfPassword: !confValues.showConfPassword,
+      });
+  };
     
-      const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-      };
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+  };
+
+  const handleMouseDownConfPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+  };
 
 
 
@@ -111,17 +147,17 @@ export const RegisterPage = () => {
       <Input
             className="register-form-input"
             id="register-form-confirm-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
+            type={confValues.showConfPassword ? 'text' : 'password'}
+            value={confValues.confPassword}
+            onChange={handleChangeConf('confPassword')}
             endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
+                    aria-label="toggle confPassword visibility"
+                    onClick={handleClickShowConfPassword}
+                    onMouseDown={handleMouseDownConfPassword}
                   >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    {confValues.showConfPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
