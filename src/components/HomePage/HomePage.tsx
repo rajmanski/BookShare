@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Footer } from "../Footer/Footer";
+import './HomePage.style.css'
 
 export const HomePage = () => {
   const [search, setSearch] = useState("");
@@ -32,16 +33,18 @@ export const HomePage = () => {
             books? Want to save some money and get access to the newest
             booksellers?
           </p>
-          <p>Become a member of 30.000+ Bookshare community</p>
+          <p>Become a member of 30.000+ Bookshare community!</p>
           <div className="search-input">
             <TextField fullWidth  
             id="fullWidth" 
             placeholder="Search for a title of author"
-            InputProps={{endAdornment: <Button variant="contained">Contained</Button>}}
+            InputProps={{endAdornment: <Button sx={{bgcolor: '#18a86e', '&:hover': {backgroundColor: '#405d27'}}} variant="contained">Contained</Button>}}
             />
           </div>
         </div>
-        <div className="images"></div>
+        <div className="images">
+
+        </div>
       </div>
       Hello Book
       <Footer />

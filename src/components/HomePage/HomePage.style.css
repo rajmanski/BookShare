@@ -1,0 +1,22 @@
+.search-area {
+    margin: 0 auto;
+    width: 85%;
+    background-color: #f0efed;
+    display: flex;
+    padding: 20px;
+}
+
+.search {
+    width: 50%;
+}
+
+.images {
+    width: 50%;
+}
+.search h1 {
+    font-size: 3rem;
+}
+
+.search p {
+    font-size: 1.2rem;
+}
