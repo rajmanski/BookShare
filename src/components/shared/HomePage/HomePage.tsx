@@ -73,7 +73,6 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-      Hello Book
       <Footer />
     </div>
   );
