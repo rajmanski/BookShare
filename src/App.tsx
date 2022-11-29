@@ -1,6 +1,7 @@
 import './App.css';
 import { HomePage } from './components/HomePage/HomePage';
 import { RegisterPage } from './components/RegisterPage/RegisterPage';
+import { MyBooksPage } from './components/authorised/MyBooksPage/MyBooksPage';
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <div>
       <Routes>
       <Route path='/' element={<HomePage/>}></Route>
-      <Route path='/register' element={<RegisterPage/>}></Route>
+      <Route path='/signup' element={<RegisterPage/>}></Route>
+      <Route path='/mybooks' element={<MyBooksPage/>}></Route>
       </Routes> 
     </div>
   
