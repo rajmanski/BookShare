@@ -31,9 +31,9 @@ export const HomePage = () => {
           <p>
             Not a fan of ebooks?Not enough spacein your bookshelf to buy more
             books? Want to save some money and get access to the newest
-            booksellers?
+            booksellers?<br></br>
+            Become a member of 30.000+ Bookshare community!
           </p>
-          <p>Become a member of 30.000+ Bookshare community!</p>
           <div className="search-input">
             <TextField fullWidth  
             id="fullWidth" 
@@ -43,7 +43,11 @@ export const HomePage = () => {
           </div>
         </div>
         <div className="images">
-
+            <div className="img-wrapper">
+                <img src="jo.jpg" alt="Jo Nesbo book cover" />
+                <img className="second-book" src="king.jpg" alt="Stephen King book cover" />
+                <img className="third-book" src="harry.jpg" alt="Harry Potter book cover" />
+            </div>
         </div>
       </div>
       Hello Book

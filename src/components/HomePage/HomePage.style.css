@@ -4,6 +4,7 @@
     background-color: #f0efed;
     display: flex;
     padding: 20px;
+    max-width: 1144px;
 }
 
 .search {
@@ -12,6 +13,9 @@
 
 .images {
     width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .search h1 {
     font-size: 3rem;
@@ -19,4 +23,19 @@
 
 .search p {
     font-size: 1.2rem;
+}
+
+.images img {
+    width: 30%;
+    height: 100%;
+}
+
+.img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img .second-book {
+    height: 90%;
 }
