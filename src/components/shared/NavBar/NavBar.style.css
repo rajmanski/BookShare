@@ -1,0 +1,35 @@
+.nav-container{
+    width: 100vw;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 40px;
+    background: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.nav-link{
+    margin-left: 30px;
+    font-size: 18px;
+    font-family: Roboto, sans-serif;
+}
+
+.navigation-pages-links{
+    display: flex;
+    align-items: center;
+}
+
+.signin-signup-links{
+    display: flex;    
+}
+
+.active{
+    text-decoration: underline;
+}
+
+.container-fluid{
+    padding: 0;
+}

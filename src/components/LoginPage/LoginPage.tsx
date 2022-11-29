@@ -9,6 +9,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
 import { Footer } from '../Footer/Footer'
 import { useState } from 'react';
+import { NavBar } from '../shared/NavBar/NavBar';
 
 export const LoginPage = () => { 
 
@@ -50,6 +51,7 @@ export const LoginPage = () => {
 
     return (
         <div className='login-page-container'>
+          <NavBar/>
              <Box
       component="form"
       sx={{'& > :not(style)': { m: 1, width: '415px' },}}

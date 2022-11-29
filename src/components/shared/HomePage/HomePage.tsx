@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { Footer } from "../Footer/Footer";
+import { Footer } from "../../Footer/Footer";
+import { NavBar } from '../NavBar/NavBar'
 import "./HomePage.style.css";
 
 export const HomePage = () => {
@@ -25,6 +26,7 @@ export const HomePage = () => {
 
   return (
     <div className="home-page-container">
+      <NavBar/>
       <div className="search-area">
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
