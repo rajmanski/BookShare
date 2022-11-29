@@ -3,6 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { createTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -12,6 +15,14 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#18A86E'
+      }
+  }});
+
 
   return (
     <div
@@ -39,6 +50,7 @@ function a11yProps(index: number) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const theme = useTheme();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

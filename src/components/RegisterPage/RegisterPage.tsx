@@ -12,10 +12,13 @@ import "./RegisterPage.style.css"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../firebase'
 import { Footer } from '../Footer/Footer'
+import { useTheme } from '@mui/material/styles';
+
 
 
 export const RegisterPage = () => {
 
+  const theme = useTheme();
 
     interface State {
         amount: string;
