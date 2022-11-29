@@ -1,4 +1,9 @@
-.register-page-container {
+.register-page-container{
+    width: 100vw;
+    height: 100vh;
+}
+
+.register-form-container {
     width: 544px;
     height: 490px;
     background-color: #FFFFFF;
@@ -7,11 +12,11 @@
     flex-direction: column;
 }
 
-.register-page-inputs {
+.register-form-inputs {
     display: flex;
     flex-direction: column;
 }
 
-.register-page-input {
+.register-form-input {
     width: 415px;
 }
