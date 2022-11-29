@@ -12,6 +12,7 @@ import "./RegisterPage.style.css"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../firebase'
 import { Footer } from '../Footer/Footer'
+import { NavBar } from '../shared/NavBar/NavBar'
 import { useTheme } from '@mui/material/styles';
 
 
@@ -108,6 +109,7 @@ export const RegisterPage = () => {
 
    return (
     <div className='register-page-container'>
+      <NavBar/>
 
     <div className='register-form-container'>
         <h2>Sign up</h2>
