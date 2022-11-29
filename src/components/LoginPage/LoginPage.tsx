@@ -10,6 +10,9 @@ import FormControl from '@mui/material/FormControl';
 import { Footer } from '../Footer/Footer'
 import { useState } from 'react';
 import { NavBar } from '../shared/NavBar/NavBar';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
+import { useNavigate } from 'react-router';
 
 export const LoginPage = () => { 
 
@@ -31,6 +34,21 @@ export const LoginPage = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const navigate = useNavigate();
+
+const handleSignIn = () => {
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log(user)
+    navigate('/')
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+}
     
     const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +100,7 @@ export const LoginPage = () => {
         }
       /> 
     </FormControl>
+    <button onClick={handleSignIn}>Sign in</button>
     <Footer />
         </div>   
     )
