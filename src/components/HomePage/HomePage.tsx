@@ -1,3 +1,4 @@
+import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Footer } from "../Footer/Footer";
 
@@ -32,8 +33,12 @@ export const HomePage = () => {
             booksellers?
           </p>
           <p>Become a member of 30.000+ Bookshare community</p>
-          <div className="search-inp">
-
+          <div className="search-input">
+            <TextField fullWidth  
+            id="fullWidth" 
+            placeholder="Search for a title of author"
+            InputProps={{endAdornment: <Button variant="contained">Contained</Button>}}
+            />
           </div>
         </div>
         <div className="images"></div>
