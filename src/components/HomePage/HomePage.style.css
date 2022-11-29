@@ -9,6 +9,9 @@
 
 .search {
     width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .images {
@@ -18,15 +21,15 @@
     align-items: center;
 }
 .search h1 {
-    font-size: 3rem;
+    font-size: 4rem;
 }
 
 .search p {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
 }
 
 .images img {
-    width: 30%;
+    /* width: 50%; */
     height: 100%;
 }
 
@@ -34,8 +37,35 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
-img .second-book {
-    height: 90%;
+.images img.first-book {
+    height: 60%;
+    z-index: 3;
+    height: 60%;
+    z-index: 3;
+    position: relative;
+    top: 0;
+    left: 190px;
+}
+
+.images img.second-book {
+    height: 55%;
+    z-index: 2;
+    position: relative;
+}
+
+.images img.third-book {
+    height: 50%;
+    z-index: 1;
+    position: relative;
+    top: 0;
+    left: -188px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
