@@ -1,15 +1,10 @@
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import logo from '../../../images/logo.png'
 import '../NavBar/NavBar.style.css'
+
+
 export const NavBar = () => {
 
-//   $(document).ready(function () {
-//     var url = window.location;
-//     $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
-//     $('ul.nav a').filter(function() {
-//          return this.href == url;
-//     }).parent().addClass('active');
-// });
 
     return (
 <nav className="navbar navbar-expand-lg ">
@@ -22,14 +17,47 @@ export const NavBar = () => {
         
         <div className='navigation-pages-links'>
           <img src={logo} alt="Logo" width="60" height="60" className="d-inline-block align-text-center logo"/>
-          <Link className="nav-link" to="/" >Home</Link>
-          <Link className="nav-link active" aria-current="page" to="/mybooks">Books</Link>
-          <Link className="nav-link" to="/lend">Lend</Link>
-          <Link className="nav-link" to="/borrow" >Borrow</Link>
+          
+          <NavLink 
+            className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+            to="/" end
+            >Home
+          </NavLink>
+
+          <NavLink 
+            className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+            to="/mybooks" end
+            >My books
+          </NavLink>
+
+          <NavLink 
+            className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+            to="/borrow" end
+            >Borrow
+          </NavLink>
+
+          <NavLink 
+            className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+            to="/lend" end
+            >Share
+          </NavLink>
+          
         </div>
+
         <div className='signin-signup-links'>
-          <Link className="nav-link" to="/signin">Sign in</Link>
-          <Link className="nav-link" to="/signup">Sign up</Link>
+
+          <NavLink 
+            className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+            to="/signin" end
+            >Sign in
+          </NavLink>
+
+          <NavLink 
+            className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+            to="/signup" end
+            >Sign up
+          </NavLink>
+          
         </div>
       </div>
     </div>

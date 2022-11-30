@@ -47,7 +47,9 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
             </ul>)
 
     return (
-        <Grid container>
+        <Grid sx={{
+            mt: 20
+        }} container>
             <Grid item xs>
                 {ulAnia}
             </Grid>
