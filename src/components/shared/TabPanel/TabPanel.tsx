@@ -6,16 +6,19 @@ import Box from '@mui/material/Box';
 import { createTheme } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import { CardMyBooksPage } from '../../authorised/CardMyBooksPage/CardMyBooksPage';
+import { SxProps, Theme } from '@mui/material/styles';
+
 
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+  sx?: SxProps<Theme>;
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, sx, ...other } = props;
 
   const theme = createTheme({
     palette: {
@@ -58,15 +61,21 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ 
+      width: '100%', 
+       }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="private" className='tab-private' {...a11yProps(0)} />
+          <Tab label="private" className='tab-private' {...a11yProps(0)}/>
           <Tab label="available to lend" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        <CardMyBooksPage/>
+      <TabPanel sx={{
+        p: 0
+      }}
+        value={value} 
+        index={0}>
+        <CardMyBooksPage/> 
       </TabPanel>
       <TabPanel value={value} index={1}>
         Shared books collection

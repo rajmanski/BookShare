@@ -11,7 +11,9 @@ export const CardMyBooksPage= () => {
   return (
     <Card sx={{ 
         maxWidth: 204,
-        boxShadow: '0px 0px 2px 0px rgba(66, 68, 90, 0.37)'
+        minHeight: 295,
+        boxShadow: '0px 0px 2px 0px rgba(66, 68, 90, 0.37)', 
+        position: 'relative'
         }}>
       <CardActionArea>
         <CardMedia sx={{
@@ -37,7 +39,8 @@ export const CardMyBooksPage= () => {
           <Typography sx={{
             fontFamily: 'Roboto, sans-serif',
             fontSize: 13,
-            fontWeight: 700 
+            fontWeight: 700, 
+            // minHeight: 45  
           }}
             variant="h4" color="text.secondary">
            James Clear
@@ -48,9 +51,12 @@ export const CardMyBooksPage= () => {
         <Button sx={{
             color: '#1976D2', 
             fontWeight: 700,
-            textDecoration: 'toUpperCase'
+            textDecoration: 'toUpperCase', 
+            position: 'absolute', 
+            bottom: 5
         }}
-            size="small" color="primary">
+            size="small" 
+            color="primary">
           SHARE
         </Button>
       </CardActions>
