@@ -1,0 +1,9 @@
+.my-books-page-container{
+    padding: 90px;
+}
+
+.books-in-your-library-title{
+    font-family: sans-serif;
+    font-size: 24px;
+    margin-bottom: 40px;
+}
