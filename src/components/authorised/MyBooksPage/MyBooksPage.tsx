@@ -5,14 +5,22 @@ import BasicTabs from '../../shared/TabPanel/TabPanel'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import '../MyBooksPage/MyBooksPage.style.css'
+import {ApiDownloader} from '../MyBooksPage/MyBooksApiDownloader'
+import { useTheme } from '@mui/material/styles';
+import { BooksModal } from '../MyBooksPage/BooksModal'
 
 export const MyBooksPage = () => {
+
+    const theme = useTheme();
 
     return(
     <>
     <NavBar/>
     <div className="my-books-page-container">
-        <h2 className='books-in-your-library-title'>Books in your library</h2>
+        <div className='title-and-search-container'>
+            <div className='books-in-your-library-title'><h2>Books in your library</h2></div>
+            <ApiDownloader/>
+        </div>
         <BasicTabs/>
 
         <Fab sx={{
@@ -25,6 +33,8 @@ export const MyBooksPage = () => {
         <AddIcon sx={{ ml: 1 }} />
         </Fab>
     </div>
+
+    <BooksModal/>
     <Footer/>
     </>
     )

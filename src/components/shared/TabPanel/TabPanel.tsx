@@ -20,14 +20,6 @@ interface TabPanelProps {
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, sx, ...other } = props;
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#18A86E'
-      }
-  }});
-
-
   return (
     <div
       role="tabpanel"

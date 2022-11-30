@@ -2,8 +2,21 @@
     padding: 90px;
 }
 
+.title-and-search-container{
+    display: flex;
+    margin-bottom: 40px;
+    justify-content: space-between;
+}
+
 .books-in-your-library-title{
     font-family: sans-serif;
     font-size: 24px;
-    margin-bottom: 40px;
 }
+
+.card{
+    width: 100px;
+    height: 100px;
+}
+
+
+
