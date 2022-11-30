@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { createTheme } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
+import { CardMyBooksPage } from '../../authorised/CardMyBooksPage/CardMyBooksPage';
 
 
 interface TabPanelProps {
@@ -65,7 +66,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Private books collection
+        <CardMyBooksPage/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Shared books collection
