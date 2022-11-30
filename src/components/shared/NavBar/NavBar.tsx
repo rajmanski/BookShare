@@ -33,13 +33,13 @@ export const NavBar = () => {
           <NavLink 
             className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
             to="/borrow" end
-            >Get book
+            >Borrow
           </NavLink>
 
           <NavLink 
             className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
             to="/lend" end
-            >Share book
+            >Share
           </NavLink>
           
         </div>
