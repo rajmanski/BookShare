@@ -27,7 +27,7 @@ export const NavBar = () => {
           <NavLink 
             className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
             to="/mybooks" end
-            >Books
+            >My books
           </NavLink>
 
           <NavLink 
@@ -39,7 +39,7 @@ export const NavBar = () => {
           <NavLink 
             className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
             to="/lend" end
-            >Lend
+            >Share
           </NavLink>
           
         </div>
