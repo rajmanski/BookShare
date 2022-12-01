@@ -77,7 +77,7 @@ export const HomePage = () => {
       <div className="book-area">
         <h1>New in Bookshare</h1>
         <div className="books-card-area">
-          <div className="card">
+          <div className="card-on-homepage">
             <div className="img-card-wrapper">
               <img src="shantaram.jpg" alt="Shantaram" />
             </div>
@@ -92,7 +92,7 @@ export const HomePage = () => {
               <FavoriteIcon sx={{color: 'gray'}}/>
             </div>
           </div>
-          <div className="card">
+          <div className="card-on-homepage">
             <div className="img-card-wrapper">
               <img src="shantaram.jpg" alt="Shantaram" />
             </div>
@@ -107,7 +107,7 @@ export const HomePage = () => {
               <FavoriteIcon sx={{color: 'gray'}}/>
             </div>
           </div>
-          <div className="card">
+          <div className="card-on-homepage">
             <div className="img-card-wrapper">
               <img src="shantaram.jpg" alt="Shantaram" />
             </div>
@@ -122,7 +122,7 @@ export const HomePage = () => {
               <FavoriteIcon sx={{color: 'gray'}}/>
             </div>
           </div>
-          <div className="card">
+          <div className="card-on-homepage">
             <div className="img-card-wrapper">
               <img src="shantaram.jpg" alt="Shantaram" />
             </div>
