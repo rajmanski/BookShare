@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Footer } from "../../Footer/Footer";
-import { NavBar } from '../NavBar/NavBar'
+import { NavBar } from '../NavBar/NavBar';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./HomePage.style.css";
 
 export const HomePage = () => {
@@ -70,6 +71,26 @@ export const HomePage = () => {
               src="harry.jpg"
               alt="Harry Potter book cover"
             />
+          </div>
+        </div>
+      </div>
+      <div className="book-area">
+        <h1>New in Bookshare</h1>
+        <div className="books-card-area">
+          <div className="card">
+            <div className="img-wrapper">
+              <img src="shantaram.jpg" alt="Shantaram" />
+            </div>
+            <div className="title-and-area">
+              <h3>Shantaram</h3>
+              <h4>Żoliborz</h4>
+            </div>
+            <div className="author">Gregory D. Roberts</div>
+            <div className="buttons">
+              <Button variant="text" size="small" sx={{color: 'blue'}}>BORROW</Button>
+              <Button variant="text" size="small" sx={{color: 'blue'}}>DETAILS</Button>
+              <FavoriteIcon sx={{color: 'gray'}}/>
+            </div>
           </div>
         </div>
       </div>

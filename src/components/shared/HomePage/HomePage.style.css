@@ -41,7 +41,7 @@
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
 
-    
+
 }
 
 .img-wrapper {
@@ -79,4 +79,58 @@ img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+}
+
+.book-area {
+    background-color: #FFFFFF;
+    max-width: 1440px;
+    margin: 0 auto;
+    border: none;
+}
+
+.books-card-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 112px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 345px;
+    height: 532px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+}
+
+.img-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    isolation: isolate;
+    width: 345px;
+    height: 345px;
+}
+
+.card img {
+    width: 204px;
+    height: 302px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.title-and-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 16px 16px;
+    width: 345px;
+    height: 64px;
+    border-radius: 4px 4px 0px 0px;
 }
