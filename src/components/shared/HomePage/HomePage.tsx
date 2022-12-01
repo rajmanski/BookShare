@@ -122,6 +122,21 @@ export const HomePage = () => {
               <FavoriteIcon sx={{color: 'gray'}}/>
             </div>
           </div>
+          <div className="card">
+            <div className="img-card-wrapper">
+              <img src="shantaram.jpg" alt="Shantaram" />
+            </div>
+            <div className="title-and-area">
+              <h3>Shantaram</h3>
+              <h4>Żoliborz</h4>
+            </div>
+            <div className="author">Gregory D. Roberts</div>
+            <div className="buttons">
+              <Button variant="text" size="small" sx={{color: 'blue'}}>BORROW</Button>
+              <Button variant="text" size="small" sx={{color: 'blue'}}>DETAILS</Button>
+              <FavoriteIcon sx={{color: 'gray'}}/>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />
