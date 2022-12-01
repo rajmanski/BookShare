@@ -84,8 +84,12 @@ img {
 .book-area {
     background-color: #FFFFFF;
     max-width: 1440px;
-    margin: 0 auto;
+    margin: 20px auto;
     border: none;
+}
+
+.book-area h1 {
+    text-align: center;
 }
 
 .books-card-area {
@@ -106,7 +110,7 @@ img {
     border-radius: 4px;
 }
 
-.img-wrapper {
+.img-card-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -143,4 +147,51 @@ img {
     width: 345px;
     height: 59px;
     border-radius: 4px 4px 0px 0px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 133.4%;
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    width: 345px;
+    height: 64px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 22px;
+    /* identical to box height, or 169% */
+
+    letter-spacing: 0.46px;
+    text-transform: uppercase;
+
+    /* Light/Primary/Main */
+
+    color: #1976D2;
+}
+
+.title-and-area h3 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 133.4%;
+}
+
+.title-and-area h4 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 133.4%;
+    /* identical to box height, or 27px */
+    text-align: right;
+    font-variant: small-caps;
+    color: #5BC49C;
 }
