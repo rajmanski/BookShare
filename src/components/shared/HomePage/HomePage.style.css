@@ -41,7 +41,7 @@
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
 
-    
+
 }
 
 .img-wrapper {
@@ -79,4 +79,120 @@ img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+}
+
+.book-area {
+    background-color: #FFFFFF;
+    max-width: 1440px;
+    margin: 20px auto;
+    border: none;
+}
+
+.book-area h1 {
+    text-align: center;
+}
+
+.books-card-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 112px;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 345px;
+    height: 532px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+}
+
+.img-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    isolation: isolate;
+    width: 345px;
+    height: 345px;
+}
+
+.card img {
+    width: 204px;
+    height: 302px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.title-and-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 16px 16px;
+    width: 345px;
+    height: 64px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    width: 345px;
+    height: 59px;
+    border-radius: 4px 4px 0px 0px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 133.4%;
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    width: 345px;
+    height: 64px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 22px;
+    /* identical to box height, or 169% */
+
+    letter-spacing: 0.46px;
+    text-transform: uppercase;
+
+    /* Light/Primary/Main */
+
+    color: #1976D2;
+}
+
+.title-and-area h3 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 133.4%;
+}
+
+.title-and-area h4 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 133.4%;
+    /* identical to box height, or 27px */
+    text-align: right;
+    font-variant: small-caps;
+    color: #5BC49C;
 }
