@@ -4,14 +4,14 @@ import Button from '@mui/material/Button'
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from '@mui/material';
 
-export const ApiDownloader = () => {
+export const ApiDownloaderAuthor = () => {
 
 
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
 
     const displaySearches = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
             .then((response) => {
                 return response.json();
             })
