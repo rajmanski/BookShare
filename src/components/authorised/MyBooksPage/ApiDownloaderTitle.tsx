@@ -11,20 +11,18 @@ export const ApiDownloaderTitle = () => {
     const [searchedData, setSearchedData] = useState([]);
 
     const displaySearches = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:harry&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
             .then((response) => {
                 console.log(response);
                 return response.json()
             })
             .then((data) => {
-                console.log(data.items[0].volumeInfo.title);
                 setSearchedData(data.items)
             })
             .catch((error) => {
                 console.log(error);
             })
     }
-    
     
 
     return (
