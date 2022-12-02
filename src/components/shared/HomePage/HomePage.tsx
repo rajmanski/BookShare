@@ -246,7 +246,6 @@ export const HomePage = () => {
         <div className="show-more-books-btn">
         <Button
           sx={{
-            
             width: '192px',
             "&:hover": { backgroundColor: "#405d27" },
           }}
