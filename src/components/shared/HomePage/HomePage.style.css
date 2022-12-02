@@ -201,3 +201,10 @@ img {
     display: flex;
     justify-content: space-around;
 }
+
+.show-more-books-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+    margin-top: 40px;
+}
