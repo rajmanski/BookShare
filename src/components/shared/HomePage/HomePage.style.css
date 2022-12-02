@@ -198,5 +198,6 @@ img {
 }
 
 .raiting-and-button {
-    
+    display: flex;
+    justify-content: space-around;
 }

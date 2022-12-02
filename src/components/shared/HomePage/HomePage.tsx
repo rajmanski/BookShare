@@ -31,6 +31,9 @@ export const HomePage = () => {
     justifyContent: 'center',
     alignItems: 'flex-start',
     gap: '20px',
+    borderColor: 'white',
+    borderRadius: '6px',
+    filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
 }
 
   const displaySearches = () => {
@@ -117,7 +120,7 @@ export const HomePage = () => {
             </div>
             <div className="title-and-author">
             <Typography id="modal-modal-title" variant="h4" component="h2">
-                Book Info
+                Shantaram
             </Typography>
             <h5>Gregory D. Roberts</h5>
             </div>
@@ -126,17 +129,19 @@ export const HomePage = () => {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid sit obcaecati commodi, repudiandae sunt animi assumenda, placeat tempore dolores magni quia quisquam minus rerum! Ipsam, molestias. Omnis et nihil eos, vitae soluta nam deleniti saepe repellendus quia cum dolore amet tenetur delectus, dolorum inventore error totam eius, placeat ipsa!
             </Typography>
             <div className="raiting-and-button">
-            <Rating name="simple-controlled" value={2}/>
-            <Button
-                    sx={{
-                      bgcolor: "#18a86e",
-                      "&:hover": { backgroundColor: "#405d27" },
-                    }}
-                    variant="contained"
-                  >
-                    Borrow
-                  </Button>
-            </div>
+              <Box sx={{display: 'flex', justifyContent: 'space-around', width: '100%', gap: '550px'}}>
+                <Rating name="simple-controlled" value={2}/>
+                <Button
+                        sx={{
+                          bgcolor: "#18a86e",
+                          "&:hover": { backgroundColor: "#405d27" },
+                        }}
+                        variant="contained"
+                      >
+                        Borrow
+                      </Button>
+                </Box>
+              </div>
           </Box>
         </Modal>
         <h1>New in Bookshare</h1>
