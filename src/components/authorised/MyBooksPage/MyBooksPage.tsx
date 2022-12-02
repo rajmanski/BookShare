@@ -37,7 +37,7 @@ export const MyBooksPage = () => {
     </div>
 
     <BooksModal/>
-    {/* <MyAsyncSelect/> */}
+    <MyAsyncSelect/>
     <Footer/>
     </>
     )
