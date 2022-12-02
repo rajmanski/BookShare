@@ -14,10 +14,13 @@ import { auth } from '../../firebase'
 import { Footer } from '../Footer/Footer'
 import { NavBar } from '../shared/NavBar/NavBar'
 import { useTheme } from '@mui/material/styles';
+import { Navigate, useNavigate } from 'react-router';
 
 
 
 export const RegisterPage = () => {
+
+  const navigate = useNavigate();
 
   const theme = useTheme();
 
@@ -102,6 +105,7 @@ export const RegisterPage = () => {
         .then((userCredential) => {
           const user = userCredential.user;
         })
+        .then(() => navigate("/mybooks"))
         .catch((error) => {
           console.log(error.message);
         });

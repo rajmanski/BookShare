@@ -1,17 +1,77 @@
-import {NavLink} from 'react-router-dom'
+import { signOut } from 'firebase/auth'
+import {Navigate, NavLink, useNavigate} from 'react-router-dom'
+import { auth } from '../../../firebase'
 import logo from '../../../images/logo.png'
 import '../NavBar/NavBar.style.css'
 
 
 export const NavBar = () => {
 
+  const user = auth.currentUser;
+  const navigate = useNavigate()
 
-    return (
-<nav className="navbar navbar-expand-lg ">
+  const logOutHandler = () => {
+    signOut(auth)
+    .then( () => navigate("/"))
+  }
+
+if(user != null) return (
+  <nav className="navbar navbar-expand-lg ">
   <div className="container-fluid ">
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"  aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+
+  <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div className="navbar-nav nav-container">
+      
+      <div className='navigation-pages-links'>
+        <img src={logo} alt="Logo" width="60" height="60" className="d-inline-block align-text-center logo"/>
+        
+        <NavLink 
+          className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+          to="/" end
+          >Home
+        </NavLink>
+
+        <NavLink 
+          className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+          to="/mybooks" end
+          >My books
+        </NavLink>
+
+        <NavLink 
+          className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+          to="/borrow" end
+          >Borrow
+        </NavLink>
+
+        <NavLink 
+          className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
+          to="/lend" end
+          >Share
+        </NavLink>
+        
+      </div>
+
+     <div className='navbar-logout-panel'>
+      <button onClick={logOutHandler}>Logout</button>
+     </div>
+    </div>
+  </div>
+</div>
+</nav>
+    )
+    else return (
+      
+<nav className="navbar navbar-expand-lg ">
+    <div className="container-fluid ">
+
+     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"  aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
+
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav nav-container">
         
@@ -63,6 +123,6 @@ export const NavBar = () => {
     </div>
   </div>
 </nav>
-    )
+     )
 }
 

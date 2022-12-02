@@ -42,7 +42,7 @@ const handleSignIn = () => {
   .then((userCredential) => {
     const user = userCredential.user;
     console.log(user)
-    navigate('/')
+    navigate('/mybooks')
   })
   .catch((error) => {
     const errorCode = error.code;
