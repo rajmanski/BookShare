@@ -5,9 +5,11 @@ import BasicTabs from '../../shared/TabPanel/TabPanel'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import '../MyBooksPage/MyBooksPage.style.css'
-import {ApiDownloader} from '../MyBooksPage/MyBooksApiDownloader'
+import {ApiDownloaderTitle} from './ApiDownloaderTitle'
 import { useTheme } from '@mui/material/styles';
 import { BooksModal } from '../MyBooksPage/BooksModal'
+import { MyAsyncSelect } from '../MyBooksPage/AsyncSelect'
+import { AutoComplete } from './AutoComplete'
 
 export const MyBooksPage = () => {
 
@@ -19,7 +21,7 @@ export const MyBooksPage = () => {
     <div className="my-books-page-container">
         <div className='title-and-search-container'>
             <div className='books-in-your-library-title'><h2>Books in your library</h2></div>
-            <ApiDownloader/>
+            <ApiDownloaderTitle/>
         </div>
         <BasicTabs/>
 
@@ -35,6 +37,7 @@ export const MyBooksPage = () => {
     </div>
 
     <BooksModal/>
+    {/* <MyAsyncSelect/> */}
     <Footer/>
     </>
     )
