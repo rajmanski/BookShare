@@ -1,33 +1,55 @@
-import { VolumeDown } from '@mui/icons-material';
-import { useState } from 'react';
-import AsyncSelect from 'react-select/async';
+import { useState, useEffect } from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 
-export const MyAsyncSelect = () => {
+export const AsyncAutocompleteBooks = () => {
 
-    const [searchedBooks, setSearchedBooks] = useState([])
+    const [search, setSearch] = useState('')
 
-    const fetchBooks = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:harry&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
+    const [searchedBooks, setSearchedBooks] = useState([{
+        value: '', 
+        label: ''
+    }])
+
+    useEffect(() => {
+        const getBooks = () => {
+            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
         .then((response) => {
            return response.json()
         })
         .then((data) => {
-            console.log(data)
-            setSearchedBooks(data.items[0].volumeInfo.title)
+            console.log(data.items)
+            let books = [{value: '', label: ''}]
+            data.items.map((item: any) => books.push({value: item.id, label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`}))
+            setSearchedBooks(books)
+
         })
         .catch((error) => {
             console.log(error);
         })
-    }
-
+        }
+        getBooks()
+    },[search])     
 
     return (
-        <AsyncSelect
-      loadOptions={fetchBooks} // function that executes HTTP request and returns array of options
-      placeholder={"Select...."}
-      defaultOptions // load on render
-    //   defaultOptions={[id: 0, label: "Loading..."]} // uncomment this and comment out the line above to load on input change
-    />
+        <Autocomplete
+        freeSolo
+        id="free-solo-2-demo"
+        disableClearable
+        options={searchedBooks.map((option) => option.label)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Enter title"
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSearch(e.currentTarget.value)}
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+            }}
+          />
+          )}
+          />
+    
     )
   }

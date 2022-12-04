@@ -8,8 +8,6 @@ import '../MyBooksPage/MyBooksPage.style.css'
 import {ApiDownloaderTitle} from './ApiDownloaderTitle'
 import { useTheme } from '@mui/material/styles';
 import { BooksModal } from '../MyBooksPage/BooksModal'
-import { MyAsyncSelect } from '../MyBooksPage/AsyncSelect'
-import { AutoComplete } from './AutoComplete'
 
 export const MyBooksPage = () => {
 
@@ -37,7 +35,6 @@ export const MyBooksPage = () => {
     </div>
 
     <BooksModal/>
-    <MyAsyncSelect/>
     <Footer/>
     </>
     )

@@ -13,11 +13,11 @@ export const ApiDownloaderTitle = () => {
     const displaySearches = () => {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
             .then((response) => {
-                console.log(response);
                 return response.json()
             })
             .then((data) => {
                 setSearchedData(data.items)
+                console.log(data.items[0].id)
             })
             .catch((error) => {
                 console.log(error);
@@ -48,7 +48,7 @@ export const ApiDownloaderTitle = () => {
             <div className="books">
                 {searchedData.map((data:any, number:any) => (
                     <div className="card" key={number}>
-                        {data.volumeInfo.title}
+                        {data.volumeInfo.selfLink}
                     </div>
                 ))}
             </div>

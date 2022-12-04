@@ -9,6 +9,7 @@ import { ApiDownloaderAuthor } from './ApiDownloaderAuthor'
 
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
+import { AsyncAutocompleteBooks } from './AsyncSelect'
 
 
 
@@ -21,7 +22,7 @@ export const BooksModal = () => {
 
     const style={
         width: '600px' ,
-        height: '600px', 
+        height: 'fit-content', 
         bgcolor: 'white', 
         position: 'absolute', 
         top: '20%', 
@@ -47,11 +48,12 @@ return (
   aria-describedby="modal-modal-description"
 >
   <Box sx={style}>
-    <Typography id="modal-modal-title" variant="h6" component="h2">
+    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
+      mb: '20px'
+    }}>
       Add a new book to your library
     </Typography>
-    <ApiDownloaderTitle/>
-    <ApiDownloaderAuthor/>
+    <AsyncAutocompleteBooks/>
   </Box>
 </Modal>
 </div>
