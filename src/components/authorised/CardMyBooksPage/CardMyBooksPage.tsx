@@ -4,10 +4,15 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import cover from '../../../images/book1.jpeg'
+
+interface CardMyBooksPageProps{
+  bookCover: string;
+  bookTitle: string;
+  bookAuthor: string;
+} 
 
 
-export const CardMyBooksPage= () => {
+export const CardMyBooksPage = ({bookCover, bookTitle, bookAuthor}: CardMyBooksPageProps) => {
   return (
     <Card sx={{ 
         maxWidth: 204,
@@ -23,7 +28,7 @@ export const CardMyBooksPage= () => {
         }}
           component="img"
           height="143"
-          image={cover}
+          image={bookCover}
           alt="shantaram"
         />
         <CardContent>
@@ -34,7 +39,7 @@ export const CardMyBooksPage= () => {
           }}
             gutterBottom variant="h2" 
             component="div">
-            Atomic habits
+            {bookTitle}
           </Typography>
           <Typography sx={{
             fontFamily: 'Roboto, sans-serif',
@@ -43,7 +48,7 @@ export const CardMyBooksPage= () => {
             // minHeight: 45  
           }}
             variant="h4" color="text.secondary">
-           James Clear
+           {bookAuthor}
           </Typography>
         </CardContent>
       </CardActionArea>

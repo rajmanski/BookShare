@@ -2,8 +2,8 @@ import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { ApiDownloaderTitle } from './ApiDownloaderTitle'
-import { ApiDownloaderAuthor } from './ApiDownloaderAuthor'
+import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
+import cover from '../../../images/Book2.jpeg'
 
 
 
@@ -19,6 +19,9 @@ export const BooksModal = () => {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [title, setTitle] = useState('')
+
 
     const style={
         width: '600px' ,
@@ -53,7 +56,8 @@ return (
     }}>
       Add a new book to your library
     </Typography>
-    <AsyncAutocompleteBooks/>
+    <AsyncAutocompleteBooks setTitle={setTitle}/>
+    <CardMyBooksPage bookCover={cover} bookAuthor={'Rowling'} bookTitle={title}/>
   </Box>
 </Modal>
 </div>

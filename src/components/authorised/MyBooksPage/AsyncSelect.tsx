@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 
-export const AsyncAutocompleteBooks = () => {
+export const AsyncAutocompleteBooks = ({setTitle}: any) => {
 
     const [search, setSearch] = useState('')
 
@@ -38,6 +38,11 @@ export const AsyncAutocompleteBooks = () => {
         id="free-solo-2-demo"
         disableClearable
         options={searchedBooks.map((option) => option.label)}
+        onChange={(event, value) => (
+          console.log(event),
+          setTitle(value) 
+        )
+        }
         renderInput={(params) => (
           <TextField
             {...params}

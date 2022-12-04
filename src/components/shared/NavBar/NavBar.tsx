@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth'
-import {Navigate, NavLink, useNavigate} from 'react-router-dom'
+import { NavLink, useNavigate} from 'react-router-dom'
 import { auth } from '../../../firebase'
 import logo from '../../../images/logo.png'
 import '../NavBar/NavBar.style.css'
