@@ -9,8 +9,7 @@ export const AsyncAutocompleteBooks = ({setTitle}: any) => {
 
     const [searchedBooks, setSearchedBooks] = useState([{
         value: '', 
-        label: '', 
-        cover: ''
+        label: ''
     }])
 
     useEffect(() => {
@@ -21,8 +20,8 @@ export const AsyncAutocompleteBooks = ({setTitle}: any) => {
         })
         .then((data) => {
             console.log(data.items)
-            let books = [{value: '', label: '', cover: ''}]
-            data.items.map((item: any) => books.push({value: item.id, label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`, cover: item.volumeInfo.imageLinks.thumbnail}))
+            let books = [{value: '', label: ''}]
+            data.items.map((item: any) => books.push({value: item.id, label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`}))
             setSearchedBooks(books)
 
         })
