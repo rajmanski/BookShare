@@ -3,13 +3,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 
-export const AsyncAutocompleteBooks = () => {
+export const AsyncAutocompleteBooks = ({setTitle}: any) => {
 
     const [search, setSearch] = useState('')
 
     const [searchedBooks, setSearchedBooks] = useState([{
         value: '', 
-        label: ''
+        label: '', 
+        cover: ''
     }])
 
     useEffect(() => {
@@ -20,8 +21,8 @@ export const AsyncAutocompleteBooks = () => {
         })
         .then((data) => {
             console.log(data.items)
-            let books = [{value: '', label: ''}]
-            data.items.map((item: any) => books.push({value: item.id, label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`}))
+            let books = [{value: '', label: '', cover: ''}]
+            data.items.map((item: any) => books.push({value: item.id, label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`, cover: item.volumeInfo.imageLinks.thumbnail}))
             setSearchedBooks(books)
 
         })
@@ -38,6 +39,11 @@ export const AsyncAutocompleteBooks = () => {
         id="free-solo-2-demo"
         disableClearable
         options={searchedBooks.map((option) => option.label)}
+        onChange={(event, value) => (
+          console.log(event),
+          setTitle(value) 
+        )
+        }
         renderInput={(params) => (
           <TextField
             {...params}

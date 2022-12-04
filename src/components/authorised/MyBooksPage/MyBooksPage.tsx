@@ -19,7 +19,7 @@ export const MyBooksPage = () => {
     <div className="my-books-page-container">
         <div className='title-and-search-container'>
             <div className='books-in-your-library-title'><h2>Books in your library</h2></div>
-            <ApiDownloaderTitle/>
+            {/* <ApiDownloaderTitle/> */}
         </div>
         <BasicTabs/>
 

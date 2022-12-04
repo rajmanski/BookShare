@@ -7,6 +7,7 @@ import { createTheme } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import { CardMyBooksPage } from '../../authorised/CardMyBooksPage/CardMyBooksPage';
 import { SxProps, Theme } from '@mui/material/styles';
+import cover from '../../../images/Book2.jpeg'
 
 
 
@@ -67,7 +68,7 @@ export default function BasicTabs() {
       }}
         value={value} 
         index={0}>
-        <CardMyBooksPage/> 
+        <CardMyBooksPage bookCover={cover} bookTitle={'shantaram'} bookAuthor={'milne'}/> 
       </TabPanel>
       <TabPanel value={value} index={1}>
         Shared books collection
