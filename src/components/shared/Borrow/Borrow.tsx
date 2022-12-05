@@ -14,21 +14,133 @@ export const Borrow = () => {
                     <div className="borrowed-books-container">
                         <div className="borrowed-book-card">
                             <div className="top-section">
-                                <div className="img"></div>
+                                <div className="background">
+                                    <div className="img">
+                                        <img src="shantaram.jpg" alt="" />
+                                    </div>
+                                </div>
                             </div>
                             <div className="bottom-section">
                                 <div className="book-data">
                                     <div className="title">Shantaram</div>
                                     <div className="owner">Piotrek</div>
-                                    <div className="return-date">Return by: Sat 25 Nov</div>
+                                    <div className="return-date">Return by: <span>Sat 25 Nov</span></div>
                                 </div>
-                                <div className="buttons">
+                                <div className="borrowed-book-card-buttons">
                                     <Button sx={{color: '#1976D2'}}>Return</Button>
                                     <Button sx={{color: '#1976D2'}}>Prolong</Button>
                                     <LocationOnOutlinedIcon />
                                 </div>
                             </div>
                         </div>
+                        <div className="borrowed-book-card">
+                            <div className="top-section">
+                                <div className="background">
+                                    <div className="img">
+                                        <img src="shantaram.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bottom-section">
+                                <div className="book-data">
+                                    <div className="title">Shantaram</div>
+                                    <div className="owner">Piotrek</div>
+                                    <div className="return-date">Return by: <span>Sat 25 Nov</span></div>
+                                </div>
+                                <div className="borrowed-book-card-buttons">
+                                    <Button sx={{color: '#1976D2'}}>Return</Button>
+                                    <Button sx={{color: '#1976D2'}}>Prolong</Button>
+                                    <LocationOnOutlinedIcon />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="borrowed-book-card">
+                            <div className="top-section">
+                                <div className="background">
+                                    <div className="img">
+                                        <img src="shantaram.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bottom-section">
+                                <div className="book-data">
+                                    <div className="title">Shantaram</div>
+                                    <div className="owner">Piotrek</div>
+                                    <div className="return-date">Return by: <span>Sat 25 Nov</span></div>
+                                </div>
+                                <div className="borrowed-book-card-buttons">
+                                    <Button sx={{color: '#1976D2'}}>Return</Button>
+                                    <Button sx={{color: '#1976D2'}}>Prolong</Button>
+                                    <LocationOnOutlinedIcon />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="borrowed-book-card">
+                            <div className="top-section">
+                                <div className="background">
+                                    <div className="img">
+                                        <img src="shantaram.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bottom-section">
+                                <div className="book-data">
+                                    <div className="title">Shantaram</div>
+                                    <div className="owner">Piotrek</div>
+                                    <div className="return-date">Return by: <span>Sat 25 Nov</span></div>
+                                </div>
+                                <div className="borrowed-book-card-buttons">
+                                    <Button sx={{color: '#1976D2'}}>Return</Button>
+                                    <Button sx={{color: '#1976D2'}}>Prolong</Button>
+                                    <LocationOnOutlinedIcon />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="borrowed-book-card">
+                            <div className="top-section">
+                                <div className="background">
+                                    <div className="img">
+                                        <img src="shantaram.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bottom-section">
+                                <div className="book-data">
+                                    <div className="title">Shantaram</div>
+                                    <div className="owner">Piotrek</div>
+                                    <div className="return-date">Return by: <span>Sat 25 Nov</span></div>
+                                </div>
+                                <div className="borrowed-book-card-buttons">
+                                    <Button sx={{color: '#1976D2'}}>Return</Button>
+                                    <Button sx={{color: '#1976D2'}}>Prolong</Button>
+                                    <LocationOnOutlinedIcon />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="borrowed-book-card">
+                            <div className="top-section">
+                                <div className="background">
+                                    <div className="img">
+                                        <img src="shantaram.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bottom-section">
+                                <div className="book-data">
+                                    <div className="title">Shantaram</div>
+                                    <div className="owner">Piotrek</div>
+                                    <div className="return-date">Return by: <span>Sat 25 Nov</span></div>
+                                </div>
+                                <div className="borrowed-book-card-buttons">
+                                    <Button sx={{color: '#1976D2'}}>Return</Button>
+                                    <Button sx={{color: '#1976D2'}}>Prolong</Button>
+                                    <LocationOnOutlinedIcon />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="borrow-book-button">
+                        <Button variant="contained" sx={{width: '207px', height: '42px'}}>BORROW A NEW BOOK</Button>
                     </div>
                 </div>
             </div>
