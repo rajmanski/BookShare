@@ -5,6 +5,7 @@ import { LoginPage } from './components/LoginPage/LoginPage';
 import { MyBooksPage } from './components/authorised/MyBooksPage/MyBooksPage';
 import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Borrow } from './components/shared/Borrow/Borrow';
 
 const theme = createTheme({
   palette: {
@@ -24,6 +25,7 @@ function App() {
           <Route path='/mybooks' element={<MyBooksPage/>}/>
           <Route path='/signin' element={<LoginPage/>}/>
           <Route path='/signup' element={<RegisterPage/>}/>
+          <Route path='/borrow' element={<Borrow/>}/>
         </Routes> 
       </div>
     </ThemeProvider>
