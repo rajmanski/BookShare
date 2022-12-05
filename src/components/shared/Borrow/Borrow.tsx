@@ -288,6 +288,11 @@ export const Borrow = () => {
               </div>
             </div>
           </div>
+          <div className="borrow-book-button">
+            <Button variant="outlined" sx={{ width: "207px", height: "42px" }}>
+              SHOW MORE BOOKS
+            </Button>
+          </div>
         </div>
       </div>
       <Footer />
