@@ -196,7 +196,7 @@ export const Borrow = () => {
             </div>
             <div className="second-card-container">
               <div className="second-card-img">
-                <img src="shantaram.jpg" alt="Shantaram" />
+                <img src="harry.jpg" alt="Shantaram" />
               </div>
               <div className="second-card-comment">
                 <div className="top">
@@ -234,9 +234,7 @@ export const Borrow = () => {
                     <Rating name="read-only" value={2.5} readOnly />
                   </div>
                   <div className="text">
-                    “Really loved the ideas behind this book. I could identify
-                    with it far more than I did with minimalism. If cosy is one
-                    of your favourite words, this is the book for you!”{" "}
+                  A science fiction/fantasy story about Paul Atreides, the boy destined to be a ruler on Dune, a desert planet, and populated by various tribes, and groups of people, who either love him, or hate him.
                   </div>
                   <div className="user-info">
                     <div className="avatar">
@@ -256,22 +254,20 @@ export const Borrow = () => {
                 </div>
               </div>
               <div className="third-card-img">
-                <img src="shantaram.jpg" alt="Shantaram" />
+                <img src="king.jpg" alt="Shantaram" />
               </div>
             </div>
             <div className="forth-card-container">
-              <div className="first-card-img">
-                <img src="shantaram.jpg" alt="Shantaram" />
+              <div className="forth-card-img">
+                <img src="jo.jpg" alt="Shantaram" />
               </div>
-              <div className="first-card-comment">
+              <div className="forth-card-comment">
                 <div className="top">
                   <div className="rating">
                     <Rating name="read-only" value={2.5} readOnly />
                   </div>
                   <div className="text">
-                    “Really loved the ideas behind this book. I could identify
-                    with it far more than I did with minimalism. If cosy is one
-                    of your favourite words, this is the book for you!”{" "}
+                  The elevation can be used to establish a hierarchy between other content. In practical terms, the elevation controls the size of the shadow applied to the surface. In dark mode, raising the elevation also makes the surface lighter.
                   </div>
                   <div className="user-info">
                     <div className="avatar">
