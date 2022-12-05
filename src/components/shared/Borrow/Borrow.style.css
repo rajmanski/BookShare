@@ -76,3 +76,40 @@
     justify-content: flex-end;
     align-items: center;
 }
+
+.main-section-bottom {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.bottom-card-container {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+div .bottom-card-container :first-child {
+    width: 684px;
+    height: 436px;
+    background: #E3E3E3;
+}
+
+div .bottom-card-container :nth-child(2) {
+    width: 582px;
+    height: 436px;
+    background: #E3E3E3;
+}
+
+div .bottom-card-container :nth-child(3) {
+    width: 599px;
+    height: 388px;
+    background: #E3E3E3;
+}
+
+div .bottom-card-container :nth-child(4) {
+    width: 668px;
+    height: 388px;
+    background: #E3E3E3;
+}

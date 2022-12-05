@@ -143,6 +143,15 @@ export const Borrow = () => {
                         <Button variant="contained" sx={{width: '207px', height: '42px'}}>BORROW A NEW BOOK</Button>
                     </div>
                 </div>
+                <div className="main-section-bottom">
+                    <h3>You may also like:</h3>
+                    <div className="bottom-card-container">
+                        <div className="first-card-container">lala</div>
+                        <div className="second-card-container"></div>
+                        <div className="third-card-container"></div>
+                        <div className="forth-card-container"></div>
+                    </div>
+                </div>
             </div>
             <Footer/>
         </div>
