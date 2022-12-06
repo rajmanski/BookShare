@@ -4,12 +4,10 @@ import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
 import cover from '../../../images/Book2.jpeg'
-
-
-
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import { AsyncAutocompleteBooks } from './AsyncSelect'
+import '../MyBooksPage/BooksModal.style.css'
 
 
 
@@ -20,8 +18,12 @@ export const BooksModal = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [title, setTitle] = useState('')
-
+    const [foundBook, setFoundBook] = useState({
+      volumeID: '',
+      title: '', 
+      authors: '',
+      cover: '' 
+    }) 
 
     const style={
         width: '600px' ,
@@ -56,8 +58,10 @@ return (
     }}>
       Add a new book to your library
     </Typography>
-    <AsyncAutocompleteBooks setTitle={setTitle}/>
-    <CardMyBooksPage bookCover={cover} bookAuthor={'Rowling'} bookTitle={title}/>
+    <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
+    <div className='card-myBooksPage-container'>
+    <CardMyBooksPage bookCover={foundBook.cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title}/>
+    </div>
   </Box>
 </Modal>
 </div>

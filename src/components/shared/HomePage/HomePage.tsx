@@ -60,9 +60,9 @@ export const HomePage = () => {
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
           <p>
-            Not a fan of ebooks? Not enough spacein your bookshelf to buy more
+            Not a fan of ebooks? Not enough space in your bookshelf to buy more
             books? Want to save some money and get access to the newest
-            booksellers?<br></br>
+            bestsellers?<br></br>
             Become a member of 30.000+ Bookshare community!
           </p>
           <div className="search-input">
