@@ -20,9 +20,10 @@ export const BooksModal = () => {
 
     const [foundBook, setFoundBook] = useState({
       volumeID: '',
-      title: '', 
-      authors: '',
-      cover: '' 
+      title: 'Title', 
+      authors: ['Author'],
+      cover: cover,
+      pickUpSpot: ''
     }) 
 
     const style={

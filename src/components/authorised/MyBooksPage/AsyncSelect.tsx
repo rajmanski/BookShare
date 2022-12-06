@@ -58,7 +58,8 @@ export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
           volumeID: book.value,
           title: book.title,
           authors: book.authors, 
-          cover: book.cover
+          cover: book.cover, 
+          pickUpSpot: ''
         })}
     }, [titleChosen])
    
