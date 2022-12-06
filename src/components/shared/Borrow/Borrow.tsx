@@ -15,7 +15,7 @@ export const Borrow = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const position = [21.009906761293422, 52.23887604209378];
+
 
   const style = {
     width: "800px",
