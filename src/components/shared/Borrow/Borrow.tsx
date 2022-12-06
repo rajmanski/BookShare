@@ -5,13 +5,17 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Borrow.style.css";
 import { pink } from "@mui/material/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import markerIconPng from "leaflet/dist/images/marker-icon.png"
+import {Icon} from 'leaflet'
 
 export const Borrow = () => {
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const position = [21.009906761293422, 52.23887604209378];
 
   const style = {
     width: "800px",
@@ -25,13 +29,12 @@ export const Borrow = () => {
     border: "none",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
     alignItems: "flex-start",
     gap: "20px",
     borderColor: "white",
     borderRadius: "6px",
     filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
-    outline: '0',
+    outline: "0",
   };
 
   return (
@@ -60,67 +63,42 @@ export const Borrow = () => {
                 <div className="borrowed-book-card-buttons">
                   <Button sx={{ color: "#1976D2" }}>Return</Button>
                   <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon  onClick={handleOpen} sx={{cursor: 'pointer'}}/>
+                  <LocationOnOutlinedIcon
+                    onClick={handleOpen}
+                    sx={{ cursor: "pointer" }}
+                  />
                 </div>
               </div>
               <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div className="modal-data">
-              <h5>Owner: Piotrek</h5>
-              <h5>Avaliable from: 4 Dec 2022</h5>
-              <h5>Pick-up spot: ul. Jana Pawła II 28/32</h5>
-            </div>
-            <div className="title-and-author">
-              <Typography id="modal-modal-title" variant="h4" component="h2">
-                Shantaram
-              </Typography>
-              <h5>Gregory D. Roberts</h5>
-            </div>
-            <Typography
-              id="modal-modal-description"
-              sx={{ mt: 2, color: "gray" }}
-            >
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
-              aperiam fugiat illum, iste facere nesciunt nihil officiis earum
-              ratione itaque, suscipit corporis inventore? Inventore maxime sit
-              eum tenetur minus quidem adipisci dicta dolores! Earum, delectus.
-              Possimus distinctio quis velit, sapiente, laudantium sequi amet,
-              incidunt minima eum necessitatibus eius perspiciatis optio! Lorem
-              ipsum dolor sit amet, consectetur adipisicing elit. A aliquid sit
-              obcaecati commodi, repudiandae sunt animi assumenda, placeat
-              tempore dolores magni quia quisquam minus rerum! Ipsam, molestias.
-              Omnis et nihil eos, vitae soluta nam deleniti saepe repellendus
-              quia cum dolore amet tenetur delectus, dolorum inventore error
-              totam eius, placeat ipsa!
-            </Typography>
-            <div className="raiting-and-button">
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  width: "100%",
-                  gap: "550px",
-                }}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
               >
-                <Rating name="simple-controlled" value={2} />
-                <Button
-                  sx={{
-                    bgcolor: "#18a86e",
-                    "&:hover": { backgroundColor: "#405d27" },
-                  }}
-                  variant="contained"
-                >
-                  Borrow
-                </Button>
-              </Box>
-            </div>
-          </Box>
-        </Modal>
+                <Box sx={style}>
+                  <div className="map-title">
+                    <p>Pickup Spot: Frykasy-Rarytasy Wesoła</p>
+                  </div>
+                  <div className="map" id="map">
+                    <MapContainer
+                      className="map"
+                      center={[ 52.23887604209378,21.009906761293422]}
+                      zoom={13}
+                      scrollWheelZoom={false}
+                    >
+                      <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <Marker position={[52.23887604209378,21.009906761293422]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}>
+                        <Popup>
+                          Pickup spot
+                        </Popup>
+                      </Marker>
+                    </MapContainer>
+                  </div>
+                </Box>
+              </Modal>
             </div>
             <div className="borrowed-book-card">
               <div className="top-section">
@@ -141,7 +119,7 @@ export const Borrow = () => {
                 <div className="borrowed-book-card-buttons">
                   <Button sx={{ color: "#1976D2" }}>Return</Button>
                   <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon/>
+                  <LocationOnOutlinedIcon />
                 </div>
               </div>
             </div>
@@ -319,7 +297,10 @@ export const Borrow = () => {
                     <Rating name="read-only" value={2.5} readOnly />
                   </div>
                   <div className="text">
-                  A science fiction/fantasy story about Paul Atreides, the boy destined to be a ruler on Dune, a desert planet, and populated by various tribes, and groups of people, who either love him, or hate him.
+                    A science fiction/fantasy story about Paul Atreides, the boy
+                    destined to be a ruler on Dune, a desert planet, and
+                    populated by various tribes, and groups of people, who
+                    either love him, or hate him.
                   </div>
                   <div className="user-info">
                     <div className="avatar">
@@ -352,7 +333,10 @@ export const Borrow = () => {
                     <Rating name="read-only" value={2.5} readOnly />
                   </div>
                   <div className="text">
-                  The elevation can be used to establish a hierarchy between other content. In practical terms, the elevation controls the size of the shadow applied to the surface. In dark mode, raising the elevation also makes the surface lighter.
+                    The elevation can be used to establish a hierarchy between
+                    other content. In practical terms, the elevation controls
+                    the size of the shadow applied to the surface. In dark mode,
+                    raising the elevation also makes the surface lighter.
                   </div>
                   <div className="user-info">
                     <div className="avatar">
@@ -380,7 +364,12 @@ export const Borrow = () => {
           </div>
         </div>
       </div>
+
       <Footer />
+      <script
+        src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      ></script>
     </div>
   );
 };

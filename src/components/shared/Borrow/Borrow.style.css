@@ -228,3 +228,9 @@
     flex-direction: column;
     gap: 10px;
 }
+
+
+.map {
+    width: 760px;
+    height: 500px;
+}
