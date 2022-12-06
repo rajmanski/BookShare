@@ -20,3 +20,23 @@
 .register-form-input {
     width: 415px;
 }
+
+.singin-text-button {
+    border: 0;
+    background-color: white;
+    color: green;
+}
+
+.register-form-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.register-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
