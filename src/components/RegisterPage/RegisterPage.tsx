@@ -15,6 +15,10 @@ import { Footer } from '../Footer/Footer'
 import { NavBar } from '../shared/NavBar/NavBar'
 import { useTheme } from '@mui/material/styles';
 import { Navigate, useNavigate } from 'react-router';
+import { Button } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Chip from '@mui/material/Chip';
+
 
 
 
@@ -63,6 +67,7 @@ export const RegisterPage = () => {
   const [password, setPassword] = useState('')
   const [confPassword, setConfPassword] = useState('')
 
+
   const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [prop]: event.target.value });
@@ -109,6 +114,10 @@ export const RegisterPage = () => {
         .catch((error) => {
           console.log(error.message);
         });
+    }
+
+    const navigateToSingIn = () => {
+      navigate("/signin")
     }
 
    return (
@@ -175,10 +184,12 @@ export const RegisterPage = () => {
     </div>    
 
     <div className='register-form-buttons'>
-        <button onClick={handleSignUp}>SIGN UP</button>
-        <p>OR</p>
-        <button>SIGN UP WITH GOOGLE</button>
-        <p>If you have an account, sing in.</p>
+        <Button onClick={handleSignUp} variant="contained">Sing up</Button>
+        <p></p>
+        <Divider> OR </Divider>
+        <p></p>
+        <Button onClick={handleSignUp} variant="contained">Sing up with google</Button>
+        <p>If you have an account, <button onClick={navigateToSingIn} className='singin-text-button'>sing in.</button></p>
     </div>
 
     </div>
