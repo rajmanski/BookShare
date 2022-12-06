@@ -1,0 +1,8 @@
+.login-page-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 544px;
+    height: 490px;
+}

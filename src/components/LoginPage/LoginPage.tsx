@@ -13,6 +13,9 @@ import { NavBar } from '../shared/NavBar/NavBar';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router';
+import { Button } from '@mui/material';
+import "./LoginPage.style.css"
+
 
 export const LoginPage = () => { 
 
@@ -70,7 +73,8 @@ const handleSignIn = () => {
     return (
         <div className='login-page-container'>
           <NavBar/>
-             <Box
+    <div className='login-page-panel'>
+    <Box
       component="form"
       sx={{'& > :not(style)': { m: 1, width: '415px' },}}
       noValidate
@@ -79,7 +83,7 @@ const handleSignIn = () => {
     <TextField id="register-form-email" label="Email" variant="standard" className="register-page-input" onChange={(e) => setEmail(e.target.value)} />
     </Box>
 
-    <FormControl fullWidth sx={{ m: 1 }} variant="standard"> 
+    <FormControl fullWidth sx={{ m: 1, width: '415px'  }} variant="standard"> 
     <InputLabel htmlFor="register-form-password">Password</InputLabel>
     <Input
       className="register-form-input"
@@ -100,7 +104,8 @@ const handleSignIn = () => {
         }
       /> 
     </FormControl>
-    <button onClick={handleSignIn}>Sign in</button>
+    <Button onClick={handleSignIn} variant="contained">Sing in</Button>
+    </div>
     <Footer />
         </div>   
     )
