@@ -15,7 +15,7 @@ interface CardMyBooksPageProps{
 export const CardMyBooksPage = ({bookCover, bookTitle, bookAuthor}: CardMyBooksPageProps) => {
   return (
     <Card sx={{ 
-        maxWidth: 204,
+        width: 204,
         minHeight: 295,
         boxShadow: '0px 0px 2px 0px rgba(66, 68, 90, 0.37)', 
         position: 'relative'
