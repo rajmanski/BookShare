@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
@@ -9,17 +9,17 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
 import "./RegisterPage.style.css"
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../firebase'
 import { Footer } from '../Footer/Footer'
 import { NavBar } from '../shared/NavBar/NavBar'
 import { useTheme } from '@mui/material/styles';
+import { doc, setDoc, collection } from "firebase/firestore"; 
+import { db } from '../../firebase'
 import { Navigate, useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
-
-
 
 
 export const RegisterPage = () => {
@@ -108,8 +108,13 @@ export const RegisterPage = () => {
       e.preventDefault()
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
+          console.log(userCredential.user.email)
+          const email = userCredential.user.email;
+          return email
         })
+        .then((email) => setDoc(doc (db, "users", `${email}`), {
+          email: `${email}`
+        }))
         .then(() => navigate("/mybooks"))
         .catch((error) => {
           console.log(error.message);

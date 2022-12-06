@@ -1,29 +1,47 @@
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
 import cover from '../../../images/Book2.jpeg'
 import Typography from '@mui/material/Typography'
-import { useState } from 'react'
 import { AsyncAutocompleteBooks } from './AsyncSelect'
+import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
+import { useState } from 'react'
 import '../MyBooksPage/BooksModal.style.css'
-
+import { setDoc, collection, addDoc, doc, updateDoc} from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+import {db} from '../../../firebase' 
 
 
 export const BooksModal = () => {
 
-    const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const email = user?.email
+
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+    const addBookToMyLibrary = async () => {
+      await setDoc(doc(db, `users/${email}/ownedBooks`, `${foundBook.volumeID}`), {
+        volumeID: foundBook.volumeID, 
+        isShared: false
+        })
+        handleClose()
+      }
+      
 
     const [foundBook, setFoundBook] = useState({
       volumeID: '',
       title: 'Title', 
       authors: ['Author'],
       cover: cover,
-      pickUpSpot: ''
+      pickUpSpot: '', 
+      isPublic: false
     }) 
 
     const style={
@@ -60,9 +78,17 @@ return (
       Add a new book to your library
     </Typography>
     <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
+    
     <div className='card-myBooksPage-container'>
     <CardMyBooksPage bookCover={foundBook.cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title}/>
     </div>
+
+    <Button 
+      variant="contained" 
+      startIcon={<AddIcon />}
+      onClick={addBookToMyLibrary}>
+        Add to my private library
+    </Button>
   </Box>
 </Modal>
 </div>

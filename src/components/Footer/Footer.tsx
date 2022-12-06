@@ -17,7 +17,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
             <ul className="ul-anna footer-ul">
                 <li>Anna Wiśniowska</li>
                 <li>Junior Frontend Developer</li>
-                <li>Linkedin:</li>
+                <li>LinkedIn:</li>
                 <li>GitHub</li>
                 <li>tel. +48</li>
             </ul>)
@@ -25,7 +25,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
             <ul className="ul-beata footer-ul">
                 <li>Beata Gonera</li>
                 <li>Junior Frontend Developer</li>
-                <li>Linkedin:</li>
+                <li>LinkedIn: </li>
                 <li>GitHub</li>
                 <li>tel. +48</li>
             </ul>)
@@ -33,7 +33,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
             <ul className="ul-milosz footer-ul">
                 <li>Miłosz Kuźnia</li>
                 <li>Junior Frontend Developer</li>
-                <li>Linkedin:</li>
+                <li>LinkedIn:</li>
                 <li>GitHub</li>
                 <li>tel. +48</li>
             </ul>)
@@ -41,7 +41,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
             <ul className="ul-piotr footer-ul">
                 <li>Piotr Rajmański</li>
                 <li>Junior Frontend Developer</li>
-                <li>Linkedin</li>
+                <li>LinkedIn</li>
                 <li>GitHub</li>
                 <li>tel. +48</li>
             </ul>)
