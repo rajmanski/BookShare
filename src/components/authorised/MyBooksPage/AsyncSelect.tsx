@@ -12,7 +12,7 @@ export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
         title: '', 
         subTitle: '', 
         authors: '', 
-        cover: ''
+        // cover: ''
     }])
 
     const [titleChosen, setTitleChosen] = useState('')
@@ -23,7 +23,7 @@ export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
       title: '', 
       subTitle: '', 
       authors: '', 
-      cover: ''
+      // cover: ''
         }]
 
 
@@ -40,7 +40,7 @@ export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
               title: item.volumeInfo.title,
               subTitle: item.volumeInfo.subtitle,
               authors: item.volumeInfo.authors, 
-              cover: item.volumeInfo.imageLinks.thumbnail
+              // cover: item.volumeInfo.imageLinks.thumbnail
             }))
             setSearchedBooks(books)
         })

@@ -39,7 +39,7 @@ export const BooksModal = () => {
       volumeID: '',
       title: 'Title', 
       authors: ['Author'],
-      cover: cover,
+      // cover: cover,
       pickUpSpot: '', 
       isPublic: false
     }) 
@@ -80,7 +80,7 @@ return (
     <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
     
     <div className='card-myBooksPage-container'>
-    <CardMyBooksPage bookCover={foundBook.cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title}/>
+    <CardMyBooksPage bookCover={cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title}/>
     </div>
 
     <Button 
