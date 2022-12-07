@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import "./HomePage.style.css";
 
+export{}
+
 export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
