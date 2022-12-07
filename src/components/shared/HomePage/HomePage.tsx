@@ -17,22 +17,7 @@ export const HomePage = () => {
   const [searchedData, setSearchedData] = useState([]);
   const [emails, setEmails] = useState<string[]>([]);
   const [booksVolumesIds, setbooksVolumesIds] = useState<string[]>([]);
-
-  const displaySearches = () => {
-    fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${search}:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=40`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data.items);
-        setSearchedData(data.items);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const [booksInfo, setBooksInfo] = useState([]);
 
   const getBooksIds = async () => {
     const emailList: string[] = [];
@@ -49,12 +34,22 @@ export const HomePage = () => {
       })
     }
     setbooksVolumesIds(booksList);
-    console.log(booksVolumesIds);
-    
   }
+
+  const getBooksDataFromApi = async () => {
+    const booksList:any = [];
+    for (let i = 0; i < 6; i++) {
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${booksVolumesIds[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
+      const data = await response.json();
+      booksList.push(data.volumeInfo);
+    }
+    setBooksInfo(booksList)
+    }
+    
 
   useEffect(() => {
     getBooksIds();
+    getBooksDataFromApi();
   }, [])
 
   return (
