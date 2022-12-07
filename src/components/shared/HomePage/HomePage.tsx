@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -9,34 +9,14 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import "./HomePage.style.css";
 import { NewInBookshareCard } from "./NewInBookshareCard";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const style = {
-    width: "800px",
-    height: "600px",
-    position: "absolute",
-    left: "calc(50% - 400px)",
-    top: "15%",
-    backgroundColor: "white",
-    margin: "20px",
-    padding: "20px",
-    border: "none",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    gap: "20px",
-    borderColor: "white",
-    borderRadius: "6px",
-    filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
-    outline: '0',
-  };
+  const [emails, setEmails] = useState<string[]>([]);
+  const [booksVolumesIds, setbooksVolumesIds] = useState<string[]>([]);
 
   const displaySearches = () => {
     fetch(
@@ -53,6 +33,29 @@ export const HomePage = () => {
         console.log(error);
       });
   };
+
+  const getBooksIds = async () => {
+    const emailList: string[] = [];
+    const booksList: string[] = [];
+    const querySnapshot = await getDocs(collection(db, `users`))
+    querySnapshot.forEach((doc) => {
+      emailList.push(doc.id);
+  })
+    setEmails(emailList);
+    for (let i = 0; i < emails.length; i++) {
+      const querySnapshot2 = await getDocs(collection(db, `users/${emails[i]}/ownedBooks`))
+      querySnapshot2.forEach((doc) => {
+        booksList.push(doc.data().volumeID);
+      })
+    }
+    setbooksVolumesIds(booksList);
+    console.log(booksVolumesIds);
+    
+  }
+
+  useEffect(() => {
+    getBooksIds();
+  }, [])
 
   return (
     <div className="home-page-container">
