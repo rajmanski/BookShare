@@ -18,6 +18,7 @@ export const HomePage = () => {
   const [emails, setEmails] = useState<string[]>([]);
   const [booksVolumesIds, setbooksVolumesIds] = useState<string[]>([]);
   const [booksInfo, setBooksInfo] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   const getBooksIds = async () => {
     const emailList: string[] = [];
@@ -48,7 +49,15 @@ export const HomePage = () => {
     
 
   useEffect(() => {
+    
     getBooksIds();
+    if (booksVolumesIds.length > 0) {
+      console.log(booksVolumesIds);
+    }
+    setToggle(true);
+  }, [toggle])
+
+  useEffect(() => {
     getBooksDataFromApi();
   }, [])
 
