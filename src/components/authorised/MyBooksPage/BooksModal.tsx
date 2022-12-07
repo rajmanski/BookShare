@@ -14,7 +14,7 @@ import { getAuth } from 'firebase/auth'
 import {db} from '../../../firebase' 
 
 
-export const BooksModal = () => {
+export const BooksModal = ({setNewBook}: any) => {
 
   const [open, setOpen] = useState(false)
 
@@ -31,6 +31,7 @@ export const BooksModal = () => {
         volumeID: foundBook.volumeID, 
         isShared: false
         })
+        setNewBook(foundBook.volumeID) 
         handleClose()
       }
       

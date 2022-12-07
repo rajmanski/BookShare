@@ -1,4 +1,4 @@
-
+import { useState } from 'react'
 import {Footer} from '../../Footer/Footer'
 import { NavBar } from '../../shared/NavBar/NavBar'
 import BasicTabs from '../../shared/TabPanel/TabPanel'
@@ -12,6 +12,8 @@ import { BooksModal } from '../MyBooksPage/BooksModal'
 export const MyBooksPage = () => {
 
     const theme = useTheme();
+    const [newBook, setNewBook] = useState('')
+
 
     return(
     <>
@@ -21,7 +23,7 @@ export const MyBooksPage = () => {
             <div className='books-in-your-library-title'><h2>Books in your library</h2></div>
             {/* <ApiDownloaderTitle/> */}
         </div>
-        <BasicTabs/>
+        <BasicTabs newBook={newBook}/>
 
         <Fab sx={{
             position: 'fixed', 
@@ -34,7 +36,7 @@ export const MyBooksPage = () => {
         </Fab>
     </div>
 
-    <BooksModal/>
+    <BooksModal setNewBook={setNewBook}/>
     <Footer/>
     </>
     )
