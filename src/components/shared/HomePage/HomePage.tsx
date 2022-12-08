@@ -11,6 +11,7 @@ import "./HomePage.style.css";
 import { NewInBookshareCard } from "./NewInBookshareCard";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { async } from "@firebase/util";
 
 export const HomePage = () => {
   const [search, setSearch] = useState("");
@@ -18,11 +19,13 @@ export const HomePage = () => {
   const [emails, setEmails] = useState<string[]>([]);
   const [booksVolumesIds, setbooksVolumesIds] = useState<string[]>([]);
   const [booksInfo, setBooksInfo] = useState([]);
-  const [toggle, setToggle] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
 
-  const getBooksIds = async () => {
+
+  const getBooks = async () => {
     const emailList: string[] = [];
     const booksList: string[] = [];
+    const responseList:any = [];
     const querySnapshot = await getDocs(collection(db, `users`))
     querySnapshot.forEach((doc) => {
       emailList.push(doc.id);
@@ -33,37 +36,37 @@ export const HomePage = () => {
       querySnapshot2.forEach((doc) => {
         booksList.push(doc.data().volumeID);
       })
+      setbooksVolumesIds(booksList)
     }
-    setbooksVolumesIds(booksList);
-  }
-
-  const getBooksDataFromApi = async () => {
-    const booksList:any = [];
     for (let i = 0; i < 6; i++) {
       const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${booksVolumesIds[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
       const data = await response.json();
-      booksList.push(data.volumeInfo);
+      responseList.push(data.volumeInfo);
     }
-    setBooksInfo(booksList)
-    }
-    
+     setBooksInfo(responseList)
+  }
+
+  
+
 
   useEffect(() => {
-    
-    getBooksIds();
-    if (booksVolumesIds.length > 0) {
-      console.log(booksVolumesIds);
-    }
-    setToggle(true);
-  }, [toggle])
-
-  useEffect(() => {
-    getBooksDataFromApi();
+    getBooks()
   }, [])
+  
+  
+  
 
   return (
     <div className="home-page-container">
       <NavBar />
+      {!booksVolumesIds  && (
+        <div>Loading...</div>
+      )}
+      {booksVolumesIds && (booksVolumesIds.map((book, number) => (
+        <>
+          <div key={number}>{book}</div>
+        </>
+      )))}
       <div className="search-area">
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
