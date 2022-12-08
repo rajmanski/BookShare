@@ -36,7 +36,7 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
 
     useEffect(() => {
         const getBooks = () => {
-            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
+            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyDGdpgA4kRWU9aWy81g9WenPM1VOR8TVkg`)
         .then((response) => {
            return response.json()
         })
