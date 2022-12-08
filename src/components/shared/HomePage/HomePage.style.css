@@ -11,12 +11,6 @@
     padding-right: 90px;
     /* max-width: 1440px; */
     gap: 50px;
-    position: relative;
-}
-
-.navbar-container{
-    position: absolute;
-    z-index: 1;
 }
 
 .search {
