@@ -118,7 +118,14 @@ export const HomePage = () => {
       <div className="book-area">
         <h1 className="new-in-bookshare-title">New in Bookshare</h1>
         <div className="books-card-area">
-          <NewInBookshareCard />
+        {booksInfo && (
+        <>
+          {booksInfo.map((data, number) => (
+            <NewInBookshareCard key={number}data={data}/>
+        ))}
+        </>
+      )}
+          
           
         </div>
         <div className="show-more-books-btn">

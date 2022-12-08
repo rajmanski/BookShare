@@ -2,11 +2,16 @@ import { Box, Button, Modal, Rating, Typography } from "@mui/material"
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-export const NewInBookshareCard = () => {
+export const NewInBookshareCard = ({data}) => {
 
 const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  let image = data.imageLinks?.thumbnail;
+  if (image === undefined) {
+    image = 'nocover.png'
+  }
 
 const style = {
         width: "800px",
@@ -91,13 +96,13 @@ const style = {
         </Modal>
         <div className="card-on-homepage" onClick={handleOpen}>
         <div className="img-card-wrapper">
-          <img src="shantaram.jpg" alt="Shantaram" />
+          <img src={image} alt={data.title} />
         </div>
         <div className="title-and-area">
-          <h3>Shantaram</h3>
+          <h3>{data.title}</h3>
           <h4>Żoliborz</h4>
         </div>
-        <div className="author">Gregory D. Roberts</div>
+        <div className="author">{data.authors[0]}</div>
         <div className="buttons">
           <Button variant="text" size="small" sx={{ color: "blue" }}>
             BORROW
