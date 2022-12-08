@@ -2,11 +2,6 @@ import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Rating from "@mui/material/Rating";
 import "./HomePage.style.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
@@ -15,10 +10,7 @@ import { NewInBookshareCard } from "./NewInBookshareCard";
 export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
-  const [emails, setEmails] = useState<string[]>([]);
-  const [booksVolumesIds, setbooksVolumesIds] = useState<string[]>([]);
   const [booksInfo, setBooksInfo] = useState<any>([]);
-  const [isFetched, setIsFetched] = useState(false);
 
   const getBooksIds = async () => {
     const emails: string[] = [];
@@ -36,6 +28,7 @@ export const HomePage = () => {
         booksList.push(doc.data().volumeID);
       });
     }
+    
     const getApiData = async () => {
       const responseList: any = [];
       for (let i = 0; i < 6; i++) {
