@@ -1,9 +1,8 @@
 .private-books-container{
-    height: 200px;
-    width: 200px;
-    border: 1px solid black;
+    min-height: 200px;
+    min-width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
 }
 
-.p{
-    color: blue;
-}

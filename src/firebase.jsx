@@ -5,12 +5,12 @@ import {getAuth} from 'firebase/auth';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDVvF5hgb9ftkVcmD1Li_dzr6FGUEqVfMs",
-  authDomain: "bookshare-e00d2.firebaseapp.com",
-  projectId: "bookshare-e00d2",
-  storageBucket: "bookshare-e00d2.appspot.com",
-  messagingSenderId: "958367402061",
-  appId: "1:958367402061:web:0335b00938bdef76bc7404"
+  apiKey: "AIzaSyBsthzw_MxeS0mQwJVq5sAxZiX2BgNaI7A",
+  authDomain: "bookshare2-4c1ad.firebaseapp.com",
+  projectId: "bookshare2-4c1ad",
+  storageBucket: "bookshare2-4c1ad.appspot.com",
+  messagingSenderId: "722330696307",
+  appId: "1:722330696307:web:5115b20a4e9cbd8abd0806"
   };
 
 export const app = initializeApp(firebaseConfig);

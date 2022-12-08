@@ -1,16 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC, SetStateAction } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
+interface AsyncAutocompleteBooksInterface{
+  setFoundBook: React.Dispatch<SetStateAction<{ 
+    volumeID: string;
+    title: string; 
+    authors: string[]; 
+    cover?: string;
+    pickUpSpot: string; 
+    isPublic: boolean; }>>
+}
 
-export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
+export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setFoundBook}) => {
 
     const [search, setSearch] = useState('')
     const [searchedBooks, setSearchedBooks] = useState([{
         value: '', 
         label: '', 
         title: '', 
-        subTitle: '', 
         authors: '', 
         // cover: ''
     }])
@@ -21,8 +29,7 @@ export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
       value: '',
       label: '', 
       title: '', 
-      subTitle: '', 
-      authors: '', 
+      authors: ''
       // cover: ''
         }]
 
@@ -38,8 +45,7 @@ export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
               value: item.id, 
               label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`,
               title: item.volumeInfo.title,
-              subTitle: item.volumeInfo.subtitle,
-              authors: item.volumeInfo.authors, 
+              authors: item.volumeInfo.authors
               // cover: item.volumeInfo.imageLinks.thumbnail
             }))
             setSearchedBooks(books)
@@ -58,7 +64,7 @@ export const AsyncAutocompleteBooks = ({setFoundBook}: any) => {
           volumeID: book.value,
           title: book.title,
           authors: book.authors, 
-          cover: book.cover, 
+          // cover: book.cover, 
           pickUpSpot: '', 
           isPublic: false
         })}

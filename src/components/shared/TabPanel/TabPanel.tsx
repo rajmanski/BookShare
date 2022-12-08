@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { useEffect } from 'react'
+import { useEffect, useState, FC } from 'react'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { createTheme } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import { CardMyBooksPage } from '../../authorised/CardMyBooksPage/CardMyBooksPage';
 import { SxProps, Theme } from '@mui/material/styles';
 import cover from '../../../images/Book2.jpeg'
-import { getDocs, collection, doc } from 'firebase/firestore';
+import { getDocs, collection} from 'firebase/firestore';
 import { db } from '../../../firebase'
 import { getAuth } from 'firebase/auth'
 import '../TabPanel/TabPanel.style.css'
@@ -20,6 +19,10 @@ interface TabPanelProps {
   index: number;
   value: number;
   sx?: SxProps<Theme>;
+}
+
+interface privateBooksInterface{
+
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -49,26 +52,62 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+interface BasicTabsInterfaceProps{
+  newBook: string
+}
+
+export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
+  const [value, setValue] = useState(0);
   const theme = useTheme();
 
   const auth = getAuth()
   const user = auth.currentUser;
   const email = user?.email
-  const privateBooksIDs: string[] = []
+  const [privateBooksIDs, setPrivateBooksIDs] = useState([''])  
+  const [privateBooksDetails, setPrivateBooksDetails] = useState({}) 
 
-  const getOwnedBooks = async () => {
-  const querySnapshot = await getDocs(collection (db, `users/${email}/ownedBooks`))
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id)
-    privateBooksIDs.push(doc.id)
-    console.log(privateBooksIDs)
-  })}
 
-  useEffect(() => {
-    getOwnedBooks()
-  }, [])
+  useEffect(()=> {
+    getDocs(collection( db, `users/${email}/ownedBooks`))
+    .then((querySnapshot) => {
+        let privateBooksIDs: string[] = [];
+        querySnapshot.docs.forEach((doc) => {
+            let privateBookID = doc.id
+            privateBooksIDs.push(privateBookID)
+        })
+        setPrivateBooksIDs(privateBooksIDs)
+        console.log(privateBooksIDs)
+    })
+},[newBook])
+
+// useEffect(() => {
+//   const getBookDetails = () => {
+//     let books: object[] = []
+//     privateBooksIDs.forEach((privateBookID) => {
+//       fetch(`https://www.googleapis.com/books/v1/volumes/${privateBookID}`)
+//   .then((response) => {
+//      return response.json()
+//   })
+//   .then((data) => {
+//     console.log(data)
+//        books.push({
+//         value: data.id, 
+//         title: data.volumeInfo.title,
+//         subTitle: data.volumeInfo.subtitle,
+//         authors: data.volumeInfo.authors
+//         // cover: item.volumeInfo.imageLinks.thumbnail
+//       })
+//     })
+//     .catch((error) => {
+//         console.log(error);
+//     })
+//   })
+//   setPrivateBooksDetails(books)
+//   console.log(privateBooksDetails)
+//   }
+//   getBookDetails()
+// },[])   
+  
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -89,10 +128,12 @@ export default function BasicTabs() {
       }}
         value={value} 
         index={0}>
+          <div className='private-books-container'>
             {privateBooksIDs && privateBooksIDs.map((id) => (
-              <div key={id} className='p'>{id}</div>
-              // <CardMyBooksPage bookCover={cover} bookTitle={'halo'} bookAuthor={'milne'}/>
+
+              <CardMyBooksPage bookCover={cover} bookTitle={id} bookAuthor={'milne'}/>
             ))}
+          </div>
 
       </TabPanel>
       <TabPanel value={value} index={1}>

@@ -8,10 +8,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import "./HomePage.style.css";
-import { NewInBookshareCard } from "./NewInBookshareCard";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../../firebase";
-import { async } from "@firebase/util";
 
 export const HomePage = () => {
   const [search, setSearch] = useState("");
@@ -58,16 +54,12 @@ export const HomePage = () => {
 
   return (
     <div className="home-page-container">
-      <NavBar />
-      {!booksVolumesIds  && (
-        <div>Loading...</div>
-      )}
-      {booksVolumesIds && (booksVolumesIds.map((book, number) => (
-        <>
-          <div key={number}>{book}</div>
-        </>
-      )))}
+            <div className='navbar-container'>
+            <NavBar />
+            </div>
+
       <div className="search-area">
+
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
           <p>
@@ -80,7 +72,7 @@ export const HomePage = () => {
             <TextField
               fullWidth
               id="fullWidth"
-              placeholder="Search for a title of author"
+              placeholder="Search for a title or an author"
               InputProps={{
                 endAdornment: (
                   <Button
@@ -118,7 +110,65 @@ export const HomePage = () => {
         </div>
       </div>
       <div className="book-area">
-        <h1>New in Bookshare</h1>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div className="modal-data">
+              <h5>Owner: Piotrek</h5>
+              <h5>Avaliable from: 4 Dec 2022</h5>
+              <h5>Pick-up spot: ul. Jana Pawła II 28/32</h5>
+            </div>
+            <div className="title-and-author">
+              <Typography id="modal-modal-title" variant="h4" component="h2">
+                Shantaram
+              </Typography>
+              <h5>Gregory D. Roberts</h5>
+            </div>
+            <Typography
+              id="modal-modal-description"
+              sx={{ mt: 2, color: "gray" }}
+            >
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
+              aperiam fugiat illum, iste facere nesciunt nihil officiis earum
+              ratione itaque, suscipit corporis inventore? Inventore maxime sit
+              eum tenetur minus quidem adipisci dicta dolores! Earum, delectus.
+              Possimus distinctio quis velit, sapiente, laudantium sequi amet,
+              incidunt minima eum necessitatibus eius perspiciatis optio! Lorem
+              ipsum dolor sit amet, consectetur adipisicing elit. A aliquid sit
+              obcaecati commodi, repudiandae sunt animi assumenda, placeat
+              tempore dolores magni quia quisquam minus rerum! Ipsam, molestias.
+              Omnis et nihil eos, vitae soluta nam deleniti saepe repellendus
+              quia cum dolore amet tenetur delectus, dolorum inventore error
+              totam eius, placeat ipsa!
+            </Typography>
+            <div className="raiting-and-button">
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  width: "100%",
+                  gap: "550px",
+                }}
+              >
+                <Rating name="simple-controlled" value={2} />
+                <Button
+                  sx={{
+                    bgcolor: "#18a86e",
+                    "&:hover": { backgroundColor: "#405d27" },
+                  }}
+                  variant="contained"
+                >
+                  Borrow
+                </Button>
+              </Box>
+            </div>
+          </Box>
+        </Modal>
+        <h1 className='new-in-bookshare-title'>New in Bookshare</h1>
         <div className="books-card-area">
           <NewInBookshareCard />
           <NewInBookshareCard />
