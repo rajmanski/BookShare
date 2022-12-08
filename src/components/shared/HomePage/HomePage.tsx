@@ -57,8 +57,12 @@ export const HomePage = () => {
 
   return (
     <div className="home-page-container">
-      <NavBar />
+            <div className='navbar-container'>
+            <NavBar />
+            </div>
+
       <div className="search-area">
+
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
           <p>
@@ -71,7 +75,7 @@ export const HomePage = () => {
             <TextField
               fullWidth
               id="fullWidth"
-              placeholder="Search for a title of author"
+              placeholder="Search for a title or an author"
               InputProps={{
                 endAdornment: (
                   <Button
@@ -167,7 +171,7 @@ export const HomePage = () => {
             </div>
           </Box>
         </Modal>
-        <h1>New in Bookshare</h1>
+        <h1 className='new-in-bookshare-title'>New in Bookshare</h1>
         <div className="books-card-area">
           <div className="card-on-homepage" onClick={handleOpen}>
             <div className="img-card-wrapper">

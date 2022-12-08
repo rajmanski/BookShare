@@ -22,7 +22,7 @@
     align-items: center;
 }
 
-.signin-signup-links{
+.signin-signup-signout-links{
     display: flex;    
 }
 
@@ -32,4 +32,12 @@
 
 .container-fluid{
     padding: 0;
+}
+
+.logout-button{
+    border: none;
+    background: none;
+    color: rgb(101, 101, 101);
+    font-size: 18px;
+    font-family: 'Roboto';
 }

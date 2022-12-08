@@ -4,3 +4,8 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.add-to-library-button{
+    display: flex;
+    justify-content: flex-end;
+}
