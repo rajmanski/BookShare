@@ -50,26 +50,15 @@ const style = {
             </div>
             <div className="title-and-author">
               <Typography id="modal-modal-title" variant="h4" component="h2">
-                Shantaram
+              {data.title}
               </Typography>
-              <h5>Gregory D. Roberts</h5>
+              <h5>{data.authors[0]}</h5>
             </div>
             <Typography
               id="modal-modal-description"
               sx={{ mt: 2, color: "gray" }}
             >
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
-              aperiam fugiat illum, iste facere nesciunt nihil officiis earum
-              ratione itaque, suscipit corporis inventore? Inventore maxime sit
-              eum tenetur minus quidem adipisci dicta dolores! Earum, delectus.
-              Possimus distinctio quis velit, sapiente, laudantium sequi amet,
-              incidunt minima eum necessitatibus eius perspiciatis optio! Lorem
-              ipsum dolor sit amet, consectetur adipisicing elit. A aliquid sit
-              obcaecati commodi, repudiandae sunt animi assumenda, placeat
-              tempore dolores magni quia quisquam minus rerum! Ipsam, molestias.
-              Omnis et nihil eos, vitae soluta nam deleniti saepe repellendus
-              quia cum dolore amet tenetur delectus, dolorum inventore error
-              totam eius, placeat ipsa!
+              {data.description}
             </Typography>
             <div className="raiting-and-button">
               <Box
