@@ -41,3 +41,29 @@
     font-size: 18px;
     font-family: 'Roboto';
 }
+
+.logo {
+    width: 60px;
+    height: 60px ; 
+}
+
+@media only screen and (max-width: 621px) {
+   .navigation-pages-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
+   .nav-link {
+    font-size: 30px;
+    margin-left: 0px;
+   }
+   .logo {
+    width: 100px;
+    height: 100px;
+   }
+   .signin-signup-signout-links {
+    gap: 20px;
+   }
+    
+}
