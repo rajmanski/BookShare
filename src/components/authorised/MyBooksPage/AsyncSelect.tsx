@@ -29,14 +29,14 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
       value: '',
       label: '', 
       title: '', 
-      authors: '', 
+      authors: ''
       // cover: ''
         }]
 
 
     useEffect(() => {
         const getBooks = () => {
-            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyBcko7iJ6sXMEm-FWkvU6RI2rjEEXheOas&maxResults=10`)
+            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
         .then((response) => {
            return response.json()
         })
@@ -45,7 +45,7 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
               value: item.id, 
               label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`,
               title: item.volumeInfo.title,
-              authors: item.volumeInfo.authors, 
+              authors: item.volumeInfo.authors
               // cover: item.volumeInfo.imageLinks.thumbnail
             }))
             setSearchedBooks(books)
