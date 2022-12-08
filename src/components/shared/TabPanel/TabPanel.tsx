@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, FC } from 'react'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { createTheme } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import { CardMyBooksPage } from '../../authorised/CardMyBooksPage/CardMyBooksPage';
 import { SxProps, Theme } from '@mui/material/styles';
 import cover from '../../../images/Book2.jpeg'
-import { getDocs, collection, doc } from 'firebase/firestore';
+import { getDocs, collection} from 'firebase/firestore';
 import { db } from '../../../firebase'
 import { getAuth } from 'firebase/auth'
 import '../TabPanel/TabPanel.style.css'
@@ -53,7 +52,11 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs({newBook}: any){
+interface BasicTabsInterfaceProps{
+  newBook: string
+}
+
+export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
 

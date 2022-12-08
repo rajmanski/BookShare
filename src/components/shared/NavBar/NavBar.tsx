@@ -55,8 +55,8 @@ if(user != null) return (
         
       </div>
 
-     <div className='navbar-logout-panel'>
-      <button onClick={logOutHandler}>Logout</button>
+     <div className='signin-signup-signout-links'>
+      <button className='logout-button' onClick={logOutHandler}>Sign out</button>
      </div>
     </div>
   </div>
@@ -104,7 +104,7 @@ if(user != null) return (
           
         </div>
 
-        <div className='signin-signup-links'>
+        <div className='signin-signup-signout-links'>
 
           <NavLink 
             className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 

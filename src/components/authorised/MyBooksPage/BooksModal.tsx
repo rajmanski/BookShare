@@ -7,14 +7,19 @@ import cover from '../../../images/Book2.jpeg'
 import Typography from '@mui/material/Typography'
 import { AsyncAutocompleteBooks } from './AsyncSelect'
 import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import '../MyBooksPage/BooksModal.style.css'
-import { setDoc, collection, addDoc, doc, updateDoc} from 'firebase/firestore'
+import { setDoc, doc} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import {db} from '../../../firebase' 
+import { AlignHorizontalRight } from '@mui/icons-material'
+
+interface BooksModalInterface{
+  setNewBook: (value: string) => void
+}
 
 
-export const BooksModal = ({setNewBook}: any) => {
+export const BooksModal:FC<BooksModalInterface> = ({setNewBook}) => {
 
   const [open, setOpen] = useState(false)
 
@@ -81,15 +86,20 @@ return (
     <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
     
     <div className='card-myBooksPage-container'>
-    <CardMyBooksPage bookCover={cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title}/>
+      <CardMyBooksPage bookCover={cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title}/>
     </div>
 
-    <Button 
-      variant="contained" 
-      startIcon={<AddIcon />}
-      onClick={addBookToMyLibrary}>
-        Add to my private library
-    </Button>
+    <div className='add-to-library-button'>
+      <Button 
+        sx={{
+          
+        }}
+        variant="contained" 
+        startIcon={<AddIcon />}
+        onClick={addBookToMyLibrary}>
+          Add to my private library
+      </Button>
+    </div>
   </Box>
 </Modal>
 </div>
