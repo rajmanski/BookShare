@@ -17,52 +17,55 @@ export const HomePage = () => {
   const [searchedData, setSearchedData] = useState([]);
   const [emails, setEmails] = useState<string[]>([]);
   const [booksVolumesIds, setbooksVolumesIds] = useState<string[]>([]);
-  const [booksInfo, setBooksInfo] = useState([]);
+  const [booksInfo, setBooksInfo] = useState<any>([]);
   const [isFetched, setIsFetched] = useState(false);
 
-
-  const getBooks = async () => {
-    const emailList: string[] = [];
+  const getBooksIds = async () => {
+    const emails: string[] = [];
     const booksList: string[] = [];
-    const responseList:any = [];
-    const querySnapshot = await getDocs(collection(db, `users`))
+    const querySnapshot = await getDocs(collection(db, `users`));
     querySnapshot.forEach((doc) => {
-      emailList.push(doc.id);
-  })
-    setEmails(emailList);
+      emails.push(doc.id);
+    });
+    // setEmails(emailList);
     for (let i = 0; i < emails.length; i++) {
-      const querySnapshot2 = await getDocs(collection(db, `users/${emails[i]}/ownedBooks`))
+      const querySnapshot2 = await getDocs(
+        collection(db, `users/${emails[i]}/ownedBooks`)
+      );
       querySnapshot2.forEach((doc) => {
         booksList.push(doc.data().volumeID);
-      })
-      setbooksVolumesIds(booksList)
+      });
     }
-    // for (let i = 0; i < 6; i++) {
-    //   const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${booksVolumesIds[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`)
-    //   const data = await response.json();
-    //   responseList.push(data.volumeInfo);
-    // }
-    //  setBooksInfo(responseList)
-  }
-
-  
-
+    const getApiData = async () => {
+      const responseList: any = [];
+      for (let i = 0; i < 6; i++) {
+        const response = await fetch(
+          `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`
+        );
+        const data = await response.json();
+        responseList.push(data.volumeInfo);
+      }
+      console.log(responseList);
+      setBooksInfo(responseList);
+    };
+    getApiData();
+  };
 
   useEffect(() => {
-    getBooks()
+    getBooksIds();
   }, [])
-  
-  
-  
 
   return (
     <div className="home-page-container">
-            <div className='navbar-container'>
-            <NavBar />
-            </div>
-
+      <div className="navbar-container">
+        <NavBar />
+      </div>
+      {booksInfo && (
+        <>
+          {booksInfo[0]?.title}
+        </>
+      )}
       <div className="search-area">
-
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
           <p>
@@ -113,27 +116,22 @@ export const HomePage = () => {
         </div>
       </div>
       <div className="book-area">
-        
-        <h1 className='new-in-bookshare-title'>New in Bookshare</h1>
+        <h1 className="new-in-bookshare-title">New in Bookshare</h1>
         <div className="books-card-area">
           <NewInBookshareCard />
-          <NewInBookshareCard />
-          <NewInBookshareCard />
-          <NewInBookshareCard />
-          <NewInBookshareCard />
-          <NewInBookshareCard />
+          
         </div>
         <div className="show-more-books-btn">
-        <Button
-          sx={{
-            width: '192px',
-            "&:hover": { backgroundColor: "#405d27" },
-          }}
-          variant="outlined"
-        >
-          SHOW MORE BOOKS
-        </Button>
-      </div>
+          <Button
+            sx={{
+              width: "192px",
+              "&:hover": { backgroundColor: "#405d27" },
+            }}
+            variant="outlined"
+          >
+            SHOW MORE BOOKS
+          </Button>
+        </div>
       </div>
       <Footer />
     </div>
