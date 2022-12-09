@@ -36,7 +36,7 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
 
     useEffect(() => {
         const getBooks = () => {
-            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyDGdpgA4kRWU9aWy81g9WenPM1VOR8TVkg`)
+            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A`)
         .then((response) => {
            return response.json()
         })
@@ -83,7 +83,10 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
           <TextField
             {...params}
             label="Search for a title you want to add"
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSearch(e.currentTarget.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              if(e.currentTarget.value.length%5 == 0){
+                setSearch(e.currentTarget.value)}}
+              }
             InputProps={{
               ...params.InputProps,
               type: 'search',
