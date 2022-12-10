@@ -142,6 +142,7 @@ export const HomePage = () => {
               "&:hover": { backgroundColor: "#405d27" },
             }}
             variant="outlined"
+            disabled={isClicked}
             onClick={buttonOnClick}
           >
             SHOW MORE BOOKS
