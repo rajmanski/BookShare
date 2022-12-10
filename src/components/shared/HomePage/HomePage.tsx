@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
@@ -12,6 +12,7 @@ export const HomePage = () => {
   const [searchedData, setSearchedData] = useState([]);
   const [booksInfo, setBooksInfo] = useState<any>([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [showLoader, setShowLoader] = useState(true)
 
   const getBooksIds = async () => {
     const emails: string[] = [];
@@ -41,6 +42,7 @@ export const HomePage = () => {
       }
       console.log(responseList);
       setBooksInfo(responseList);
+      setShowLoader(false);
     };
     getApiData();
   };
@@ -60,11 +62,6 @@ export const HomePage = () => {
       <div className="navbar-container">
         <NavBar />
       </div>
-      {booksInfo && (
-        <>
-          {booksInfo[0]?.title}
-        </>
-      )}
       <div className="search-area">
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
@@ -118,6 +115,9 @@ export const HomePage = () => {
       <div className="book-area">
         <h1 className="new-in-bookshare-title">New in Bookshare</h1>
         <div className="books-card-area">
+        {showLoader&& (
+          <CircularProgress size={100}/>
+        )}
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
