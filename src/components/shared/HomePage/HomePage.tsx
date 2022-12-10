@@ -11,6 +11,7 @@ export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
   const [booksInfo, setBooksInfo] = useState<any>([]);
+  const [isClicked, setIsClicked] = useState(false);
 
   const getBooksIds = async () => {
     const emails: string[] = [];
@@ -28,10 +29,10 @@ export const HomePage = () => {
         booksList.push(doc.data().volumeID);
       });
     }
-    
+
     const getApiData = async () => {
       const responseList: any = [];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 12; i++) {
         const response = await fetch(
           `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`
         );
@@ -43,6 +44,12 @@ export const HomePage = () => {
     };
     getApiData();
   };
+
+  const buttonOnClick = () => {
+    setIsClicked(true)
+    console.log('click');
+    
+  }
 
   useEffect(() => {
     getBooksIds();
@@ -113,7 +120,14 @@ export const HomePage = () => {
         <div className="books-card-area">
         {booksInfo && (
         <>
-          {booksInfo.map((data, number) => (
+          {booksInfo.slice(0, 6).map((data, number) => (
+            <NewInBookshareCard key={number}data={data}/>
+        ))}
+        </>
+      )}
+      {isClicked && (
+        <>
+          {booksInfo.slice(6, 9).map((data, number) => (
             <NewInBookshareCard key={number}data={data}/>
         ))}
         </>
@@ -128,6 +142,7 @@ export const HomePage = () => {
               "&:hover": { backgroundColor: "#405d27" },
             }}
             variant="outlined"
+            onClick={buttonOnClick}
           >
             SHOW MORE BOOKS
           </Button>
