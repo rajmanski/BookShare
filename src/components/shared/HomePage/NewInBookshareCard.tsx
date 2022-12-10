@@ -58,7 +58,7 @@ const style = {
             </div>
             <Typography
               id="modal-modal-description "
-              sx={{ mt: 2, color: "gray", overflow: "hidden", textOverflow: "ellipsis",}}
+              sx={{ mt: 2, color: "gray", overflow: "auto", textOverflow: "ellipsis"}}
             >
               {cleanText}
             </Typography>
