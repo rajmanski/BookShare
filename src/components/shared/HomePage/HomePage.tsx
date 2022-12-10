@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
@@ -11,6 +11,8 @@ export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
   const [booksInfo, setBooksInfo] = useState<any>([]);
+  const [isClicked, setIsClicked] = useState(false);
+  const [showLoader, setShowLoader] = useState(true)
 
   const getBooksIds = async () => {
     const emails: string[] = [];
@@ -28,10 +30,10 @@ export const HomePage = () => {
         booksList.push(doc.data().volumeID);
       });
     }
-    
+
     const getApiData = async () => {
       const responseList: any = [];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 12; i++) {
         const response = await fetch(
           `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`
         );
@@ -40,9 +42,16 @@ export const HomePage = () => {
       }
       console.log(responseList);
       setBooksInfo(responseList);
+      setShowLoader(false);
     };
     getApiData();
   };
+
+  const buttonOnClick = () => {
+    setIsClicked(true)
+    console.log('click');
+    
+  }
 
   useEffect(() => {
     getBooksIds();
@@ -53,11 +62,6 @@ export const HomePage = () => {
       <div className="navbar-container">
         <NavBar />
       </div>
-      {booksInfo && (
-        <>
-          {booksInfo[0]?.title}
-        </>
-      )}
       <div className="search-area">
         <div className="search">
           <h1>Share your books and be eco-friendly.</h1>
@@ -111,9 +115,19 @@ export const HomePage = () => {
       <div className="book-area">
         <h1 className="new-in-bookshare-title">New in Bookshare</h1>
         <div className="books-card-area">
+        {showLoader&& (
+          <CircularProgress size={100}/>
+        )}
         {booksInfo && (
         <>
-          {booksInfo.map((data, number) => (
+          {booksInfo.slice(0, 6).map((data, number) => (
+            <NewInBookshareCard key={number}data={data}/>
+        ))}
+        </>
+      )}
+      {isClicked && (
+        <>
+          {booksInfo.slice(6, 9).map((data, number) => (
             <NewInBookshareCard key={number}data={data}/>
         ))}
         </>
@@ -128,6 +142,8 @@ export const HomePage = () => {
               "&:hover": { backgroundColor: "#405d27" },
             }}
             variant="outlined"
+            disabled={isClicked}
+            onClick={buttonOnClick}
           >
             SHOW MORE BOOKS
           </Button>
