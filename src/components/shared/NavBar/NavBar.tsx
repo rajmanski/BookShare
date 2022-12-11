@@ -1,11 +1,27 @@
-import { signOut } from 'firebase/auth'
+import { signOut, onAuthStateChanged } from 'firebase/auth'
 import { NavLink, useNavigate} from 'react-router-dom'
 import { auth } from '../../../firebase'
 import logo from '../../../images/logo.png'
 import '../NavBar/NavBar.style.css'
+import { useState, useEffect } from 'react'
 
 
 export const NavBar = () => {
+
+  const [email, setEmail] = useState<null| string>(null)
+
+  useEffect(()=> {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const email = user.email;
+        console.log(user.email)
+        setEmail(email)
+      } else {
+      console.log('user is signed out')
+      }
+    });   
+},[])
+
 
   const user = auth.currentUser;
   const navigate = useNavigate()
@@ -15,7 +31,7 @@ export const NavBar = () => {
     .then( () => navigate("/"))
   }
 
-if(user != null) return (
+if(user) return (
   <nav className="navbar navbar-expand-md">
   <div className="container-fluid ">
 
