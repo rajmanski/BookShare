@@ -27,6 +27,7 @@ interface privateBooksInterface{
   title: string;
   subTitle: string;
   authors: string[];
+  cover?: string;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -108,17 +109,27 @@ useEffect(() => {
   Promise.all(urls.map(toRequest))
  
     .then((data) => {
+      console.log(data)
       data.forEach((book) => {
-        booksArr.push({
-          volumeID: book.id, 
-          title: book.volumeInfo.title,
-          subTitle: book.volumeInfo.subtitle,
-          authors: book.volumeInfo.authors
-          // cover: item.volumeInfo.imageLinks.thumbnail
-        })
+        if(book.volumeInfo.imageLinks){
+          booksArr.push({
+            volumeID: book.id, 
+            title: book.volumeInfo.title,
+            subTitle: book.volumeInfo.subtitle,
+            authors: book.volumeInfo.authors,
+            cover: book.volumeInfo.imageLinks.thumbnail
+          })
+        }else{
+          booksArr.push({
+            volumeID: book.id, 
+            title: book.volumeInfo.title,
+            subTitle: book.volumeInfo.subtitle,
+            authors: book.volumeInfo.authors
+          })
+        }
+       
     })
     setPrivateBooksDetails(booksArr)
-    console.log(booksArr)
     })
 
   // const getBookDetails = () => {
@@ -170,8 +181,7 @@ useEffect(() => {
           <div className='private-books-container'>
             {!privateBooksIDs && <div className='add-books-div'>Add books to your library to see them here</div>}
             {privateBooksDetails && privateBooksDetails.map((book) => (
-              console.log(book.title),
-              <CardMyBooksPage bookCover={cover} bookTitle={book.title} bookAuthor={book.authors[0]}/>
+              <CardMyBooksPage bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]}/>
             ))}
           </div>
 
