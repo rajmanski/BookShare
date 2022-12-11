@@ -5,13 +5,18 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
 interface CardMyBooksPageProps{
-  bookCover: string;
+  bookCover: string | undefined;
   bookTitle: string;
   bookAuthor: string;
 } 
 
 
 export const CardMyBooksPage = ({bookCover, bookTitle, bookAuthor}: CardMyBooksPageProps) => {
+
+  if (bookCover === undefined){
+    bookCover = 'nocover.png'
+  }
+  
   return (
     <Card sx={{ 
         width: 204,
