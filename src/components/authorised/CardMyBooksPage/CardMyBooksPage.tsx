@@ -3,15 +3,29 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import { doc, updateDoc } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+import { db } from '../../../firebase'
+import { useState } from 'react'
 
 interface CardMyBooksPageProps{
+  volumeID: string;
   bookCover: string | undefined;
   bookTitle: string;
   bookAuthor: string;
+  setSharedBook: (value: string) => void;
 } 
 
 
-export const CardMyBooksPage = ({bookCover, bookTitle, bookAuthor}: CardMyBooksPageProps) => {
+export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, setSharedBook}: CardMyBooksPageProps) => {
+
+  const auth = getAuth()
+  const email = auth.currentUser?.email
+
+  const moveToSharedBooks = async (volumeID: string) => {
+    await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {isShared: true})
+    setSharedBook(volumeID)
+  }
 
   if (bookCover === undefined){
     bookCover = 'nocover.png'
@@ -65,7 +79,8 @@ export const CardMyBooksPage = ({bookCover, bookTitle, bookAuthor}: CardMyBooksP
             bottom: 5
         }}
             size="small" 
-            color="primary">
+            color="primary"
+            onClick={() => moveToSharedBooks(volumeID)}>
           SHARE
         </Button>
       </CardActions>

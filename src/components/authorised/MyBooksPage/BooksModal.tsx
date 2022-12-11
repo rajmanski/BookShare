@@ -12,14 +12,14 @@ import '../MyBooksPage/BooksModal.style.css'
 import { setDoc, doc} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import {db} from '../../../firebase' 
-import { AlignHorizontalRight } from '@mui/icons-material'
 
 interface BooksModalInterface{
-  setNewBook: (value: string) => void
+  setNewBook: (value: string) => void;
+  setSharedBook: (value: string) => void
 }
 
 
-export const BooksModal:FC<BooksModalInterface> = ({setNewBook}) => {
+export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) => {
 
   const [open, setOpen] = useState(false)
 
@@ -86,7 +86,7 @@ return (
     <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
     
     <div className='card-myBooksPage-container'>
-      <CardMyBooksPage bookCover={cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title}/>
+      <CardMyBooksPage volumeID={foundBook.volumeID} bookCover={cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title} setSharedBook={setSharedBook}/>
     </div>
 
     <div className='add-to-library-button'>

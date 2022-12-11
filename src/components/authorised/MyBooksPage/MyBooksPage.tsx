@@ -12,6 +12,8 @@ export const MyBooksPage = () => {
 
     const theme = useTheme();
     const [newBook, setNewBook] = useState('')
+    const [sharedBook, setSharedBook] = useState('')
+
 
 
     return(
@@ -34,7 +36,7 @@ export const MyBooksPage = () => {
         </Fab>
     </div>
 
-    <BooksModal setNewBook={setNewBook}/>
+    <BooksModal setNewBook={setNewBook} setSharedBook={setSharedBook}/>
     <Footer/>
     </>
     )
