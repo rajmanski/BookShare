@@ -35,7 +35,7 @@ export const HomePage = () => {
       const responseList: any = [];
       for (let i = 0; i < 12; i++) {
         const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`
+          `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyDGdpgA4kRWU9aWy81g9WenPM1VOR8TVkg&maxResults=10`
         );
         const data = await response.json();
         responseList.push(data.volumeInfo);
@@ -53,9 +53,9 @@ export const HomePage = () => {
     
   }
 
-  useEffect(() => {
-    getBooksIds();
-  }, [])
+  // useEffect(() => {
+  //   getBooksIds();
+  // }, [])
 
   return (
     <div className="home-page-container">

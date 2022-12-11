@@ -10,7 +10,7 @@ import { SxProps, Theme } from '@mui/material/styles';
 import cover from '../../../images/Book2.jpeg'
 import { getDocs, collection} from 'firebase/firestore';
 import { db } from '../../../firebase'
-import { getAuth } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import '../TabPanel/TabPanel.style.css'
 
 
@@ -59,25 +59,35 @@ interface BasicTabsInterfaceProps{
 export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
+  const [email, setEmail] = useState<string | null>(null);
 
   const auth = getAuth()
-  const user = auth.currentUser;
-  const email = user?.email
-  const [privateBooksIDs, setPrivateBooksIDs] = useState([''])  
+
+  
+  
+  const [privateBooksIDs, setPrivateBooksIDs] = useState<null | string[]>(null)  
   const [privateBooksDetails, setPrivateBooksDetails] = useState({}) 
 
 
   useEffect(()=> {
-    getDocs(collection( db, `users/${email}/ownedBooks`))
-    .then((querySnapshot) => {
-        let privateBooksIDs: string[] = [];
-        querySnapshot.docs.forEach((doc) => {
-            let privateBookID = doc.id
-            privateBooksIDs.push(privateBookID)
-        })
-        setPrivateBooksIDs(privateBooksIDs)
-        console.log(privateBooksIDs)
-    })
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const email = user.email;
+        console.log(user.email)
+        setEmail(email)
+        let privateBooksIDsArr: string[] = [];
+        getDocs(collection( db, `users/${email}/ownedBooks`))
+      .then((querySnapshot) => {
+          querySnapshot.docs.forEach((doc) => {
+              let privateBookID = doc.id
+              privateBooksIDsArr.push(privateBookID)
+          })
+          setPrivateBooksIDs(privateBooksIDsArr)
+      })  
+      } else {
+      console.log('user is signed out')
+      }
+    });   
 },[newBook])
 
 // useEffect(() => {
@@ -129,6 +139,7 @@ export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
         value={value} 
         index={0}>
           <div className='private-books-container'>
+            {!privateBooksIDs && <div className='add-books-div'>Add books to your library to see them here</div>}
             {privateBooksIDs && privateBooksIDs.map((id) => (
 
               <CardMyBooksPage bookCover={cover} bookTitle={id} bookAuthor={'milne'}/>
