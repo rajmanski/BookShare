@@ -12,6 +12,7 @@ import { getDocs, collection} from 'firebase/firestore';
 import { db } from '../../../firebase'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import '../TabPanel/TabPanel.style.css'
+import { Url } from 'url';
 
 
 interface TabPanelProps {
@@ -22,7 +23,10 @@ interface TabPanelProps {
 }
 
 interface privateBooksInterface{
-
+  volumeID: string;
+  title: string;
+  subTitle: string;
+  authors: string[];
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -65,17 +69,18 @@ export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
 
   
   
-  const [privateBooksIDs, setPrivateBooksIDs] = useState<null | string[]>(null)  
-  const [privateBooksDetails, setPrivateBooksDetails] = useState({}) 
+  const [privateBooksIDs, setPrivateBooksIDs] = useState<string[]>([])  
+  const [privateBooksDetails, setPrivateBooksDetails] = useState<privateBooksInterface[] | null>(null) 
+
 
 
   useEffect(()=> {
+    let privateBooksIDsArr: string[] = [];
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const email = user.email;
-        console.log(user.email)
         setEmail(email)
-        let privateBooksIDsArr: string[] = [];
         getDocs(collection( db, `users/${email}/ownedBooks`))
       .then((querySnapshot) => {
           querySnapshot.docs.forEach((doc) => {
@@ -83,6 +88,7 @@ export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
               privateBooksIDsArr.push(privateBookID)
           })
           setPrivateBooksIDs(privateBooksIDsArr)
+          // console.log(privateBooksIDs)
       })  
       } else {
       console.log('user is signed out')
@@ -90,33 +96,56 @@ export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
     });   
 },[newBook])
 
-// useEffect(() => {
-//   const getBookDetails = () => {
-//     let books: object[] = []
-//     privateBooksIDs.forEach((privateBookID) => {
-//       fetch(`https://www.googleapis.com/books/v1/volumes/${privateBookID}`)
-//   .then((response) => {
-//      return response.json()
-//   })
-//   .then((data) => {
-//     console.log(data)
-//        books.push({
-//         value: data.id, 
-//         title: data.volumeInfo.title,
-//         subTitle: data.volumeInfo.subtitle,
-//         authors: data.volumeInfo.authors
-//         // cover: item.volumeInfo.imageLinks.thumbnail
-//       })
-//     })
-//     .catch((error) => {
-//         console.log(error);
-//     })
-//   })
-//   setPrivateBooksDetails(books)
-//   console.log(privateBooksDetails)
-//   }
-//   getBookDetails()
-// },[])   
+let booksArr:privateBooksInterface[] = []
+
+
+useEffect(() => {
+  var urls = privateBooksIDs?.map ((privateBookID) =>`https://www.googleapis.com/books/v1/volumes/${privateBookID}`)
+  const toRequest = url => fetch(url)
+    .then((response) => {
+      return response.json()
+    })
+  Promise.all(urls.map(toRequest))
+ 
+    .then((data) => {
+      data.forEach((book) => {
+        booksArr.push({
+          volumeID: book.id, 
+          title: book.volumeInfo.title,
+          subTitle: book.volumeInfo.subtitle,
+          authors: book.volumeInfo.authors
+          // cover: item.volumeInfo.imageLinks.thumbnail
+        })
+    })
+    setPrivateBooksDetails(booksArr)
+    console.log(booksArr)
+    })
+
+  // const getBookDetails = () => {
+  //   privateBooksIDs?.forEach((privateBookID) => {
+  //     fetch(`https://www.googleapis.com/books/v1/volumes/${privateBookID}`)
+  //     .then((response) => {
+  //       return response.json()
+  //     })
+  //     .then((data) => {
+  //       booksArr.push({
+  //         volumeID: data.id, 
+  //         title: data.volumeInfo.title,
+  //         subTitle: data.volumeInfo.subtitle,
+  //         authors: data.volumeInfo.authors
+  //         // cover: item.volumeInfo.imageLinks.thumbnail
+  //       })
+  //       setPrivateBooksDetails(booksArr)
+  //       console.log(booksArr)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //   })
+  // }
+  // getBookDetails()
+}, [privateBooksIDs])
+
   
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -140,9 +169,9 @@ export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
         index={0}>
           <div className='private-books-container'>
             {!privateBooksIDs && <div className='add-books-div'>Add books to your library to see them here</div>}
-            {privateBooksIDs && privateBooksIDs.map((id) => (
-
-              <CardMyBooksPage bookCover={cover} bookTitle={id} bookAuthor={'milne'}/>
+            {privateBooksDetails && privateBooksDetails.map((book) => (
+              console.log(book.title),
+              <CardMyBooksPage bookCover={cover} bookTitle={book.title} bookAuthor={book.authors[0]}/>
             ))}
           </div>
 

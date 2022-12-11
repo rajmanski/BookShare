@@ -14,7 +14,6 @@ export const NavBar = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const email = user.email;
-        console.log(user.email)
         setEmail(email)
       } else {
       console.log('user is signed out')
