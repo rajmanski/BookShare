@@ -10,6 +10,7 @@ import { getDocs, collection} from 'firebase/firestore';
 import { db } from '../../../firebase'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import '../TabPanel/TabPanel.style.css'
+import { SharedCardMyBooksPage } from '../../authorised/CardMyBooksPage/SharedCardMyBooksPage'
 
 
 interface TabPanelProps {
@@ -68,11 +69,10 @@ export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
   const [sharedBooksIDs, setSharedBooksIDs] = useState<string[]>([])  
   const [privateBooksDetails, setPrivateBooksDetails] = useState<privateBooksInterface[] | null>(null) 
   const [sharedBooksDetails, setSharedBooksDetails] = useState<privateBooksInterface[] | null>(null) 
-  const [sharedBook, setSharedBook] = useState('')
+  const [sharedBook, setSharedBook] = useState(true)
 
 
 useEffect(() => {
-  let privateBooksFromDBArr: object[] = []
   let privateBooksIDsArr: string[] = [];
   let sharedBooksIDsArr: string[] = [];
 
@@ -113,7 +113,6 @@ useEffect(() => {
   Promise.all(urls.map(toRequest))
  
     .then((data) => {
-      console.log(data)
       data.forEach((book) => {
         if(book.volumeInfo.imageLinks){
           privateBooksArr.push({
@@ -150,7 +149,6 @@ useEffect(() => {
   Promise.all(urls.map(toRequest))
  
     .then((data) => {
-      console.log(data)
       data.forEach((book) => {
         if(book.volumeInfo.imageLinks){
           sharedBooksArr.push({
@@ -206,7 +204,7 @@ useEffect(() => {
         <div className='private-books-container'>
           {!sharedBooksIDs && <div className='add-books-div'>Share books from your private library to see them here</div>}
           {sharedBooksDetails && sharedBooksDetails.map((book) => (
-              <CardMyBooksPage volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
+              <SharedCardMyBooksPage volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
           ))}
         </div>
       </TabPanel>
