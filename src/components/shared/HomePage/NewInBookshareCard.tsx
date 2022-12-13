@@ -9,7 +9,7 @@ const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
 
   let image = data.imageLinks?.thumbnail;
-  const cleanText = data.description.replace(/<\/?[^>]+(>|$)/g, "");
+  // const cleanText = data.description.replace(/<\/?[^>]+(>|$)/g, "");
   if (image === undefined) {
     image = 'nocover.png'
   }
@@ -60,7 +60,7 @@ const style = {
               id="modal-modal-description "
               sx={{ mt: 2, color: "gray", overflow: "auto", textOverflow: "ellipsis"}}
             >
-              {cleanText}
+              {data.description?.replace(/<\/?[^>]+(>|$)/g, "")}
             </Typography>
             <div className="raiting-and-button">
               <Box
