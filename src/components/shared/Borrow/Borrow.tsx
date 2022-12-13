@@ -10,6 +10,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import {Icon} from 'leaflet'
+import { BorrowModal } from '../../shared/Borrow/BorrowModal'
 
 export const Borrow = () => {
   const [open, setOpen] = useState(false);
@@ -217,9 +218,11 @@ export const Borrow = () => {
             </div>
           </div>
           <div className="borrow-book-button">
-            <Button variant="contained" sx={{ width: "207px", height: "42px" }}>
+
+            <BorrowModal/>
+            {/* <Button variant="contained" sx={{ width: "207px", height: "42px" }}>
               BORROW A NEW BOOK
-            </Button>
+            </Button> */}
           </div>
         </div>
         <div className="main-section-bottom">

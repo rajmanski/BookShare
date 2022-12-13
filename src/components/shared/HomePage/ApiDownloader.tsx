@@ -6,7 +6,7 @@ export const ApiDownloader = () => {
     const [searchedData, setSearchedData] = useState([]);
 
     const displaySearches = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}:keyes&key=AIzaSyDGdpgA4kRWU9aWy81g9WenPM1VOR8TVkg&maxResults=40`)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3&maxResults=40`)
             .then((response) => {
                 return response.json();
             })
