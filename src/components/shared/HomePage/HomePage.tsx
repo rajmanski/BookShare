@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
 import "./HomePage.style.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { NewInBookshareCard } from "./NewInBookshareCard";
 
@@ -23,8 +23,10 @@ export const HomePage = () => {
     });
     // setEmails(emailList);
     for (let i = 0; i < emails.length; i++) {
+      const q = query(collection(db, `users/${emails[i]}/ownedBooks`), where('isShared', '==', true));
       const querySnapshot2 = await getDocs(
-        collection(db, `users/${emails[i]}/ownedBooks`)
+        // collection(db, `users/${emails[i]}/ownedBooks`)
+        query(collection(db, `users/${emails[i]}/ownedBooks`), where('isShared', '==', true))
       );
       querySnapshot2.forEach((doc) => {
         booksList.push(doc.data().volumeID);
@@ -33,7 +35,7 @@ export const HomePage = () => {
 
     const getApiData = async () => {
       const responseList: any = [];
-      for (let i = 0; i < booksList.length; i++) {
+      for (let i = 0; i < 12; i++) {
         const response = await fetch(
           `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`
         );
@@ -41,7 +43,7 @@ export const HomePage = () => {
         responseList.push(data.volumeInfo);
       }
       console.log(responseList);
-      setBooksInfo(responseList);
+      setBooksInfo(responseList.sort());
       setShowLoader(false);
     };
     getApiData();
@@ -50,11 +52,11 @@ export const HomePage = () => {
   const buttonOnClick = () => {
     setIsClicked(true)
     console.log('click');
-    
   }
 
   useEffect(() => {
     getBooksIds();
+    console.log(booksInfo.length)
   }, [])
 
   return (
@@ -127,7 +129,7 @@ export const HomePage = () => {
       )}
       {isClicked && (
         <>
-          {booksInfo.slice(6, 9).map((data, number) => (
+          {booksInfo?.slice(6, 9).map((data, number) => (
             <NewInBookshareCard key={number}data={data}/>
         ))}
         </>
