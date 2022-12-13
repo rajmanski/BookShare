@@ -14,6 +14,10 @@ const [open, setOpen] = useState(false);
     image = 'nocover.png'
   }
 
+  if (data.description === undefined) {
+    data.description = 'Description is not avaliable';
+  }
+
 const style = {
         width: "800px",
         height: "600px",
