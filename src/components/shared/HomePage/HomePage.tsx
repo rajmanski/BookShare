@@ -3,45 +3,57 @@ import { useEffect, useState } from "react";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
 import "./HomePage.style.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { NewInBookshareCard } from "./NewInBookshareCard";
 
 export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
+  const [volumeIds, setVolumeIds] = useState<string[]>([]);
   const [booksInfo, setBooksInfo] = useState<any>([]);
   const [isClicked, setIsClicked] = useState(false);
   const [showLoader, setShowLoader] = useState(true)
+  const [volumeMail, setVolumeMail] = useState({});
+
+
 
   const getBooksIds = async () => {
     const emails: string[] = [];
     const booksList: string[] = [];
+    const volumeEmailObject: any = {}
     const querySnapshot = await getDocs(collection(db, `users`));
     querySnapshot.forEach((doc) => {
       emails.push(doc.id);
     });
     // setEmails(emailList);
     for (let i = 0; i < emails.length; i++) {
+      const q = query(collection(db, `users/${emails[i]}/ownedBooks`), where('isShared', '==', true));
       const querySnapshot2 = await getDocs(
-        collection(db, `users/${emails[i]}/ownedBooks`)
+        // collection(db, `users/${emails[i]}/ownedBooks`)
+        query(collection(db, `users/${emails[i]}/ownedBooks`), where('isShared', '==', true))
       );
       querySnapshot2.forEach((doc) => {
         booksList.push(doc.data().volumeID);
       });
+      setVolumeIds(booksList);
+      volumeEmailObject[emails[i]] = booksList;
     }
-
+    setVolumeMail(volumeEmailObject);
+    
+    
     const getApiData = async () => {
       const responseList: any = [];
-      for (let i = 0; i < booksList.length; i++) {
+      for (let i = 0; i < 12; i++) {
         const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A&maxResults=10`
+          `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8&maxResults=10`
+          //key 1: AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8
+          //key2 : AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A
         );
         const data = await response.json();
         responseList.push(data.volumeInfo);
       }
-      console.log(responseList);
-      setBooksInfo(responseList);
+      setBooksInfo(responseList.sort());
       setShowLoader(false);
     };
     getApiData();
@@ -50,7 +62,6 @@ export const HomePage = () => {
   const buttonOnClick = () => {
     setIsClicked(true)
     console.log('click');
-    
   }
 
   useEffect(() => {
@@ -121,14 +132,14 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
-            <NewInBookshareCard key={number}data={data}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail}/>
         ))}
         </>
       )}
       {isClicked && (
         <>
-          {booksInfo.slice(6, 9).map((data, number) => (
-            <NewInBookshareCard key={number}data={data}/>
+          {booksInfo?.slice(6, 9).map((data, number) => (
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail}/>
         ))}
         </>
       )}
