@@ -10,6 +10,7 @@ import { NewInBookshareCard } from "./NewInBookshareCard";
 export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
+  const [volumeIds, setVolumeIds] = useState<string[]>([]);
   const [booksInfo, setBooksInfo] = useState<any>([]);
   const [isClicked, setIsClicked] = useState(false);
   const [showLoader, setShowLoader] = useState(true)
@@ -31,6 +32,8 @@ export const HomePage = () => {
       querySnapshot2.forEach((doc) => {
         booksList.push(doc.data().volumeID);
       });
+      setVolumeIds(booksList);
+      
     }
 
     const getApiData = async () => {
@@ -125,14 +128,14 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
-            <NewInBookshareCard key={number}data={data}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]}/>
         ))}
         </>
       )}
       {isClicked && (
         <>
           {booksInfo?.slice(6, 9).map((data, number) => (
-            <NewInBookshareCard key={number}data={data}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]}/>
         ))}
         </>
       )}

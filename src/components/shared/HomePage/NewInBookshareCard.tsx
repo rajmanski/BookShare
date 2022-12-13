@@ -1,12 +1,16 @@
 import { Box, Button, Modal, Rating, Typography } from "@mui/material"
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { auth } from "../../../firebase";
 
-export const NewInBookshareCard = ({data}) => {
+export const NewInBookshareCard = ({data, volumeIds}) => {
 
 const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const user = auth.currentUser;
+  const email = user?.email
 
   let image = data.imageLinks?.thumbnail;
   // const cleanText = data.description.replace(/<\/?[^>]+(>|$)/g, "");
@@ -16,6 +20,12 @@ const [open, setOpen] = useState(false);
 
   if (data.description === undefined) {
     data.description = 'Description is not avaliable';
+  }
+
+  const addBookToBorrowed = () => {
+    console.log(data.id);
+    console.log(email)
+    console.log(volumeIds);
   }
 
 const style = {
@@ -99,7 +109,7 @@ const style = {
         </div>
         <div className="author">{data.authors[0]}</div>
         <div className="buttons">
-          <Button variant="text" size="small" sx={{ color: "blue" }}>
+          <Button variant="text" size="small" sx={{ color: "blue" }} onClick={addBookToBorrowed}>
             BORROW
           </Button>
           <Button variant="text" size="small" sx={{ color: "blue" }}>
