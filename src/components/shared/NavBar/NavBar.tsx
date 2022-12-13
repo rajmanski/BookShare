@@ -42,7 +42,7 @@ if(user) return (
     <div className="navbar-nav nav-container">
       
       <div className='navigation-pages-links'>
-        <img src={logo} alt="Logo" width="60" height="60" className="d-inline-block align-text-center logo"/>
+        <img src={logo} alt="Logo" className="d-inline-block align-text-center logo"/>
         
         <NavLink 
           className= {({ isActive }) => (isActive ? "nav-link active" : "nav-link")} 
