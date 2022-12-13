@@ -6,7 +6,6 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import { doc, updateDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { db } from '../../../firebase'
-import { useState } from 'react'
 
 interface CardMyBooksPageProps{
   volumeID: string;
@@ -17,13 +16,13 @@ interface CardMyBooksPageProps{
 } 
 
 
-export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, setSharedBook}: CardMyBooksPageProps) => {
+export const SharedCardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, setSharedBook}: CardMyBooksPageProps) => {
 
   const auth = getAuth()
   const email = auth.currentUser?.email
 
-  const moveToSharedBooks = async (volumeID: string) => {
-    await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {isShared: true})
+  const moveToPrivateBooks = async (volumeID: string) => {
+    await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {isShared: false})
     setSharedBook(current => !current)
   }
 
@@ -80,8 +79,8 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
         }}
             size="small" 
             color="primary"
-            onClick={() => moveToSharedBooks(volumeID)}>
-          SHARE
+            onClick={() => moveToPrivateBooks(volumeID)}>
+            STOP SHARING
         </Button>
       </CardActions>
     </Card>

@@ -3,23 +3,20 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import cover from '../../../images/Book2.jpeg'
 import Typography from '@mui/material/Typography'
-import { AsyncAutocompleteBooks } from './AsyncSelect'
-import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
 import { useState, FC } from 'react'
-import '../MyBooksPage/BooksModal.style.css'
-import { setDoc, doc} from 'firebase/firestore'
+// import { setDoc, doc} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import {db} from '../../../firebase' 
+import { AsyncSelectBorrow } from '../../shared/Borrow/AsyncSelectBorrow'
+import {doc, setDoc} from 'firebase/firestore'
 
-interface BooksModalInterface{
-  setNewBook: (value: string) => void;
-  setSharedBook: (value: string) => void
+interface BorrowModalInterface{
+ 
 }
 
 
-export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) => {
+export const BorrowModal = () => {
 
   const [open, setOpen] = useState(false)
 
@@ -31,12 +28,12 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-    const addBookToMyLibrary = async () => {
-      await setDoc(doc(db, `users/${email}/ownedBooks`, `${foundBook.volumeID}`), {
+    const addToBorrowed = async () => {
+      await setDoc(doc(db, `users/${email}/borrowedBooks`, `${foundBook.volumeID}`), {
         volumeID: foundBook.volumeID, 
         isShared: false
         })
-        setNewBook(foundBook.volumeID) 
+        // setNewBook(foundBook.volumeID) 
         handleClose()
       }
       
@@ -62,15 +59,13 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
 
 return (
 <div className='books-modal-container'>
-  <Fab sx={{
-    position: 'fixed', 
-    bottom: '250px', 
-    right: '200px'
+  <Button sx={{
+
     }}
-    variant="extended" color="primary" aria-label="add" onClick={handleOpen}>
-    Add a new book
+    variant="contained" color="primary" aria-label="add" onClick={handleOpen}>
+    Borrow a new book
     <AddIcon sx={{ ml: 1 }} />
-  </Fab>
+  </Button>
 <Modal
   open={open}
   onClose={handleClose}
@@ -81,13 +76,11 @@ return (
     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
       mb: '20px'
     }}>
-      Add a new book to your library
+    Find a book to borrow from other user    
     </Typography>
-    <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
+    <AsyncSelectBorrow setFoundBook={setFoundBook}/>
     
-    <div className='card-myBooksPage-container'>
-      <CardMyBooksPage volumeID={foundBook.volumeID} bookCover={cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title} setSharedBook={setSharedBook}/>
-    </div>
+    
 
     <div className='add-to-library-button'>
       <Button 
@@ -96,9 +89,9 @@ return (
         }}
         variant="contained" 
         startIcon={<AddIcon />}
-        onClick={addBookToMyLibrary}>
-          Add to my private library
-      </Button>
+        onClick={addToBorrowed}>
+        Borrow      
+        </Button>
     </div>
   </Box>
 </Modal>

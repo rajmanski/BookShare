@@ -4,14 +4,13 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 import { CardMyBooksPage } from '../../authorised/CardMyBooksPage/CardMyBooksPage';
 import { SxProps, Theme } from '@mui/material/styles';
-import cover from '../../../images/Book2.jpeg'
 import { getDocs, collection} from 'firebase/firestore';
 import { db } from '../../../firebase'
-import { getAuth } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import '../TabPanel/TabPanel.style.css'
+import { SharedCardMyBooksPage } from '../../authorised/CardMyBooksPage/SharedCardMyBooksPage'
 
 
 interface TabPanelProps {
@@ -22,7 +21,11 @@ interface TabPanelProps {
 }
 
 interface privateBooksInterface{
-
+  volumeID: string;
+  title: string;
+  subTitle: string;
+  authors: string[];
+  cover?: string;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -53,62 +56,123 @@ function a11yProps(index: number) {
 }
 
 interface BasicTabsInterfaceProps{
-  newBook: string
+  newBook: string;
 }
 
 export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
   const [value, setValue] = useState(0);
-  const theme = useTheme();
+  const [email, setEmail] = useState<string | null>(null);
 
   const auth = getAuth()
-  const user = auth.currentUser;
-  const email = user?.email
-  const [privateBooksIDs, setPrivateBooksIDs] = useState([''])  
-  const [privateBooksDetails, setPrivateBooksDetails] = useState({}) 
-
-
-  useEffect(()=> {
-    getDocs(collection( db, `users/${email}/ownedBooks`))
-    .then((querySnapshot) => {
-        let privateBooksIDs: string[] = [];
-        querySnapshot.docs.forEach((doc) => {
-            let privateBookID = doc.id
-            privateBooksIDs.push(privateBookID)
-        })
-        setPrivateBooksIDs(privateBooksIDs)
-        console.log(privateBooksIDs)
-    })
-},[newBook])
-
-// useEffect(() => {
-//   const getBookDetails = () => {
-//     let books: object[] = []
-//     privateBooksIDs.forEach((privateBookID) => {
-//       fetch(`https://www.googleapis.com/books/v1/volumes/${privateBookID}`)
-//   .then((response) => {
-//      return response.json()
-//   })
-//   .then((data) => {
-//     console.log(data)
-//        books.push({
-//         value: data.id, 
-//         title: data.volumeInfo.title,
-//         subTitle: data.volumeInfo.subtitle,
-//         authors: data.volumeInfo.authors
-//         // cover: item.volumeInfo.imageLinks.thumbnail
-//       })
-//     })
-//     .catch((error) => {
-//         console.log(error);
-//     })
-//   })
-//   setPrivateBooksDetails(books)
-//   console.log(privateBooksDetails)
-//   }
-//   getBookDetails()
-// },[])   
   
+  const [privateBooksIDs, setPrivateBooksIDs] = useState<string[]>([])
+  const [sharedBooksIDs, setSharedBooksIDs] = useState<string[]>([])  
+  const [privateBooksDetails, setPrivateBooksDetails] = useState<privateBooksInterface[] | null>(null) 
+  const [sharedBooksDetails, setSharedBooksDetails] = useState<privateBooksInterface[] | null>(null) 
+  const [sharedBook, setSharedBook] = useState(true)
 
+
+useEffect(() => {
+  let privateBooksIDsArr: string[] = [];
+  let sharedBooksIDsArr: string[] = [];
+
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const email = user.email;
+      setEmail(email)
+      getDocs(collection( db, `users/${email}/ownedBooks`))
+    .then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+            let bookFromDB = doc.data()
+            let bookID = doc.id
+            if(bookFromDB.isShared == false){
+              privateBooksIDsArr.push(bookID)
+            }else{
+              sharedBooksIDsArr.push(bookID)
+            }
+        })
+        setPrivateBooksIDs(privateBooksIDsArr)
+        setSharedBooksIDs(sharedBooksIDsArr)
+
+    })  
+    } else {
+    console.log('user is signed out')
+    }
+  });   
+},[newBook, sharedBook])
+
+let privateBooksArr:privateBooksInterface[] = []
+
+useEffect(() => {
+  let urls = privateBooksIDs?.map ((privateBookID) =>`https://www.googleapis.com/books/v1/volumes/${privateBookID}`)
+  const toRequest = url => fetch(url)
+    .then((response) => {
+      return response.json()
+    })
+  Promise.all(urls.map(toRequest))
+ 
+    .then((data) => {
+      data.forEach((book) => {
+        if(book.volumeInfo.imageLinks){
+          privateBooksArr.push({
+            volumeID: book.id, 
+            title: book.volumeInfo.title,
+            subTitle: book.volumeInfo.subtitle,
+            authors: book.volumeInfo.authors,
+            cover: book.volumeInfo.imageLinks.thumbnail
+          })
+        }else{
+          privateBooksArr.push({
+            volumeID: book.id, 
+            title: book.volumeInfo.title,
+            subTitle: book.volumeInfo.subtitle,
+            authors: book.volumeInfo.authors
+          })
+        }
+       
+    })
+    setPrivateBooksDetails(privateBooksArr)
+    })
+}, [privateBooksIDs])
+
+
+let sharedBooksArr:privateBooksInterface[] = []
+
+
+useEffect(() => {
+  let urls = sharedBooksIDs?.map ((sharedBookID) =>`https://www.googleapis.com/books/v1/volumes/${sharedBookID}`)
+  const toRequest = url => fetch(url)
+    .then((response) => {
+      return response.json()
+    })
+  Promise.all(urls.map(toRequest))
+ 
+    .then((data) => {
+      data.forEach((book) => {
+        if(book.volumeInfo.imageLinks){
+          sharedBooksArr.push({
+            volumeID: book.id, 
+            title: book.volumeInfo.title,
+            subTitle: book.volumeInfo.subtitle,
+            authors: book.volumeInfo.authors,
+            cover: book.volumeInfo.imageLinks.thumbnail
+          })
+        }else{
+          sharedBooksArr.push({
+            volumeID: book.id, 
+            title: book.volumeInfo.title,
+            subTitle: book.volumeInfo.subtitle,
+            authors: book.volumeInfo.authors
+          })
+        }
+       
+    })
+    setSharedBooksDetails(sharedBooksArr)
+    })
+}, [privateBooksIDs])
+
+  
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -129,15 +193,20 @@ export const BasicTabs:FC<BasicTabsInterfaceProps> = ({newBook}) => {
         value={value} 
         index={0}>
           <div className='private-books-container'>
-            {privateBooksIDs && privateBooksIDs.map((id) => (
-
-              <CardMyBooksPage bookCover={cover} bookTitle={id} bookAuthor={'milne'}/>
+            {!privateBooksIDs && <div className='add-books-div'>Add books to your library to see them here</div>}
+            {privateBooksDetails && privateBooksDetails.map((book) => (
+              <CardMyBooksPage volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
             ))}
           </div>
 
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Shared books collection
+        <div className='private-books-container'>
+          {!sharedBooksIDs && <div className='add-books-div'>Share books from your private library to see them here</div>}
+          {sharedBooksDetails && sharedBooksDetails.map((book) => (
+              <SharedCardMyBooksPage volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
+          ))}
+        </div>
       </TabPanel>
     </Box>
   );
