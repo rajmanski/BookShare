@@ -44,7 +44,7 @@ export const HomePage = () => {
     
     const getApiData = async () => {
       const responseList: any = [];
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 10; i++) {
         const response = await fetch(
           `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8&maxResults=10`
           //key 1: AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8
