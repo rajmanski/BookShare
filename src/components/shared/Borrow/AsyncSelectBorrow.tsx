@@ -1,6 +1,8 @@
 import { useState, useEffect, FC, SetStateAction } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { getDocs, collection } from 'firebase/firestore';
+import {db} from '../../../firebase'
 
 interface AsyncAutocompleteBooksInterface{
   setFoundBook: React.Dispatch<SetStateAction<{ 
@@ -12,7 +14,7 @@ interface AsyncAutocompleteBooksInterface{
     isPublic: boolean; }>>
 }
 
-export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setFoundBook}) => {
+export const AsyncSelectBorrow:FC<AsyncAutocompleteBooksInterface> = ({setFoundBook}) => {
 
     const [search, setSearch] = useState('')
     const [searchedBooks, setSearchedBooks] = useState([{
@@ -35,40 +37,30 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
 
 
     useEffect(() => {
-        const getBooks = () => {
-            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3`)
-        .then((response) => {
-           return response.json()
-        })
-        .then((data) => {
-            data.items.map((item: any) => books.push({
-              value: item.id, 
-              label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`,
-              title: item.volumeInfo.title,
-              authors: item.volumeInfo.authors
-              // cover: item.volumeInfo.imageLinks.thumbnail
-            }))
-            setSearchedBooks(books)
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        const getBooksIds = async () => {
+            const emails: string[] = [];
+            const booksList: string[] = [];
+            const querySnapshot = await getDocs(collection(db, `users`));
+            querySnapshot.forEach((doc) => {
+              emails.push(doc.id);
+              console.log(emails)
+            })
         }
-        getBooks()
-    },[search])   
+        getBooksIds()
+    }, [search]);
     
-    useEffect(() => {
-      if (titleChosen !== ''){
-        const book: any = searchedBooks.find((book) => book.label == titleChosen)
-        setFoundBook({
-          volumeID: book.value,
-          title: book.title,
-          authors: book.authors, 
-          // cover: book.cover, 
-          pickUpSpot: '', 
-          isPublic: false
-        })}
-    }, [titleChosen])
+    // useEffect(() => {
+    //   if (titleChosen !== ''){
+    //     const book: any = searchedBooks.find((book) => book.label == titleChosen)
+    //     setFoundBook({
+    //       volumeID: book.value,
+    //       title: book.title,
+    //       authors: book.authors, 
+    //       // cover: book.cover, 
+    //       pickUpSpot: '', 
+    //       isPublic: false
+    //     })}
+    // }, [titleChosen])
    
 
     return (
@@ -84,9 +76,9 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
             {...params}
             label="Search for a title you want to add"
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              if(e.currentTarget.value.length%5 == 0){
+            //   if(e.currentTarget.value.length%5 == 0){
                 setSearch(e.currentTarget.value)}}
-              }
+            //   }
             InputProps={{
               ...params.InputProps,
               type: 'search',
