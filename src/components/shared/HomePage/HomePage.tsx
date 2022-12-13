@@ -14,10 +14,14 @@ export const HomePage = () => {
   const [booksInfo, setBooksInfo] = useState<any>([]);
   const [isClicked, setIsClicked] = useState(false);
   const [showLoader, setShowLoader] = useState(true)
+  const [volumeMail, setVolumeMail] = useState({});
+
+
 
   const getBooksIds = async () => {
     const emails: string[] = [];
     const booksList: string[] = [];
+    const volumeEmailObject: any = {}
     const querySnapshot = await getDocs(collection(db, `users`));
     querySnapshot.forEach((doc) => {
       emails.push(doc.id);
@@ -33,9 +37,11 @@ export const HomePage = () => {
         booksList.push(doc.data().volumeID);
       });
       setVolumeIds(booksList);
-      
+      volumeEmailObject[emails[i]] = booksList;
     }
-
+    setVolumeMail(volumeEmailObject);
+    
+    
     const getApiData = async () => {
       const responseList: any = [];
       for (let i = 0; i < 12; i++) {
@@ -47,7 +53,6 @@ export const HomePage = () => {
         const data = await response.json();
         responseList.push(data.volumeInfo);
       }
-      console.log(responseList);
       setBooksInfo(responseList.sort());
       setShowLoader(false);
     };
@@ -61,7 +66,6 @@ export const HomePage = () => {
 
   useEffect(() => {
     getBooksIds();
-    console.log(booksInfo.length)
   }, [])
 
   return (
@@ -128,14 +132,14 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail}/>
         ))}
         </>
       )}
       {isClicked && (
         <>
           {booksInfo?.slice(6, 9).map((data, number) => (
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail}/>
         ))}
         </>
       )}
