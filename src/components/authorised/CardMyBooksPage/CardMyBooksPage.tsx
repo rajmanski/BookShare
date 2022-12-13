@@ -3,10 +3,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import { doc, updateDoc } from 'firebase/firestore'
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { db } from '../../../firebase'
-import { useState } from 'react'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 
 interface CardMyBooksPageProps{
   volumeID: string;
@@ -25,6 +25,12 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
   const moveToSharedBooks = async (volumeID: string) => {
     await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {isShared: true})
     setSharedBook(current => !current)
+  }
+
+  const removeFromLibrary = async () => {
+    await deleteDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`))
+    setSharedBook(current => !current)
+    console.log('book removed')
   }
 
   if (bookCover === undefined){
@@ -82,6 +88,18 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
             color="primary"
             onClick={() => moveToSharedBooks(volumeID)}>
           SHARE
+        </Button>
+        <Button sx={{
+           position: 'absolute', 
+           bottom: 5, 
+           right: 5,
+           color: '#1976D2' 
+
+        }}
+            size="small"
+            onClick={() => removeFromLibrary()}
+        >
+        <DeleteOutlineIcon/>
         </Button>
       </CardActions>
     </Card>
