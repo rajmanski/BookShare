@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import cover from '../../../images/Book2.jpeg'
 import Typography from '@mui/material/Typography'
 import { AsyncAutocompleteBooks } from './AsyncSelect'
 import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
@@ -31,6 +30,15 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [foundBook, setFoundBook] = useState({
+    volumeID: '',
+    title: 'Title', 
+    authors: ['Author'],
+    pickUpSpot: '', 
+    isPublic: false, 
+    cover: ''
+    }) 
+
     const addBookToMyLibrary = async () => {
       await setDoc(doc(db, `users/${email}/ownedBooks`, `${foundBook.volumeID}`), {
         volumeID: foundBook.volumeID, 
@@ -41,15 +49,6 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
       }
       
 
-    const [foundBook, setFoundBook] = useState({
-      volumeID: '',
-      title: 'Title', 
-      authors: ['Author'],
-      // cover: cover,
-      pickUpSpot: '', 
-      isPublic: false
-    }) 
-
     const style={
         width: '600px' ,
         height: 'fit-content', 
@@ -58,6 +57,12 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
         top: '20%', 
         left: '30%', 
         padding: '20px'
+    }
+
+    let cover = 'nocover.png'
+
+    if(foundBook.cover){
+      cover = foundBook.cover
     }
 
 return (

@@ -9,9 +9,10 @@ interface AsyncAutocompleteBooksInterface{
     volumeID: string;
     title: string; 
     authors: string[]; 
-    cover?: string;
     pickUpSpot: string; 
-    isPublic: boolean; }>>
+    isPublic: boolean; 
+    cover?: string;
+  }>>
 }
 
 export const AsyncSelectBorrow:FC<AsyncAutocompleteBooksInterface> = ({setFoundBook}) => {
@@ -22,7 +23,7 @@ export const AsyncSelectBorrow:FC<AsyncAutocompleteBooksInterface> = ({setFoundB
         label: '', 
         title: '', 
         authors: '', 
-        // cover: ''
+        cover: ''
     }])
 
     const [titleChosen, setTitleChosen] = useState('')

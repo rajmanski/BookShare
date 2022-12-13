@@ -7,48 +7,63 @@ interface AsyncAutocompleteBooksInterface{
     volumeID: string;
     title: string; 
     authors: string[]; 
-    cover?: string;
     pickUpSpot: string; 
-    isPublic: boolean; }>>
+    isPublic: boolean;
+    cover: string;
+   }>>
+}
+
+interface book{
+  value: string; 
+  label: string;
+  title: string;
+  authors: string[]; 
+  cover?: string;
 }
 
 export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setFoundBook}) => {
 
     const [search, setSearch] = useState('')
-    const [searchedBooks, setSearchedBooks] = useState([{
+    const [searchedBooks, setSearchedBooks] = useState<book[]>([{
         value: '', 
         label: '', 
         title: '', 
-        authors: '', 
-        // cover: ''
+        authors: [''], 
+        cover: ''
     }])
 
     const [titleChosen, setTitleChosen] = useState('')
 
-    let books = [{
-      value: '',
-      label: '', 
-      title: '', 
-      authors: ''
-      // cover: ''
-        }]
-
+    let books:book[]=[]
 
     useEffect(() => {
         const getBooks = () => {
-            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A`)
+            fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${search}&printType=books&key=AIzaSyDxOP0RY7OpFfbHIZHByQJDGV2Hfh9rV6o`)
         .then((response) => {
            return response.json()
         })
         .then((data) => {
-            data.items.map((item: any) => books.push({
-              value: item.id, 
-              label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`,
-              title: item.volumeInfo.title,
-              authors: item.volumeInfo.authors
-            }))
+            data.items.map((item: any) => {
+              if(item.volumeInfo.imageLinks){
+                books.push({
+                  value: item.id, 
+                  label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`,
+                  title: item.volumeInfo.title,
+                  authors: item.volumeInfo.authors, 
+                  cover: item.volumeInfo.imageLinks.thumbnail,
+                })
+              }else{
+                books.push({
+                  value: item.id, 
+                  label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`,
+                  title: item.volumeInfo.title,
+                  authors: item.volumeInfo.authors,
+                  cover: '' 
+                })
+              }
+            })
             setSearchedBooks(books)
-        })
+          })
         .catch((error) => {
             console.log(error);
         })
@@ -59,14 +74,26 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
     useEffect(() => {
       if (titleChosen !== ''){
         const book: any = searchedBooks.find((book) => book.label == titleChosen)
-        setFoundBook({
+        if(book.cover){
+          setFoundBook({
           volumeID: book.value,
           title: book.title,
           authors: book.authors, 
-          // cover: book.cover, 
           pickUpSpot: '', 
-          isPublic: false
-        })}
+          isPublic: false,
+          cover: book.cover, 
+          }) 
+        }else{
+          setFoundBook({
+          volumeID: book.value,
+          title: book.title,
+          authors: book.authors, 
+          pickUpSpot: '', 
+          isPublic: false, 
+          cover: ''
+          })
+        }
+      }
     }, [titleChosen])
    
 
