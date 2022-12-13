@@ -46,7 +46,6 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
               label: `${item.volumeInfo.title} - ${item.volumeInfo.authors}`,
               title: item.volumeInfo.title,
               authors: item.volumeInfo.authors
-              // cover: item.volumeInfo.imageLinks.thumbnail
             }))
             setSearchedBooks(books)
         })
