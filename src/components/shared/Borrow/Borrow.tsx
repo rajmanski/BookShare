@@ -220,9 +220,7 @@ export const Borrow = () => {
           <div className="borrow-book-button">
 
             <BorrowModal/>
-            {/* <Button variant="contained" sx={{ width: "207px", height: "42px" }}>
-              BORROW A NEW BOOK
-            </Button> */}
+          
           </div>
         </div>
         <div className="main-section-bottom">
