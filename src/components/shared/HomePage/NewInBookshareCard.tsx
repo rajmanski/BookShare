@@ -37,9 +37,6 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) =
 
   const addBookToBorrowed = async () => {
     let ownerEmail = '';
-    // console.log(email)
-    // console.log(volumeIds);
-    // console.log(information);
     
     for (let i = 0; i < information.length; i++) {
       if (information[i]['volumeID'] === volumeIds) {
@@ -47,15 +44,12 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) =
       } 
     }
 
-    
-
     //Adding book to firebase borrowedBooks
     await setDoc(doc(db, `users/${email}/borrowedBooks`, `${volumeIds}`), {
       volumeID: volumeIds, 
       dateOfReturn: addMonths(),
       originalOwner: ownerEmail,
       })
-    console.log('Book added to Borrowed books')
     
     //Deleting book from owner
     await deleteDoc(doc(db, `/users/${ownerEmail}/ownedBooks/${volumeIds}`))
@@ -133,6 +127,7 @@ const style = {
                     "&:hover": { backgroundColor: "#405d27" },
                   }}
                   variant="contained"
+                  onClick={addBookToBorrowed}
                 >
                   Borrow
                 </Button>
@@ -152,8 +147,7 @@ const style = {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClosePopup}>Disagree</Button>
-          <Button onClick={handleClosePopup}>Agree</Button>
+          <Button onClick={handleClosePopup}>Ok</Button>
         </DialogActions>
       </Dialog>
         <div className="card-on-homepage">
