@@ -43,7 +43,12 @@ export const BorrowedBookCard = ({data, information, volumeIds}) => {
     outline: "0",
   };
 
-  console.log(data, information)
+  const date = information.dateOfReturn.toDate().toDateString().split(' ');
+  const returnDate = `${date[1]}, ${date[2]}, ${date[3]}`
+  
+  
+
+  
 
   
 
@@ -61,7 +66,7 @@ export const BorrowedBookCard = ({data, information, volumeIds}) => {
                   <div className="title"><strong>{data.title}</strong></div>
                   <div className="owner">Owner: {(information.originalOwner).split('@')[0]}</div>
                   <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
+                    Return by: <span>{returnDate}</span>
                   </div>
                 </div>
                 <div className="borrowed-book-card-buttons">
