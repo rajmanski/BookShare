@@ -1,17 +1,23 @@
-import { Box, Button, Modal, Rating, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Modal, Rating, Typography } from "@mui/material"
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { auth, db } from "../../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 
-export const NewInBookshareCard = ({data, volumeIds, volumeMail}) => {
+export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) => {
 
-const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleOpenPopup = () => setOpenPopup(true);
+  const handleClosePopup = () => setOpenPopup(false);
 
   const user = auth.currentUser;
   const email = user?.email
+  
+  
+  
   
 
   let image = data.imageLinks?.thumbnail;
@@ -30,30 +36,31 @@ const [open, setOpen] = useState(false);
   }
 
   const addBookToBorrowed = async () => {
-    console.log(email)
-    console.log(volumeIds);
     let ownerEmail = '';
+    
+    for (let i = 0; i < information.length; i++) {
+      if (information[i]['volumeID'] === volumeIds) {
+        ownerEmail = information[i].email;
+      } 
+    }
 
     //Adding book to firebase borrowedBooks
     await setDoc(doc(db, `users/${email}/borrowedBooks`, `${volumeIds}`), {
       volumeID: volumeIds, 
       dateOfReturn: addMonths(),
+      originalOwner: ownerEmail,
       })
-    console.log('Book added to Borrowed books')
     
+    //Deleting book from owner
+    await deleteDoc(doc(db, `/users/${ownerEmail}/ownedBooks/${volumeIds}`))
 
-    //Deleting book from owner from firebase
-    for(let i = 0; i < volumeMail; i++) {
-      for (let j = 0; j < volumeMail[i].length; j++) {
-        if (volumeMail[i][j] === volumeIds) {
-          console.log(volumeMail[i][j])
-          ownerEmail = volumeMail[i][j];
-        }
-      }
-    }
-
-    console.log(ownerEmail);
-    
+    //Seting book a book lended book by the owner
+    await setDoc(doc(db, `users/${email}/lendBooks`, `${volumeIds}`), {
+      volumeID: volumeIds, 
+      dateOfReturn: addMonths(),
+      Borrower: email,
+      })
+      handleOpenPopup();
   }
 
 const style = {
@@ -120,6 +127,7 @@ const style = {
                     "&:hover": { backgroundColor: "#405d27" },
                   }}
                   variant="contained"
+                  onClick={addBookToBorrowed}
                 >
                   Borrow
                 </Button>
@@ -127,9 +135,24 @@ const style = {
             </div>
           </Box>
         </Modal>
-        <div className="card-on-homepage" onClick={handleOpen}>
+        <Dialog
+        open={openPopup}
+        onClose={handleClosePopup}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Congratulations, you've you borrow a book!"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+          <strong>{data.title}</strong> seems like a good book, hopefully you'll enjoy it!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePopup}>Ok</Button>
+        </DialogActions>
+      </Dialog>
+        <div className="card-on-homepage">
         <div className="img-card-wrapper">
-          <img src={image} alt={data.title} />
+          <img src={image} alt={data.title}  onClick={handleOpen}/>
         </div>
         <div className="title-and-area">
           <h3>{data.title}</h3>
@@ -137,10 +160,10 @@ const style = {
         </div>
         <div className="author">{data.authors[0]}</div>
         <div className="buttons">
-          <Button variant="text" size="small" sx={{ color: "blue" }} onClick={addBookToBorrowed}>
+          <Button variant="text" size="small" sx={{ color: "blue" }} onClick={addBookToBorrowed} >
             BORROW
           </Button>
-          <Button variant="text" size="small" sx={{ color: "blue" }}>
+          <Button variant="text" size="small" sx={{ color: "blue" }}  onClick={handleOpen}>
             DETAILS
           </Button>
           <FavoriteIcon sx={{ color: "gray" }} />
