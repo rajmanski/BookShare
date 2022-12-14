@@ -46,10 +46,13 @@ export const HomePage = () => {
       const responseList: any = [];
       for (let i = 0; i < 12; i++) {
         const response = await fetch(
+          `https://www.googleapis.com/books/v1/volumes/${booksList[i]}`
 
-          `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8&maxResults=10`
-          //key 1: AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8
+          // `https://www.googleapis.com/books/v1/volumes/${booksList[i]}?:keyes&key=AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8&maxResults=10`
+          //key1: AIzaSyB1TXi8S54_0RX2bok8fJn-OwDmBZCy6S8
           //key2 : AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A
+          //key3: AIzaSyDxOP0RY7OpFfbHIZHByQJDGV2Hfh9rV6o
+
 
         );
         const data = await response.json();
