@@ -9,11 +9,18 @@ import {Icon} from 'leaflet'
 
 
 
-export const BorrowedBookCard = () => {
+export const BorrowedBookCard = ({data}) => {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  let image = data.imageLinks?.thumbnail;
+  if (image === undefined) {
+    image = 'nocover.png'
+  }
+
+  
 
   const style = {
     width: "800px",
@@ -40,7 +47,7 @@ export const BorrowedBookCard = () => {
               <div className="top-section">
                 <div className="background">
                   <div className="img">
-                    <img src="shantaram.jpg" alt="" />
+                    <img src={image} alt="Book Cover" />
                   </div>
                 </div>
               </div>

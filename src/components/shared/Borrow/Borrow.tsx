@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Modal, Rating, Typography } from "@mui/material";
+import { Avatar, Box, Button, Modal, Rating, Typography, CircularProgress } from "@mui/material";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -12,14 +12,20 @@ import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import {Icon} from 'leaflet'
 import { BorrowModal } from '../../shared/Borrow/BorrowModal'
 import { BorrowedBookCard } from "./BorrowedBookCard";
+import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "../../../firebase";
 
 export const Borrow = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [volumeID, setVolumeId] = useState([]);
+  const [bookInfo, setBookInfo] = useState([]);
+  const [showLoader, setShowLoader] = useState(true)
   const handleClose = () => setOpen(false);
 
+  const user = auth.currentUser;
+  const email = user?.email
 
-   const style = {
+  const style = {
     width: "800px",
     height: "600px",
     position: "absolute",
@@ -39,6 +45,31 @@ export const Borrow = () => {
     outline: "0",
   };
 
+  const getBorrowedBooks = async () => {
+    const volumesList: string[] = [];
+    const responseList: any = [];
+    const querySnapshot = await getDocs(collection(db, `users/${email}/borrowedBooks`));
+    querySnapshot.forEach((doc) => {
+      // console.log(doc.data().volumeID);
+      volumesList.push(doc.data().volumeID)
+    });
+    
+    const getApiData = async () => {
+      for (let i = 0; i < volumesList.length; i++) {
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${volumesList[i]}`)
+        const data = await response.json();
+        responseList.push(data.volumeInfo);
+      }
+      setBookInfo(responseList);
+      setShowLoader(false);
+    }
+    getApiData();
+  }
+
+  useEffect(() => {
+    getBorrowedBooks();
+  }, [])
+
   return (
     <div className="borrow-page-container">
       <NavBar />
@@ -46,14 +77,16 @@ export const Borrow = () => {
         <div className="borrowed-books">
           <h3>Books you have Borrowed</h3>
           <div className="borrowed-books-container">
-            <BorrowedBookCard />
-            <BorrowedBookCard />
-            <BorrowedBookCard />
-            <BorrowedBookCard />
-            <BorrowedBookCard />
-            <BorrowedBookCard />
-            <BorrowedBookCard />
-            <BorrowedBookCard />
+          {showLoader&& (
+          <CircularProgress size={100}/>
+        )}
+        {bookInfo && (
+        <>
+          {bookInfo.map((data, number) => (
+            <BorrowedBookCard key={number} data={data}/>
+        ))}
+        </>
+      )}
           </div>
           <div className="borrow-book-button">
 
