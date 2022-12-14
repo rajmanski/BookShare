@@ -20,6 +20,10 @@ export const BorrowedBookCard = ({data}) => {
     image = 'nocover.png'
   }
 
+  if (data.title.length > 50) {
+    data.title = data.title.slice(0, 49) + '...'
+  }
+
   
 
   const style = {
@@ -53,7 +57,7 @@ export const BorrowedBookCard = ({data}) => {
               </div>
               <div className="bottom-section">
                 <div className="book-data">
-                  <div className="title">Shantaram</div>
+                  <div className="title"><strong>{data.title}</strong></div>
                   <div className="owner">Piotrek</div>
                   <div className="return-date">
                     Return by: <span>Sat 25 Nov</span>
