@@ -11,6 +11,7 @@ import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import {Icon} from 'leaflet'
 import { BorrowModal } from '../../shared/Borrow/BorrowModal'
+import { BorrowedBookCard } from "./BorrowedBookCard";
 
 export const Borrow = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,7 @@ export const Borrow = () => {
   const handleClose = () => setOpen(false);
 
 
-  const style = {
+   const style = {
     width: "800px",
     height: "600px",
     position: "absolute",
@@ -45,177 +46,14 @@ export const Borrow = () => {
         <div className="borrowed-books">
           <h3>Books you have Borrowed</h3>
           <div className="borrowed-books-container">
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon
-                    onClick={handleOpen}
-                    sx={{ cursor: "pointer" }}
-                  />
-                </div>
-              </div>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <div className="map-title">
-                    <p>Pickup Spot: Frykasy-Rarytasy Wesoła</p>
-                  </div>
-                  <div className="map" id="map">
-                    <MapContainer
-                      className="map"
-                      center={[ 52.23887604209378,21.009906761293422]}
-                      zoom={13}
-                      scrollWheelZoom={false}
-                    >
-                      <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      />
-                      <Marker position={[52.23887604209378,21.009906761293422]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}>
-                        <Popup>
-                          Pickup spot
-                        </Popup>
-                      </Marker>
-                    </MapContainer>
-                  </div>
-                </Box>
-              </Modal>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
+            <BorrowedBookCard />
+            <BorrowedBookCard />
+            <BorrowedBookCard />
+            <BorrowedBookCard />
+            <BorrowedBookCard />
+            <BorrowedBookCard />
+            <BorrowedBookCard />
+            <BorrowedBookCard />
           </div>
           <div className="borrow-book-button">
 
