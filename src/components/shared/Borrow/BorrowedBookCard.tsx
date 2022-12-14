@@ -9,7 +9,7 @@ import {Icon} from 'leaflet'
 
 
 
-export const BorrowedBookCard = ({data}) => {
+export const BorrowedBookCard = ({data, information}) => {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -19,12 +19,9 @@ export const BorrowedBookCard = ({data}) => {
   if (image === undefined) {
     image = 'nocover.png'
   }
-
-  if (data.title.length > 50) {
-    data.title = data.title.slice(0, 49) + '...'
+  if (data.title.length > 45) {
+    data.title = data.title.slice(0, 45) + '...'
   }
-
-  
 
   const style = {
     width: "800px",
@@ -45,6 +42,15 @@ export const BorrowedBookCard = ({data}) => {
     filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
     outline: "0",
   };
+
+//   const setOwnerEmail = () => {
+//     for (let i = 0; i < information.length; i++) {
+//         if (information[i]['volumeID'] === volumeIds) {
+//             return information[i].email;
+//           } 
+//     }
+//   }
+  
 
     return (
         <div className="borrowed-book-card">
