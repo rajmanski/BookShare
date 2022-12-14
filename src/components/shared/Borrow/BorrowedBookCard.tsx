@@ -9,7 +9,7 @@ import {Icon} from 'leaflet'
 
 
 
-export const BorrowedBookCard = ({data, information}) => {
+export const BorrowedBookCard = ({data, information, volumeIds}) => {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -43,20 +43,15 @@ export const BorrowedBookCard = ({data, information}) => {
     outline: "0",
   };
 
-//   const setOwnerEmail = () => {
-//     for (let i = 0; i < information.length; i++) {
-//         if (information[i]['volumeID'] === volumeIds) {
-//             return information[i].email;
-//           } 
-//     }
-//   }
+  console.log(data, information)
+
   
 
     return (
         <div className="borrowed-book-card">
               <div className="top-section">
                 <div className="background">
-                  <div className="img">
+                  <div className="img"> 
                     <img src={image} alt="Book Cover" />
                   </div>
                 </div>
@@ -64,7 +59,7 @@ export const BorrowedBookCard = ({data, information}) => {
               <div className="bottom-section">
                 <div className="book-data">
                   <div className="title"><strong>{data.title}</strong></div>
-                  <div className="owner">Piotrek</div>
+                  <div className="owner">Owner: {(information.originalOwner).split('@')[0]}</div>
                   <div className="return-date">
                     Return by: <span>Sat 25 Nov</span>
                   </div>

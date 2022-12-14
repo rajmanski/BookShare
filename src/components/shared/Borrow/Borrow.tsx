@@ -20,6 +20,7 @@ export const Borrow = () => {
   const [bookInfo, setBookInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true)
   const [information, setInformation] = useState([]);
+  const [volumeIds, setVolumeIds] = useState<string[]>([]);
   const handleClose = () => setOpen(false);
 
   const user = auth.currentUser;
@@ -55,6 +56,7 @@ export const Borrow = () => {
       volumesList.push(doc.data().volumeID)
     });
     setInformation(information);
+    setVolumeIds(volumesList);
 
     const getApiData = async () => {
       for (let i = 0; i < volumesList.length; i++) {
@@ -86,7 +88,7 @@ export const Borrow = () => {
         {bookInfo && (
         <>
           {bookInfo.map((data, number) => (
-            <BorrowedBookCard key={number} data={data} information={information}/>
+            <BorrowedBookCard key={number} data={data} information={information[number]} volumeIds={volumeIds}/>
         ))}
         </>
       )}
