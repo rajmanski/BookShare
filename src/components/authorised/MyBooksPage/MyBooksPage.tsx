@@ -8,9 +8,10 @@ import '../MyBooksPage/MyBooksPage.style.css'
 import { useTheme } from '@mui/material/styles';
 import { BooksModal } from '../MyBooksPage/BooksModal'
 
+
 export const MyBooksPage = () => {
 
-    const theme = useTheme();
+    // const theme = useTheme();
     const [newBook, setNewBook] = useState('')
     const [sharedBook, setSharedBook] = useState('')
 
@@ -24,16 +25,6 @@ export const MyBooksPage = () => {
             <div className='books-in-your-library-title'><h2>Books in your library</h2></div>
         </div>
         <BasicTabs newBook={newBook}/>
-
-        <Fab sx={{
-            position: 'fixed', 
-            bottom: '250px', 
-            right: '200px'
-        }}
-        variant="extended" color="primary" aria-label="add">
-        Add a new book
-        <AddIcon sx={{ ml: 1 }} />
-        </Fab>
     </div>
 
     <BooksModal setNewBook={setNewBook} setSharedBook={setSharedBook}/>

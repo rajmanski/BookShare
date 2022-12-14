@@ -9,6 +9,10 @@
     align-items: center;
     box-sizing: border-box;
     margin: 0;
+    margin-bottom: 50px;
+    position: absolute;
+    top: 5px;
+    
 }
 
 .nav-link{
@@ -40,4 +44,31 @@
     color: rgb(101, 101, 101);
     font-size: 18px;
     font-family: 'Roboto';
+}
+
+@media screen and (max-width: 414px){
+    .nav-container{
+        position: relative;
+        padding: 0;
+        margin: 0;
+    }
+
+    .search{
+        padding: 10px;
+    }
+
+    .nav-link{
+        font-size: 14px;
+        align-self: flex-start;
+        margin: 10px;
+    }
+
+    .logo{
+        display: none;
+    }
+
+    .navigation-pages-links{
+        display: flex;
+        justify-content: space-between;
+    }
 }
