@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Rating, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Modal, Rating, Typography } from "@mui/material"
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { auth, db } from "../../../firebase";
@@ -6,9 +6,12 @@ import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "fireb
 
 export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) => {
 
-const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleOpenPopup = () => setOpenPopup(true);
+  const handleClosePopup = () => setOpenPopup(false);
 
   const user = auth.currentUser;
   const email = user?.email
@@ -63,9 +66,7 @@ const [open, setOpen] = useState(false);
       dateOfReturn: addMonths(),
       Borrower: email,
       })
-    
-    
-    
+      handleOpenPopup();
   }
 
 const style = {
@@ -139,9 +140,25 @@ const style = {
             </div>
           </Box>
         </Modal>
-        <div className="card-on-homepage" onClick={handleOpen}>
+        <Dialog
+        open={openPopup}
+        onClose={handleClosePopup}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Congratulations, you've you borrow a book!"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+          <strong>{data.title}</strong> seems like a good book, hopefully you'll enjoy it!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePopup}>Disagree</Button>
+          <Button onClick={handleClosePopup}>Agree</Button>
+        </DialogActions>
+      </Dialog>
+        <div className="card-on-homepage">
         <div className="img-card-wrapper">
-          <img src={image} alt={data.title} />
+          <img src={image} alt={data.title}  onClick={handleOpen}/>
         </div>
         <div className="title-and-area">
           <h3>{data.title}</h3>
@@ -149,10 +166,10 @@ const style = {
         </div>
         <div className="author">{data.authors[0]}</div>
         <div className="buttons">
-          <Button variant="text" size="small" sx={{ color: "blue" }} onClick={addBookToBorrowed}>
+          <Button variant="text" size="small" sx={{ color: "blue" }} onClick={addBookToBorrowed} >
             BORROW
           </Button>
-          <Button variant="text" size="small" sx={{ color: "blue" }}>
+          <Button variant="text" size="small" sx={{ color: "blue" }}  onClick={handleOpen}>
             DETAILS
           </Button>
           <FavoriteIcon sx={{ color: "gray" }} />
