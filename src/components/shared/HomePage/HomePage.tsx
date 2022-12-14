@@ -15,6 +15,7 @@ export const HomePage = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [showLoader, setShowLoader] = useState(true)
   const [volumeMail, setVolumeMail] = useState({});
+  const [information, setInformation] = useState([]);
 
 
 
@@ -22,25 +23,26 @@ export const HomePage = () => {
     const emails: string[] = [];
     const booksList: string[] = [];
     const volumeEmailObject: any = {}
+    const information: any = [];
     const querySnapshot = await getDocs(collection(db, `users`));
     querySnapshot.forEach((doc) => {
       emails.push(doc.id);
     });
     // setEmails(emailList);
     for (let i = 0; i < emails.length; i++) {
-      const q = query(collection(db, `users/${emails[i]}/ownedBooks`), where('isShared', '==', true));
       const querySnapshot2 = await getDocs(
         // collection(db, `users/${emails[i]}/ownedBooks`)
         query(collection(db, `users/${emails[i]}/ownedBooks`), where('isShared', '==', true))
       );
       querySnapshot2.forEach((doc) => {
+        information.push(doc.data());
         booksList.push(doc.data().volumeID);
       });
       setVolumeIds(booksList);
-      volumeEmailObject[emails[i]] = booksList;
+      // volumeEmailObject[emails[i]] = booksList;
     }
     setVolumeMail(volumeEmailObject);
-    
+    setInformation(information);
     
     const getApiData = async () => {
       const responseList: any = [];
@@ -51,6 +53,7 @@ export const HomePage = () => {
           //key2 : AIzaSyC3qM70tyz819Oy-fG929Z57AE6QtBBK3A
         );
         const data = await response.json();
+        // data.volumeInfo['info'] = 'tekst';
         responseList.push(data.volumeInfo);
       }
       setBooksInfo(responseList.sort());
@@ -132,14 +135,14 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information}/>
         ))}
         </>
       )}
       {isClicked && (
         <>
           {booksInfo?.slice(6, 9).map((data, number) => (
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail} information={information}/>
         ))}
         </>
       )}

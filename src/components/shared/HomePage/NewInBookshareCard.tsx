@@ -2,9 +2,9 @@ import { Box, Button, Modal, Rating, Typography } from "@mui/material"
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { auth, db } from "../../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 
-export const NewInBookshareCard = ({data, volumeIds, volumeMail}) => {
+export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) => {
 
 const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -12,6 +12,9 @@ const [open, setOpen] = useState(false);
 
   const user = auth.currentUser;
   const email = user?.email
+  
+  
+  
   
 
   let image = data.imageLinks?.thumbnail;
@@ -30,29 +33,38 @@ const [open, setOpen] = useState(false);
   }
 
   const addBookToBorrowed = async () => {
-    console.log(email)
-    console.log(volumeIds);
     let ownerEmail = '';
+    // console.log(email)
+    // console.log(volumeIds);
+    // console.log(information);
+    
+    for (let i = 0; i < information.length; i++) {
+      if (information[i]['volumeID'] === volumeIds) {
+        ownerEmail = information[i].email;
+      } 
+    }
+
+    
 
     //Adding book to firebase borrowedBooks
     await setDoc(doc(db, `users/${email}/borrowedBooks`, `${volumeIds}`), {
       volumeID: volumeIds, 
       dateOfReturn: addMonths(),
+      originalOwner: ownerEmail,
       })
     console.log('Book added to Borrowed books')
     
+    //Deleting book from owner
+    await deleteDoc(doc(db, `/users/${ownerEmail}/ownedBooks/${volumeIds}`))
 
-    //Deleting book from owner from firebase
-    for(let i = 0; i < volumeMail; i++) {
-      for (let j = 0; j < volumeMail[i].length; j++) {
-        if (volumeMail[i][j] === volumeIds) {
-          console.log(volumeMail[i][j])
-          ownerEmail = volumeMail[i][j];
-        }
-      }
-    }
-
-    console.log(ownerEmail);
+    //Seting book a book lended book by the owner
+    await setDoc(doc(db, `users/${email}/lendBooks`, `${volumeIds}`), {
+      volumeID: volumeIds, 
+      dateOfReturn: addMonths(),
+      Borrower: email,
+      })
+    
+    
     
   }
 
