@@ -12,10 +12,13 @@ import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 export const BorrowedBookCard = ({ data, information, volumeIds }) => {
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupProlong, setOpenPopupProlog] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPopup = () => setOpenPopup(true);
   const handleClosePopup = () => setOpenPopup(false);
+  const handleOpenPopupProlong = () => setOpenPopupProlog(true);
+  const handleClosePopupProlong = () => setOpenPopupProlog(false);
   const user = auth.currentUser;
   const email = user?.email;
 
@@ -80,6 +83,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
     handleOpenPopup();
   };
 
+  //function that is changing borrow time for one more month
   const prolong = async () => {
     await updateDoc(
       doc(db, `/users/${email}/borrowedBooks/${volumeIds}`),
@@ -88,6 +92,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
       }
     );
     console.log('Prolonged.')
+    setOpenPopupProlog(true);
   }
 
   return (
@@ -172,6 +177,23 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClosePopup}>Ok</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={openPopupProlong}
+        onClose={handleClosePopupProlong}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>
+          {"It seems that you want ot return this book!"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">Hopefully
+            <strong>{data.title}</strong>was a good book, and you enjoyed it!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePopupProlong}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>
