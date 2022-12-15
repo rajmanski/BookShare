@@ -106,7 +106,7 @@ export const PersistentDrawerLeft = () => {
   }
 
   return (
-    <Box sx={{ display: {xs:'flex', md:'none'} }}>
+    <Box sx={{ display: {xs:'flex', lg:'none'} }}>
       {/* <CssBaseline /> */}
       <AppBar position="fixed" open={open}>
         <Toolbar>

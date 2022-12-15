@@ -256,7 +256,7 @@ img {
     .search-area{
         gap: 0;
         height: 350px;
-        padding: 10px;
+        padding: 3%;
         padding-top: 30px;
         padding-bottom: 30px;
     }
@@ -287,3 +287,17 @@ img {
     }
 }
 
+@media screen and (min-width: 1024px) {
+
+    .search-area{
+        padding-top: 30px;
+    }
+
+    .search h1{
+        font-size: 36px;
+    }
+
+    .search p{
+        font-size: 20px;
+    }
+}
