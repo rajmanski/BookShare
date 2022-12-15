@@ -245,7 +245,7 @@ img {
 }
 
 
-@media screen and (max-width: 912px) {
+@media screen and (max-width: 1024px) {
     .search h1{
         font-size: 20px;
     }
@@ -301,3 +301,5 @@ img {
         font-size: 20px;
     }
 }
+
+

@@ -40,11 +40,11 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
     return (
         <Grid sx={{
-            mt: 20,
-            // width: '100vw',
-            // p: '90px', 
-            // display: 'flex', 
-            // justifyContent: 'space-between'
+            maxWidth: '1600px',
+            // padding: '90px', 
+            mt: 10,
+            display: 'flex', 
+            justifyContent: 'space-between'
         }} container>
             <Grid item xs>
                 {ulBeata}
