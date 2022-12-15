@@ -45,6 +45,8 @@ export const BorrowedBookCard = ({data, information, volumeIds}) => {
 
   const date = information.dateOfReturn.toDate().toDateString().split(' ');
   const returnDate = `${date[1]}, ${date[2]}, ${date[3]}`
+
+  // const owner = information.originalOwner.split(' ')[0]
   
   
 
@@ -64,7 +66,7 @@ export const BorrowedBookCard = ({data, information, volumeIds}) => {
               <div className="bottom-section">
                 <div className="book-data">
                   <div className="title"><strong>{data.title}</strong></div>
-                  <div className="owner">Owner: {(information.originalOwner).split('@')[0]}</div>
+                  <div className="owner">Owner: {information?.originalOwner}</div>
                   <div className="return-date">
                     Return by: <span>{returnDate}</span>
                   </div>
