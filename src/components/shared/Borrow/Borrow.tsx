@@ -88,7 +88,7 @@ export const Borrow = () => {
         {bookInfo && (
         <>
           {bookInfo.map((data, number) => (
-            <BorrowedBookCard key={number} data={data} information={information[number]} volumeIds={volumeIds}/>
+            <BorrowedBookCard key={number} data={data} information={information[number]} volumeIds={volumeIds[number]}/>
         ))}
         </>
       )}

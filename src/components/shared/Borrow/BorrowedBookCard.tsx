@@ -6,6 +6,8 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import {Icon} from 'leaflet'
+import { auth, db } from "../../../firebase";
+import { deleteDoc, doc, setDoc } from "firebase/firestore";
 
 
 
@@ -14,6 +16,8 @@ export const BorrowedBookCard = ({data, information, volumeIds}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const user = auth.currentUser;
+  const email = user?.email
 
   let image = data.imageLinks?.thumbnail;
   if (image === undefined) {
@@ -48,11 +52,23 @@ export const BorrowedBookCard = ({data, information, volumeIds}) => {
 
   // const owner = information.originalOwner.split(' ')[0]
   
-  
+  const returnBook = async () => {
 
-  
+    //adding doc in owner ownedbooks
+    await setDoc(doc(db, `users/${information?.originalOwner}/ownedBooks`, `${volumeIds}`), {
+      volumeID: volumeIds,  
+      isShared: false,
+      email: information?.originalOwner
+      })
+    
+    //deleting doc from lendBooks by owner
+    await deleteDoc(doc(db, `/users/${information?.originalOwner}/lendBooks/${volumeIds}`))
 
-  
+    //deleting docs from borrowedBooks by borrower
+    await deleteDoc(doc(db, `/users/${email}/borrowedBooks/${volumeIds}`))
+
+    console.log(`${volumeIds} deleted.`)
+  }
 
     return (
         <div className="borrowed-book-card">
@@ -72,7 +88,7 @@ export const BorrowedBookCard = ({data, information, volumeIds}) => {
                   </div>
                 </div>
                 <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
+                  <Button sx={{ color: "#1976D2" }} onClick={returnBook}>Return</Button>
                   <Button sx={{ color: "#1976D2" }}>Prolong</Button>
                   <LocationOnOutlinedIcon
                     onClick={handleOpen}
