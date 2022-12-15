@@ -163,12 +163,11 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>
-          {"Congratulations, you've you borrow a book!"}
+          {"It seems that you want ot return this book!"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <strong>{data.title}</strong> seems like a good book, hopefully
-            you'll enjoy it!
+          <DialogContentText id="alert-dialog-slide-description">Hopefully
+            <strong>{data.title}</strong>was a good book, and you enjoyed it!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
