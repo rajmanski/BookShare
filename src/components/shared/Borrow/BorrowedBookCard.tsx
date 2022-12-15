@@ -7,7 +7,7 @@ import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
 import { auth, db } from "../../../firebase";
-import { deleteDoc, doc, setDoc } from "firebase/firestore";
+import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 
 export const BorrowedBookCard = ({ data, information, volumeIds }) => {
   const [open, setOpen] = useState(false);
@@ -50,6 +50,11 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
   const date = information.dateOfReturn.toDate().toDateString().split(" ");
   const returnDate = `${date[1]}, ${date[2]}, ${date[3]}`;
 
+  const  addMonths = (date = new Date()) => {
+    date.setMonth(date.getMonth() + 1);
+    return date;
+  }
+
   // const owner = information.originalOwner.split(' ')[0]
 
   const returnBook = async () => {
@@ -75,6 +80,16 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
     handleOpenPopup();
   };
 
+  const prolong = async () => {
+    await updateDoc(
+      doc(db, `/users/${email}/borrowedBooks/${volumeIds}`),
+      {
+        dateOfReturn: addMonths(),
+      }
+    );
+    console.log('Prolonged.')
+  }
+
   return (
     <div className="borrowed-book-card">
       <div className="top-section">
@@ -98,7 +113,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
           <Button sx={{ color: "#1976D2" }} onClick={returnBook}>
             Return
           </Button>
-          <Button sx={{ color: "#1976D2" }}>Prolong</Button>
+          <Button sx={{ color: "#1976D2" }} onClick={prolong}>Prolong</Button>
           <LocationOnOutlinedIcon
             onClick={handleOpen}
             sx={{ cursor: "pointer" }}
