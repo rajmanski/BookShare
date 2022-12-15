@@ -43,7 +43,8 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
     const addBookToMyLibrary = async () => {
       await setDoc(doc(db, `users/${email}/ownedBooks`, `${foundBook.volumeID}`), {
         volumeID: foundBook.volumeID, 
-        isShared: false
+        isShared: false,
+        email: email,
         })
         setNewBook(foundBook.volumeID) 
         handleClose()

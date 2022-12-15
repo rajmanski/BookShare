@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Modal, Rating, Typography } from "@mui/material";
+import { Avatar, Box, Button, Modal, Rating, Typography, CircularProgress } from "@mui/material";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -12,12 +12,21 @@ import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import {Icon} from 'leaflet'
 import { BorrowModal } from '../../shared/Borrow/BorrowModal'
 import { PersistentDrawerLeft } from "../NavBar/Drawer";
+import { BorrowedBookCard } from "./BorrowedBookCard";
+import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "../../../firebase";
+
 
 export const Borrow = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [bookInfo, setBookInfo] = useState([]);
+  const [showLoader, setShowLoader] = useState(true)
+  const [information, setInformation] = useState([]);
+  const [volumeIds, setVolumeIds] = useState<string[]>([]);
   const handleClose = () => setOpen(false);
 
+  const user = auth.currentUser;
+  const email = user?.email
 
   const style = {
     width: "800px",
@@ -39,6 +48,35 @@ export const Borrow = () => {
     outline: "0",
   };
 
+  const getBorrowedBooks = async () => {
+    const volumesList: string[] = [];
+    const responseList: any = [];
+    const information: any = [];
+    const querySnapshot = await getDocs(collection(db, `users/${email}/borrowedBooks`));
+    querySnapshot.forEach((doc) => {
+      information.push(doc.data());
+      volumesList.push(doc.data().volumeID)
+    });
+    setInformation(information);
+    setVolumeIds(volumesList);
+
+    const getApiData = async () => {
+      for (let i = 0; i < volumesList.length; i++) {
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${volumesList[i]}`)
+        const data = await response.json();
+        responseList.push(data.volumeInfo);
+      }
+      setShowLoader(false);
+      setBookInfo(responseList);
+      
+    }
+    getApiData();
+  }
+
+  useEffect(() => {
+    getBorrowedBooks();
+  }, [])
+
   return (
     <div className="borrow-page-container">
       <PersistentDrawerLeft/>
@@ -47,177 +85,16 @@ export const Borrow = () => {
         <div className="borrowed-books">
           <h3>Books you have Borrowed</h3>
           <div className="borrowed-books-container">
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon
-                    onClick={handleOpen}
-                    sx={{ cursor: "pointer" }}
-                  />
-                </div>
-              </div>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <div className="map-title">
-                    <p>Pickup Spot: Frykasy-Rarytasy Wesoła</p>
-                  </div>
-                  <div className="map" id="map">
-                    <MapContainer
-                      className="map"
-                      center={[ 52.23887604209378,21.009906761293422]}
-                      zoom={13}
-                      scrollWheelZoom={false}
-                    >
-                      <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      />
-                      <Marker position={[52.23887604209378,21.009906761293422]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}>
-                        <Popup>
-                          Pickup spot
-                        </Popup>
-                      </Marker>
-                    </MapContainer>
-                  </div>
-                </Box>
-              </Modal>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
-            <div className="borrowed-book-card">
-              <div className="top-section">
-                <div className="background">
-                  <div className="img">
-                    <img src="shantaram.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom-section">
-                <div className="book-data">
-                  <div className="title">Shantaram</div>
-                  <div className="owner">Piotrek</div>
-                  <div className="return-date">
-                    Return by: <span>Sat 25 Nov</span>
-                  </div>
-                </div>
-                <div className="borrowed-book-card-buttons">
-                  <Button sx={{ color: "#1976D2" }}>Return</Button>
-                  <Button sx={{ color: "#1976D2" }}>Prolong</Button>
-                  <LocationOnOutlinedIcon />
-                </div>
-              </div>
-            </div>
+          {showLoader&& (
+          <CircularProgress size={100} sx={{margin: '0 auto'}}/>
+        )}
+        {bookInfo && (
+        <>
+          {bookInfo.map((data, number) => (
+            <BorrowedBookCard key={number} data={data} information={information[number]} volumeIds={volumeIds[number]}/>
+        ))}
+        </>
+      )}
           </div>
           <div className="borrow-book-button">
 
