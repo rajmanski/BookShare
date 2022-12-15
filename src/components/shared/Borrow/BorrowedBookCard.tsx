@@ -168,11 +168,11 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>
-          {"It seems that you want ot return this book!"}
+          {"It seems that you want to return this book!"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">Hopefully
-            <strong>{data.title}</strong>was a good book, and you enjoyed it!
+            <strong> {data.title} </strong>was a good book, and you enjoyed it!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -185,11 +185,12 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>
-          {"It seems that you want ot return this book!"}
+          {"I see, it seems that you need more time for read this book!"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">Hopefully
-            <strong>{data.title}</strong>was a good book, and you enjoyed it!
+            <strong> {data.title} </strong>will be a great book and you'll enjoy it!<br></br>
+            You have one more month to read it!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
