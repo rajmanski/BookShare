@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import CloseIcon from '@mui/icons-material/Close'
 import Typography from '@mui/material/Typography'
 import { AsyncAutocompleteBooks } from './AsyncSelect'
 import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
@@ -50,15 +51,24 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
       }
       
 
-    const style={
-        width: '600px' ,
-        height: 'fit-content', 
-        bgcolor: 'white', 
-        position: 'absolute', 
-        top: '20%', 
-        left: '30%', 
-        padding: '20px'
+    const styleBigScreens={
+      width: '600px' ,
+      height: 'fit-content', 
+      bgcolor: 'white', 
+      position: 'absolute', 
+      top: '20%', 
+      left: '30%', 
+      padding: '20px' 
     }
+
+    const styleSmallScreens={
+      width: '80vw' ,
+      height: 'fit-content', 
+      bgcolor: 'white', 
+      margin: '30px auto',
+      padding: '10px',
+      display: {xs:'block', md:'none'},
+  }
 
     let cover = 'nocover.png'
 
@@ -69,6 +79,7 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
 return (
 <div className='books-modal-container'>
   <Fab sx={{
+    display: {xs: 'none', md: 'block'},
     position: 'fixed', 
     bottom: '250px', 
     right: '200px'
@@ -77,13 +88,26 @@ return (
     Add a new book
     <AddIcon sx={{ ml: 1 }} />
   </Fab>
-<Modal
+
+  <Fab sx={{
+    display: {xs: 'block', md: 'none'},
+    position: 'fixed', 
+    bottom: '140px', 
+    right: '50px'
+    }}
+    variant="extended" color="primary" aria-label="add" onClick={handleOpen}>
+    <AddIcon/>
+  </Fab>
+
+<Modal sx={{
+  display: {xs:'none', md:'block'}
+}}
   open={open}
   onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
+  aria-labelledby="add-a-new-book-to-library"
+  aria-describedby="add-a-new-book-to-library"
 >
-  <Box sx={style}>
+  <Box sx={styleBigScreens}>
     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
       mb: '20px'
     }}>
@@ -108,7 +132,47 @@ return (
     </div>
   </Box>
 </Modal>
-</div>
 
+<Modal sx={{
+  display: {xs:'block', md:'none'}
+}}
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="add-a-new-book-to-library"
+  aria-describedby="add-a-new-book-to-library"
+>
+  <Box sx={styleSmallScreens}>
+    <div className='close-button-container'> 
+    <Button sx={{
+      minWidth: '24px', 
+      padding: '0px', 
+      marginBottom: '10px'
+    }}
+    onClick={handleClose}>
+      <CloseIcon sx={{
+        color: 'rgb(101, 101, 101)'
+      }}/>
+    </Button>
+    </div>
+    <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
+    
+    <div className='card-myBooksPage-container'>
+      <CardMyBooksPage volumeID={foundBook.volumeID} bookCover={cover} bookAuthor={foundBook.authors[0]} bookTitle={foundBook.title} setSharedBook={setSharedBook}/>
+    </div>
+
+    <div className='add-to-library-button'>
+      <Button sx={{
+        mb: '10px'
+      }}
+        variant="contained" 
+        startIcon={<AddIcon />}
+        onClick={addBookToMyLibrary}>
+          Add to library
+      </Button>
+    </div>
+  </Box>
+</Modal>
+
+</div>
 )
 }

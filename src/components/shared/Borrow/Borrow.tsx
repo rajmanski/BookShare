@@ -11,9 +11,11 @@ import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import {Icon} from 'leaflet'
 import { BorrowModal } from '../../shared/Borrow/BorrowModal'
+import { PersistentDrawerLeft } from "../NavBar/Drawer";
 import { BorrowedBookCard } from "./BorrowedBookCard";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
+
 
 export const Borrow = () => {
   const [open, setOpen] = useState(false);
@@ -77,6 +79,7 @@ export const Borrow = () => {
 
   return (
     <div className="borrow-page-container">
+      <PersistentDrawerLeft/>
       <NavBar />
       <div className="main-content">
         <div className="borrowed-books">

@@ -1,6 +1,7 @@
 .search-area {
     margin: 0px auto;
     width: 100%;
+    height: 80vh;
     background-image: linear-gradient(90deg,
         #f5f3ef 50%,
         #F6F4F0 50%, #F6F4F0 66.6%,
@@ -9,7 +10,8 @@
     display: flex;
     padding-left: 90px;
     padding-right: 90px;
-    max-width: 1440px;
+    padding-top: 90px;
+    max-width: 100vw; 
     gap: 50px;
 }
 
@@ -224,25 +226,80 @@ img {
     margin-top: 40px;
 }
 
+@media screen and (max-width: 414px) {
 
-@media only screen and (max-width: 992px) {
-    .images {
-        width: 0;
-        height: 0;
+    .search-area{
+        display: block;
+        padding: 10px;
+        padding-top: 30px;
     }
-    .search-area {
-        width: 100%;
+
+   .img-wrapper{
+    display: none;
+   }
+
+   .search{
+    width: 95vw;
+   }
+
+}
+
+
+@media screen and (max-width: 1024px) {
+    .search h1{
+        font-size: 20px;
     }
-    .search {
-        width: 100%;
+    .search p {
+        font-size: 14px;
+    }
+
+    .search-area{
+        gap: 0;
+        height: 350px;
+        padding: 3%;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .new-in-bookshare-title{
+        font-size: 20px;
+    }
+
+    .search{
+        gap: 0px;
+    }
+
+    .books-card-area{
+        gap: 20px;
+    }
+
+    .card-on-homepage{
+        display: none;
+    }
+    
+
+    .images img.third-book{
+        left: -30px;
+    }
+
+    .images img.first-book{
+        left: 50px;
     }
 }
 
-@media only screen and (max-width: 500px) {
-    .search h1{
-        font-size: 25px;
+@media screen and (min-width: 1024px) {
+
+    .search-area{
+        padding-top: 30px;
     }
-    .search p {
+
+    .search h1{
+        font-size: 36px;
+    }
+
+    .search p{
         font-size: 20px;
     }
 }
+
+
