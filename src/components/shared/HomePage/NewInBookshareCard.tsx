@@ -140,7 +140,7 @@ const style = {
         onClose={handleClosePopup}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Congratulations, you've you borrow a book!"}</DialogTitle>
+        <DialogTitle>{"Congratulations, you've borrowed a new book!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
           <strong>{data.title}</strong> seems like a good book, hopefully you'll enjoy it!

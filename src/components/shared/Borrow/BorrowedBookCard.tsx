@@ -13,6 +13,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupProlong, setOpenPopupProlog] = useState(false);
+  // const [del, setDel] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPopup = () => setOpenPopup(true);
