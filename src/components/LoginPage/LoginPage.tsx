@@ -10,11 +10,12 @@ import FormControl from '@mui/material/FormControl';
 import { Footer } from '../Footer/Footer'
 import { useState } from 'react';
 import { NavBar } from '../shared/NavBar/NavBar';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import "./LoginPage.style.css"
+import { PersistentDrawerLeft } from '../shared/NavBar/Drawer';
 
 
 export const LoginPage = () => { 
@@ -72,6 +73,7 @@ const handleSignIn = () => {
 
     return (
         <div className='login-page-container'>
+          <PersistentDrawerLeft/>
           <NavBar/>
     <div className='login-page-panel'>
     <Box

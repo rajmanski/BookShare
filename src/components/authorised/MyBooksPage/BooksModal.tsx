@@ -146,7 +146,8 @@ return (
       minWidth: '24px', 
       padding: '0px', 
       marginBottom: '10px'
-    }}>
+    }}
+    onClick={handleClose}>
       <CloseIcon sx={{
         color: 'rgb(101, 101, 101)'
       }}/>

@@ -6,6 +6,7 @@ import "./HomePage.style.css";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { NewInBookshareCard } from "./NewInBookshareCard";
+import { PersistentDrawerLeft } from "../NavBar/Drawer";
 
 export const HomePage = () => {
   const [search, setSearch] = useState("");
@@ -76,6 +77,7 @@ export const HomePage = () => {
   return (
     <div className="home-page-container">
       <div className="navbar-container">
+        <PersistentDrawerLeft/>
         <NavBar />
       </div>
       <div className="search-area">

@@ -16,26 +16,26 @@
 }
 
 .nav-link{
-    margin-left: 30px;
     font-size: 18px;
     font-family: Roboto, sans-serif;
-}
-
-.navigation-pages-links{
     display: flex;
-    align-items: center;
-}
-
-.signin-signup-signout-links{
-    display: flex;    
+    color: rgb(101, 101, 101)
 }
 
 .active{
     text-decoration: underline;
+    color: rgb(101, 101, 101)
+
 }
 
-.container-fluid{
-    padding: 0;
+.navigation-links{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.sign-links{
+    display: flex;  
 }
 
 .logout-button{
@@ -47,6 +47,11 @@
 }
 
 @media screen and (max-width: 414px){
+
+    .navbar{
+        padding: 0px;
+    }
+
     .nav-container{
         position: relative;
         padding: 0;
@@ -63,12 +68,21 @@
         margin: 10px;
     }
 
-    .logo{
-        display: none;
+    .logout-button{
+        font-size: 14px;
     }
 
     .navigation-pages-links{
         display: flex;
         justify-content: space-between;
+    }
+
+    .container-fluid{
+        background-image: linear-gradient(90deg,
+        #f5f3ef 50%,
+        #F6F4F0 50%, #F6F4F0 66.6%,
+        #F0EFE9 66.6%, #F0EFE9 83.26%,
+        #F6F4F0 83.26%);
+        padding: 8px;
     }
 }

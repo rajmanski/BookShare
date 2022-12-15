@@ -13,14 +13,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
 
   export const Footer = () => {
-    const ulAnia = (
-            <ul className="ul-anna footer-ul">
-                <li>Anna Wiśniowska</li>
-                <li>Junior Frontend Developer</li>
-                <li>LinkedIn:</li>
-                <li>GitHub</li>
-                <li>tel. +48</li>
-            </ul>)
     const ulBeata = (        
             <ul className="ul-beata footer-ul">
                 <li>Beata Gonera</li>
@@ -54,11 +46,6 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
             // display: 'flex', 
             // justifyContent: 'space-between'
         }} container>
-            <Grid item xs>
-                {ulAnia}
-            </Grid>
-            <Divider orientation="vertical" flexItem>
-            </Divider>
             <Grid item xs>
                 {ulBeata}
             </Grid>

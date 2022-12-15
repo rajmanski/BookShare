@@ -20,6 +20,7 @@ import { Navigate, useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
+import { PersistentDrawerLeft } from '../shared/NavBar/Drawer';
 
 
 export const RegisterPage = () => {
@@ -127,6 +128,7 @@ export const RegisterPage = () => {
 
    return (
     <div className='register-page-container'>
+      <PersistentDrawerLeft/>
       <NavBar/>
 
     <div className='register-form-container'>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { auth, db } from "../../../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { NewInBookShareCardMobile } from "./NewInBookShareCardMobile";
 
 export const NewInBookshareCard = ({data, volumeIds, volumeMail}) => {
 
@@ -127,9 +128,13 @@ const style = {
             </div>
           </Box>
         </Modal>
-        <div className="card-on-homepage" onClick={handleOpen}>
+
+        <NewInBookShareCardMobile title={data.title} author={data.authors[0]} cover={image}/>
+
+        
+         <div className="card-on-homepage" onClick={handleOpen}>
         <div className="img-card-wrapper">
-          <img src={image} alt={data.title} />
+          <img className="cover" src={image} alt={data.title} />
         </div>
         <div className="title-and-area">
           <h3>{data.title}</h3>
@@ -145,7 +150,8 @@ const style = {
           </Button>
           <FavoriteIcon sx={{ color: "gray" }} />
         </div>
-      </div>
-      </>
+        </div> 
+      </> 
     )
 }
+
