@@ -13,7 +13,6 @@ export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupProlong, setOpenPopupProlog] = useState(false);
-  const [actualDate, setActualDate] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPopup = () => setOpenPopup(true);
@@ -90,6 +89,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}
     );
     console.log('Prolonged.')
     setOpenPopupProlog(true);
+    setDisplayBook(current => !current)
   }
 
   return (
