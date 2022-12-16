@@ -2,6 +2,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { auth, db } from "../../../firebase";
+import { NewInBookShareCardMobile } from "./NewInBookShareCardMobile";
 import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 
 export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, setDisplayBook}) => {
@@ -136,12 +137,17 @@ const style = {
             </div>
           </Box>
         </Modal>
+
+
+        <NewInBookShareCardMobile title={data.title} author={data.authors[0]} cover={image}/>
+
         <Dialog
         open={openPopup}
         onClose={handleClosePopup}
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>{"Congratulations, you've borrowed a new book!"}</DialogTitle>
+
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
           <strong>{data.title}</strong> seems like a good book, hopefully you'll enjoy it!
@@ -154,6 +160,7 @@ const style = {
         <div className="card-on-homepage">
         <div className="img-card-wrapper">
           <img src={image} alt={data.title}  onClick={handleOpen}/>
+
         </div>
         <div className="title-and-area">
           <h3>{data.title}</h3>
@@ -169,7 +176,8 @@ const style = {
           </Button>
           <FavoriteIcon sx={{ color: "gray" }} />
         </div>
-      </div>
-      </>
+        </div> 
+      </> 
     )
 }
+

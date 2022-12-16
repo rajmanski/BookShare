@@ -9,3 +9,11 @@
 .add-books-div{
     font-family: 'Roboto'
 }
+
+@media screen and (max-width: 414px){
+    .private-books-container{
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+}

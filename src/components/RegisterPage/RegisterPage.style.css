@@ -4,22 +4,18 @@
 }
 
 .register-form-container {
-    width: 544px;
-    height: 490px;
+    width: 40vw;
+    min-height: 300px;
+    max-height: 400px;
     background-color: #FFFFFF;
-    gap: 8px;
+    gap: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5vw;
 }
 
-.register-form-inputs {
-    display: flex;
-    flex-direction: column;
-}
-
-.register-form-input {
-    width: 415px;
-}
 
 .singin-text-button {
     border: 0;
@@ -27,16 +23,14 @@
     color: green;
 }
 
-.register-form-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+
+.sign-up-title h2{
+    font-size: 20px;
 }
 
-.register-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+@media screen and (max-width: 600px){
+    .register-form-container{
+        width: 90vw;
+        margin: 0 auto;
+    }
 }

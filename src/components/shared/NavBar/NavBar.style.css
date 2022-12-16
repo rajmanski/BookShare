@@ -1,3 +1,4 @@
+
 .nav-container{
     width: 100vw;
     padding-left: 90px;
@@ -9,29 +10,34 @@
     align-items: center;
     box-sizing: border-box;
     margin: 0;
+    margin-bottom: 50px;
+    position: absolute;
+    top: 5px;
+    
 }
 
 .nav-link{
-    margin-left: 30px;
     font-size: 18px;
     font-family: Roboto, sans-serif;
-}
-
-.navigation-pages-links{
     display: flex;
-    align-items: center;
-}
-
-.signin-signup-signout-links{
-    display: flex;    
+    color: rgb(101, 101, 101)
 }
 
 .active{
     text-decoration: underline;
+    color: rgb(101, 101, 101)
+
 }
 
-.container-fluid{
-    padding: 0;
+.navigation-links{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.sign-links{
+    display: flex;  
+    gap: 20px;
 }
 
 .logout-button{
@@ -40,4 +46,13 @@
     color: rgb(101, 101, 101);
     font-size: 18px;
     font-family: 'Roboto';
+}
+
+@media screen and (max-width: 1200px){
+
+    .nav-container{
+        display: none;
+    }
+
+
 }

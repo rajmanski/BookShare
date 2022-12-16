@@ -6,6 +6,7 @@ import "./HomePage.style.css";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { NewInBookshareCard } from "./NewInBookshareCard";
+import { PersistentDrawerLeft } from "../NavBar/Drawer";
 
 export const HomePage = () => {
   const [search, setSearch] = useState("");
@@ -79,6 +80,7 @@ export const HomePage = () => {
   return (
     <div className="home-page-container">
       <div className="navbar-container">
+        <PersistentDrawerLeft/>
         <NavBar />
       </div>
       <div className="search-area">
@@ -112,7 +114,6 @@ export const HomePage = () => {
           </div>
         </div>
         <div className="images">
-          <div className="img-wrapper">
             <img
               className="first-book"
               src="jo.jpg"
@@ -128,7 +129,6 @@ export const HomePage = () => {
               src="harry.jpg"
               alt="Harry Potter book cover"
             />
-          </div>
         </div>
       </div>
       <div className="book-area">
@@ -155,7 +155,7 @@ export const HomePage = () => {
           
         </div>
         <div className="show-more-books-btn">
-          <Button
+          <Button 
             sx={{
               width: "192px",
               "&:hover": { backgroundColor: "#405d27" },

@@ -1,16 +1,18 @@
 .search-area {
     margin: 0px auto;
-    width: 100%;
+    width: 100vw;
+    height: 80vh;
     background-image: linear-gradient(90deg,
         #f5f3ef 50%,
         #F6F4F0 50%, #F6F4F0 66.6%,
         #F0EFE9 66.6%, #F0EFE9 83.26%,
         #F6F4F0 83.26%);
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding-left: 90px;
     padding-right: 90px;
-    max-width: 1440px;
-    gap: 50px;
+    padding-top: 90px;
 }
 
 .search {
@@ -26,11 +28,13 @@
 }
 
 .images {
-    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 45vw;
+    height: 400px;
 }
+
 .search h1 {
     font-size: 4rem;
 }
@@ -40,23 +44,12 @@
 }
 
 .images img {
-    width: 70%; 
-    height: 100%;
+    width: 250px;
     border-radius: 8px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.img-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
 .images img.first-book {
-    height: 60%;
-    z-index: 3;
-    height: 60%;
     z-index: 3;
     position: relative;
     top: 0;
@@ -64,13 +57,11 @@
 }
 
 .images img.second-book {
-    height: 55%;
     z-index: 2;
     position: relative;
 }
 
 .images img.third-book {
-    height: 50%;
     z-index: 1;
     position: relative;
     top: 0;
@@ -78,14 +69,12 @@
 }
 
 img {
-    max-width: 100%;
-    max-height: 100%;
     object-fit: contain;
 }
 
 .book-area {
     background-color: #FFFFFF;
-    max-width: 1440px;
+    width: 100vw;
     margin: 20px auto;
     border: none;
 }
@@ -113,29 +102,28 @@ img {
     border-radius: 4px;
 }
 
-.img-card-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    gap: 10px;
-    isolation: isolate;
-    width: 345px;
-    height: 345px;
-}
-
-.img-card-wrapper img {
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    width: 198.24px;
-    height: 302px;
-    object-fit: cover;
-}
-
 .card-on-homepage img {
     width: 204px;
     height: 302px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.img-card-wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        gap: 10px;
+        isolation: isolate;
+        width: 345px;
+        height: 345px;
+    }
+
+.img-card-wrapper img{
+    width: 204px;
+    height: 302px;
+    object-fit: cover;
 }
 
 .title-and-area {
@@ -225,24 +213,111 @@ img {
 }
 
 
-@media only screen and (max-width: 992px) {
-    .images {
-        width: 0;
-        height: 0;
+
+@media screen and (max-width: 540px) {
+
+    .search-area{
+        display: block;
+        padding: 10px;
+        padding-top: 30px;
+        }
+
+   .images{
+    display: none;
+   }
+
+   .search{
+    width: 95vw;
+   }
+
+}
+
+@media screen and (max-width: 900px){
+
+    .card-on-homepage{
+        display: none;
     }
-    .search-area {
-        width: 100%;
+
+}
+
+
+@media screen and (max-width: 1024px) {
+    .search h1{
+        font-size: 20px;
     }
-    .search {
-        width: 100%;
+    .search p {
+        font-size: 14px;
+    }
+
+    .search-area{
+        gap: 0;
+        height: fit-content;
+        padding: 3%;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .new-in-bookshare-title{
+        font-size: 20px;
+    }
+
+    .search{
+        gap: 0px;
+    }
+
+    .books-card-area{
+        gap: 20px;
+    }
+    
+
+    .images img.third-book{
+        left: -30px;
+    }
+
+    .images img.first-book{
+        left: 50px;
+    }
+
+    .show-more-books-btn {
+        width: 100vw;
+        justify-content: center;
+    }
+
+    .images img{
+        width: 160px;
+    }
+
+    .images img.second-book{
+        right: 30px;
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+
+    .search-area{
+        padding-top: 30px;
+    }
+
+    .search h1{
+        font-size: 48px;
+    }
+
+    .search p{
+        font-size: 24px;
     }
 }
 
-@media only screen and (max-width: 500px) {
-    .search h1{
-        font-size: 25px;
+@media screen and (min-width: 1200px) {
+    .search-area{
+        padding-top: 100px;
     }
-    .search p {
-        font-size: 20px;
+}
+
+@media screen and (max-width: 1300px){
+
+    .images img.third-book{
+        display: none;
     }
+
 }

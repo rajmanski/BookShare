@@ -3,6 +3,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 544px;
-    height: 490px;
+    width: 40vw;
+    min-height: 300px;
+    max-height: 400px;
+    background: white;
+    padding: 5vw;
+}
+
+@media screen and (max-width: 900px){
+    .login-page-panel{
+        width: 90vw;
+        margin: 0 auto;
+    }
 }
