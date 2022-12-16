@@ -1,5 +1,3 @@
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -16,7 +14,7 @@ import { useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import "./LoginPage.style.css"
 import { PersistentDrawerLeft } from '../shared/NavBar/Drawer';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 export const LoginPage = () => { 
@@ -74,48 +72,55 @@ const handleSignIn = () => {
 
     return (
   <div>
-      
-          <PersistentDrawerLeft/>
-          <NavBar/>
-          <div className='search-area'>
+      <PersistentDrawerLeft/>
+      <NavBar/>
+        <div className='search-area'>
 
-    <div className='login-page-panel'>
-    <Box
-      component="form"
-      sx={{'& > :not(style)': { m: 1, width: '415px' },}}
-      noValidate
-      autoComplete="off">
-    
-    <TextField id="register-form-email" label="Email" variant="standard" className="register-page-input" onChange={(e) => setEmail(e.target.value)} />
-    </Box>
+           <div className='login-page-panel'>
+            <div className='sign-up-title'><h2>Sign in</h2></div>
 
-    <FormControl fullWidth sx={{ m: 1, width: '415px'  }} variant="standard"> 
-    <InputLabel htmlFor="register-form-password">Password</InputLabel>
-    <Input
-      className="register-form-input"
-      id="register-form-password"
-      type={values.showPassword ? 'text' : 'password'}
-      value={values.password}
-      onChange={handleChange('password')}
-      endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-            >
-              {values.showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
-      /> 
-    </FormControl>
-    <Button sx={{
-      width: 415, 
-      mt: '10px'
-    }} onClick={handleSignIn} variant="contained">Sing in</Button>
-    <div className="link-to-sign-up">If you don't have an account yet, <Link to='/signup'>sign up.</Link></div>
-    </div>
+            <FormControl fullWidth variant='standard'>
+              <InputLabel htmlFor="register-form-email">Email</InputLabel>
+              <Input
+                className="register-form-email"
+                id="register-form-email"
+                onChange={(e) => setEmail(e.target.value)}
+                /> 
+            </FormControl>
+
+            <FormControl fullWidth variant="standard"> 
+              <InputLabel htmlFor="register-form-password">Password</InputLabel>
+              <Input
+                className="register-form-input"
+                id="register-form-password"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              /> 
+            </FormControl>
+
+            <Button sx={{
+              width: '100%', 
+              mt: '30px',
+              mb: '10px'
+            }}
+              onClick={handleSignIn} variant="contained">
+              Sing in
+            </Button>
+
+            <div className="link-to-sign-up">If you don't have an account yet, <Link to='/signup'>sign up.</Link></div>
+            </div>
 
     <div className="images">
         <img
