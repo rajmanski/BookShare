@@ -113,7 +113,6 @@ export const HomePage = () => {
           </div>
         </div>
         <div className="images">
-          <div className="img-wrapper">
             <img
               className="first-book"
               src="jo.jpg"
@@ -129,7 +128,6 @@ export const HomePage = () => {
               src="harry.jpg"
               alt="Harry Potter book cover"
             />
-          </div>
         </div>
       </div>
       <div className="book-area">
@@ -156,7 +154,7 @@ export const HomePage = () => {
           
         </div>
         <div className="show-more-books-btn">
-          <Button
+          <Button 
             sx={{
               width: "192px",
               "&:hover": { backgroundColor: "#405d27" },
