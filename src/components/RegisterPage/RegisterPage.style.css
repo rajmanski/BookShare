@@ -5,25 +5,17 @@
 
 .register-form-container {
     width: 40vw;
-    height: 490px;
+    min-height: 300px;
+    max-height: 400px;
     background-color: #FFFFFF;
     gap: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    padding: 5vw;
 }
 
-.register-form-inputs {
-    display: flex;
-    flex-direction: column;
-    width: 30vw;
-}
-
-.register-page-input {
-    width: 35vw;
-}
 
 .singin-text-button {
     border: 0;
@@ -39,5 +31,6 @@
 @media screen and (max-width: 600px){
     .register-form-container{
         width: 90vw;
+        margin: 0 auto;
     }
 }
