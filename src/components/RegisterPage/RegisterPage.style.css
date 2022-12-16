@@ -4,21 +4,25 @@
 }
 
 .register-form-container {
-    width: 544px;
+    width: 40vw;
     height: 490px;
     background-color: #FFFFFF;
-    gap: 8px;
+    gap: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
 }
 
 .register-form-inputs {
     display: flex;
     flex-direction: column;
+    width: 30vw;
 }
 
-.register-form-input {
-    width: 415px;
+.register-page-input {
+    width: 35vw;
 }
 
 .singin-text-button {
@@ -27,16 +31,13 @@
     color: green;
 }
 
-.register-form-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+
+.sign-up-title h2{
+    font-size: 20px;
 }
 
-.register-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+@media screen and (max-width: 600px){
+    .register-form-container{
+        width: 90vw;
+    }
 }

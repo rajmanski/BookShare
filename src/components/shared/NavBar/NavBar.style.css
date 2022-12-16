@@ -1,5 +1,6 @@
+
 .nav-container{
-    max-width: 1600px;
+    width: 100vw;
     padding-left: 90px;
     padding-right: 90px;
     padding-top: 40px;
@@ -36,6 +37,7 @@
 
 .sign-links{
     display: flex;  
+    gap: 20px;
 }
 
 .logout-button{

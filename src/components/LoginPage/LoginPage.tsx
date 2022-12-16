@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import "./LoginPage.style.css"
 import { PersistentDrawerLeft } from '../shared/NavBar/Drawer';
+import {Link} from 'react-router-dom'
 
 
 export const LoginPage = () => { 
@@ -72,9 +73,12 @@ const handleSignIn = () => {
     };
 
     return (
-        <div className='login-page-container'>
+  <div>
+      
           <PersistentDrawerLeft/>
           <NavBar/>
+          <div className='search-area'>
+
     <div className='login-page-panel'>
     <Box
       component="form"
@@ -106,9 +110,32 @@ const handleSignIn = () => {
         }
       /> 
     </FormControl>
-    <Button onClick={handleSignIn} variant="contained">Sing in</Button>
+    <Button sx={{
+      width: 415, 
+      mt: '10px'
+    }} onClick={handleSignIn} variant="contained">Sing in</Button>
+    <div className="link-to-sign-up">If you don't have an account yet, <Link to='/signup'>sign up.</Link></div>
     </div>
+
+    <div className="images">
+        <img
+          className="first-book"
+          src="jo.jpg"
+          alt="Jo Nesbo book cover"
+        />
+        <img
+          className="second-book"
+          src="king.jpg"
+          alt="Stephen King book cover"
+          />
+        <img
+          className="third-book"
+          src="harry.jpg"
+          alt="Harry Potter book cover"
+        />
+    </div>
+  </div>
     <Footer />
-        </div>   
+  </div>   
     )
 }

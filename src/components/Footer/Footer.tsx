@@ -52,12 +52,12 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
             <Divider orientation="vertical" flexItem>
             </Divider>
             <Grid item xs>
-                {ulMilosz}
+                {ulPiotr}
             </Grid>
             <Divider orientation="vertical" flexItem>
             </Divider>
             <Grid item xs>
-                {ulPiotr}
+                {ulMilosz}
             </Grid>
         </Grid>
     )}
