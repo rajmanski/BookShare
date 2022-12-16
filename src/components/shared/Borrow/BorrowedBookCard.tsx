@@ -9,11 +9,11 @@ import { Icon } from "leaflet";
 import { auth, db } from "../../../firebase";
 import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 
-export const BorrowedBookCard = ({ data, information, volumeIds }) => {
+export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}) => {
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupProlong, setOpenPopupProlog] = useState(false);
-  // const [del, setDel] = useState('');
+  const [actualDate, setActualDate] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPopup = () => setOpenPopup(true);
@@ -51,15 +51,10 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
     outline: "0",
   };
 
-  const date = information.dateOfReturn.toDate().toDateString().split(" ");
-  const returnDate = `${date[1]}, ${date[2]}, ${date[3]}`;
-
   const  addMonths = (date = new Date()) => {
     date.setMonth(date.getMonth() + 1);
     return date;
   }
-
-  // const owner = information.originalOwner.split(' ')[0]
 
   const returnBook = async () => {
     //adding doc in owner ownedbooks
@@ -82,6 +77,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
 
     console.log(`${volumeIds} deleted.`);
     handleOpenPopup();
+    setDisplayBook(current => !current)
   };
 
   //function that is changing borrow time for one more month
@@ -112,7 +108,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
           </div>
           <div className="owner">Owner: {information?.originalOwner}</div>
           <div className="return-date">
-            Return by: <span>{returnDate}</span>
+            Return by: <span>{`${information?.dateOfReturn.toDate().toDateString().split(" ")[1]}, ${information?.dateOfReturn.toDate().toDateString().split(" ")[2]}, ${information?.dateOfReturn.toDate().toDateString().split(" ")[3]}`}</span>
           </div>
         </div>
         <div className="borrowed-book-card-buttons">
@@ -173,7 +169,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">Hopefully
-            <strong> {data.title} </strong>was a good book, and you enjoyed it!
+            that was a good book, and you've really enjoyed it!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
