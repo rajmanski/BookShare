@@ -7,11 +7,12 @@ import CloseIcon from '@mui/icons-material/Close'
 import Typography from '@mui/material/Typography'
 import { AsyncAutocompleteBooks } from './AsyncSelect'
 import { CardMyBooksPage } from '../CardMyBooksPage/CardMyBooksPage'
-import { useState, FC } from 'react'
+import { useState, FC, useEffect } from 'react'
 import '../MyBooksPage/BooksModal.style.css'
 import { setDoc, doc} from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
-import {db} from '../../../firebase' 
+import { onAuthStateChanged } from 'firebase/auth'
+import {db, auth} from '../../../firebase' 
+import { Link } from 'react-router-dom'
 
 interface BooksModalInterface{
   setNewBook: (value: string) => void;
@@ -21,12 +22,18 @@ interface BooksModalInterface{
 
 export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) => {
 
+  const [email, setEmail] = useState<null| string>(null)
+
+  useEffect(()=> {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const email = user.email;
+        setEmail(email)
+      }
+    });   
+},[])
+
   const [open, setOpen] = useState(false)
-
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const email = user?.email
-
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -77,6 +84,8 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
     }
 
 return (
+
+
 <div className='books-modal-container'>
   <Fab sx={{
     display: {xs: 'none', md: 'block'},
@@ -107,12 +116,29 @@ return (
   aria-labelledby="add-a-new-book-to-library"
   aria-describedby="add-a-new-book-to-library"
 >
+
   <Box sx={styleBigScreens}>
+    {email && 
     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
       mb: '20px'
     }}>
       Add a new book to your library
     </Typography>
+    }
+
+    {!email && 
+    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
+      mb: '20px',
+      fontSize: '18px', 
+      textAlign: 'center',
+      fontWeight: '400'
+    }}>
+      <Link to='/signin'>Sign in</Link> to add books to your library. 
+    </Typography>
+    }
+    
+    {email && 
+    <div>
     <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
     
     <div className='card-myBooksPage-container'>
@@ -130,7 +156,22 @@ return (
           Add to my private library
       </Button>
     </div>
+    </div>
+  }
+
+      {!email && 
+      <div>
+      <div className='add-to-library-button'>
+        <Button 
+          variant="contained" 
+          onClick={handleClose}>
+            Maybe later
+        </Button>
+      </div>
+      </div>
+    }
   </Box>
+
 </Modal>
 
 <Modal sx={{
@@ -142,6 +183,8 @@ return (
   aria-describedby="add-a-new-book-to-library"
 >
   <Box sx={styleSmallScreens}>
+    {email && 
+    <div>
     <div className='close-button-container'> 
     <Button sx={{
       minWidth: '24px', 
@@ -170,6 +213,31 @@ return (
           Add to library
       </Button>
     </div>
+    </div>
+}
+
+{!email && 
+    <div>
+    <div className='close-button-container'> 
+    <Button sx={{
+      minWidth: '24px', 
+      padding: '0px', 
+      marginBottom: '10px'
+    }}
+    onClick={handleClose}>
+      <CloseIcon sx={{
+        color: 'rgb(101, 101, 101)'
+      }}/>
+    </Button>
+    </div>
+    <Typography id="modal-modal-title" variant="h3" component="h2" sx={{
+      mb: '20px',
+      fontSize: '18px'
+    }}>
+      <Link to='/signin'>Sign in</Link> to add books to your library. 
+    </Typography>    
+    </div>
+}
   </Box>
 </Modal>
 

@@ -94,11 +94,8 @@ useEffect(() => {
         })
         setPrivateBooksIDs(privateBooksIDsArr)
         setSharedBooksIDs(sharedBooksIDsArr)
-
     })  
-    } else {
-    console.log('user is signed out')
-    }
+    } 
   });   
 },[newBook, sharedBook])
 
