@@ -125,47 +125,49 @@ export const RegisterPage = () => {
     <div className='register-page-container'>
       <PersistentDrawerLeft/>
       <NavBar/>
-    <div className='search-area'>
-
-    <div className='register-form-container'>
-        <div className='sign-up-title'><h2>Sign up</h2></div>
+      <div className='search-area'>
+        <div className='register-form-container'>
+          <div className='sign-up-title'><h2>Sign up</h2></div>
 
     <div className='register-form-inputs'>
-    <Box
-      component="form"
-      sx={{ width: '30vw', padding:'0px' }}
-      noValidate
-      autoComplete="off">
-    
-      <TextField sx={{ width: '30vw'}}id="register-form-email" label="Email" variant="standard" className="register-page-input" onChange={(e) => setEmail(e.target.value)} />
-      </Box>
-        
+      <FormControl fullWidth variant="standard"> 
+        <InputLabel htmlFor="register-form-email">Email</InputLabel>
+        <Input
+              sx={{width: '100%'}}
+              className="register-form-email"
+              id="register-form-email"
+              type={'email'}
+              // value={values.password}
+              onChange={(e) => setEmail(e.target.value)} 
+              /> 
+      </FormControl>
 
       <FormControl fullWidth variant="standard"> 
-      <InputLabel htmlFor="register-form-password">Password</InputLabel>
-      <Input
-            className="register-form-input"
-            id="register-form-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            /> 
-        </FormControl>    
+        <InputLabel htmlFor="register-form-password">Password</InputLabel>
+        <Input
+          sx={{width: '100%'}}
+          className="register-form-input"
+          id="register-form-password"
+          type={values.showPassword ? 'text' : 'password'}
+          value={values.password}
+          onChange={handleChange('password')}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        /> 
+      </FormControl>    
 
         <FormControl fullWidth variant="standard"> 
       <InputLabel htmlFor="register-page-confirm-password">Confirm password</InputLabel>
-      <Input
+      <Input sx={{width: '100%'}}
             className="register-form-input"
             id="register-form-confirm-password"
             type={confValues.showConfPassword ? 'text' : 'password'}
@@ -189,13 +191,15 @@ export const RegisterPage = () => {
    
     
         <Button sx={{
-          width: '30vw', 
-          mb: '10px'
+          width: '100%', 
+          mb: '10px',
+          mt: '10px'
         }} onClick={handleSignUp} variant="contained">Sign up</Button>
 
         <Button sx={{
-          width: '30vw'
+          width: '100%'
         }}onClick={handleSignUp} variant="contained">Sign up with Google</Button>
+        
         <div className='link-to-sign-in'>If you have an account, <Link to='/signin'>sign in.</Link></div>
 
     </div>

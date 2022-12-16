@@ -4,16 +4,15 @@
     justify-content: center;
     align-items: center;
     width: 40vw;
-    height: 490px;
+    min-height: 300px;
+    max-height: 400px;
     background: white;
-    border-radius: 10px;
-    margin-top: 100px;
+    padding: 5vw;
 }
 
 @media screen and (max-width: 900px){
     .login-page-panel{
-        display: block;
         width: 90vw;
-
+        margin: 0 auto;
     }
 }
