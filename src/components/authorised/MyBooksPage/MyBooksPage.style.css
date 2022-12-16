@@ -1,5 +1,6 @@
 .my-books-page-container{
     padding: 90px;
+    min-height: 70vh;
 }
 
 .title-and-search-container{
