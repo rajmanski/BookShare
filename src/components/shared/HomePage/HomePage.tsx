@@ -16,6 +16,7 @@ export const HomePage = () => {
   const [showLoader, setShowLoader] = useState(true)
   const [volumeMail, setVolumeMail] = useState({});
   const [information, setInformation] = useState([]);
+  const [displayBook, setDisplayBook] = useState(true)
 
 
 
@@ -73,7 +74,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     getBooksIds();
-  }, [])
+  }, [displayBook])
 
   return (
     <div className="home-page-container">
@@ -139,14 +140,14 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
         ))}
         </>
       )}
       {isClicked && (
         <>
           {booksInfo?.slice(6, 9).map((data, number) => (
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail} information={information}/>
+            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
         ))}
         </>
       )}

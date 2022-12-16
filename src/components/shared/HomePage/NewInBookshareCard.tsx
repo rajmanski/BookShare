@@ -4,7 +4,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { auth, db } from "../../../firebase";
 import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 
-export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) => {
+export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, setDisplayBook}) => {
 
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
@@ -61,6 +61,7 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) =
       Borrower: email,
       })
       handleOpenPopup();
+      setDisplayBook(current => !current);
   }
 
 const style = {
