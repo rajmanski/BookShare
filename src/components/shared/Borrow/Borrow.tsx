@@ -13,7 +13,7 @@ import {Icon} from 'leaflet'
 import { BorrowModal } from '../../shared/Borrow/BorrowModal'
 import { PersistentDrawerLeft } from "../NavBar/Drawer";
 import { BorrowedBookCard } from "./BorrowedBookCard";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 
 
@@ -21,8 +21,9 @@ export const Borrow = () => {
   const [open, setOpen] = useState(false);
   const [bookInfo, setBookInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true)
-  const [information, setInformation] = useState([]);
+  const [information, setInformation] = useState<any[]>([]);
   const [volumeIds, setVolumeIds] = useState<string[]>([]);
+  const [displayBook, setDisplayBook] = useState(true)
   const handleClose = () => setOpen(false);
 
   const user = auth.currentUser;
@@ -75,8 +76,9 @@ export const Borrow = () => {
 
   useEffect(() => {
     getBorrowedBooks();
-  }, [])
+  }, [displayBook])
 
+  
   return (
     <div className="borrow-page-container">
       <PersistentDrawerLeft/>
@@ -91,7 +93,7 @@ export const Borrow = () => {
         {bookInfo && (
         <>
           {bookInfo.map((data, number) => (
-            <BorrowedBookCard key={number} data={data} information={information[number]} volumeIds={volumeIds[number]}/>
+            <BorrowedBookCard key={number} data={data} information={information[number]} volumeIds={volumeIds[number]} setDisplayBook={setDisplayBook}/>
         ))}
         </>
       )}

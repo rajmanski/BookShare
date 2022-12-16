@@ -9,13 +9,16 @@ import { Icon } from "leaflet";
 import { auth, db } from "../../../firebase";
 import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 
-export const BorrowedBookCard = ({ data, information, volumeIds }) => {
+export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}) => {
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupProlong, setOpenPopupProlog] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPopup = () => setOpenPopup(true);
   const handleClosePopup = () => setOpenPopup(false);
+  const handleOpenPopupProlong = () => setOpenPopupProlog(true);
+  const handleClosePopupProlong = () => setOpenPopupProlog(false);
   const user = auth.currentUser;
   const email = user?.email;
 
@@ -47,15 +50,10 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
     outline: "0",
   };
 
-  const date = information.dateOfReturn.toDate().toDateString().split(" ");
-  const returnDate = `${date[1]}, ${date[2]}, ${date[3]}`;
-
   const  addMonths = (date = new Date()) => {
     date.setMonth(date.getMonth() + 1);
     return date;
   }
-
-  // const owner = information.originalOwner.split(' ')[0]
 
   const returnBook = async () => {
     //adding doc in owner ownedbooks
@@ -78,8 +76,10 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
 
     console.log(`${volumeIds} deleted.`);
     handleOpenPopup();
+    setDisplayBook(current => !current)
   };
 
+  //function that is changing borrow time for one more month
   const prolong = async () => {
     await updateDoc(
       doc(db, `/users/${email}/borrowedBooks/${volumeIds}`),
@@ -88,6 +88,8 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
       }
     );
     console.log('Prolonged.')
+    setOpenPopupProlog(true);
+    setDisplayBook(current => !current)
   }
 
   return (
@@ -106,7 +108,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
           </div>
           <div className="owner">Owner: {information?.originalOwner}</div>
           <div className="return-date">
-            Return by: <span>{returnDate}</span>
+            Return by: <span>{`${information?.dateOfReturn.toDate().toDateString().split(" ")[1]}, ${information?.dateOfReturn.toDate().toDateString().split(" ")[2]}, ${information?.dateOfReturn.toDate().toDateString().split(" ")[3]}`}</span>
           </div>
         </div>
         <div className="borrowed-book-card-buttons">
@@ -163,16 +165,33 @@ export const BorrowedBookCard = ({ data, information, volumeIds }) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>
-          {"Congratulations, you've borrowed a book!"}
+          {"It seems that you want to return this book!"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <strong>{data.title}</strong> seems like a good book, hopefully
-            you'll enjoy it!
+          <DialogContentText id="alert-dialog-slide-description">Hopefully
+            that was a good book, and you've really enjoyed it!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClosePopup}>Ok</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={openPopupProlong}
+        onClose={handleClosePopupProlong}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>
+          {"I see, it seems that you need more time for read this book!"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">Hopefully
+            <strong> {data.title} </strong>will be a great book and you'll enjoy it!<br></br>
+            You have one more month to read it!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePopupProlong}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>

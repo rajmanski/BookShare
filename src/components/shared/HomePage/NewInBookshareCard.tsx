@@ -5,7 +5,7 @@ import { auth, db } from "../../../firebase";
 import { NewInBookShareCardMobile } from "./NewInBookShareCardMobile";
 import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 
-export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) => {
+export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, setDisplayBook}) => {
 
   const [open, setOpen] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
@@ -62,6 +62,7 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information}) =
       Borrower: email,
       })
       handleOpenPopup();
+      setDisplayBook(current => !current);
   }
 
 const style = {
@@ -145,7 +146,8 @@ const style = {
         onClose={handleClosePopup}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Congratulations, you've borrowed a book!"}</DialogTitle>
+        <DialogTitle>{"Congratulations, you've borrowed a new book!"}</DialogTitle>
+
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
           <strong>{data.title}</strong> seems like a good book, hopefully you'll enjoy it!
