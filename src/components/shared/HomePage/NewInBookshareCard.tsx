@@ -17,18 +17,18 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, se
   const user = auth.currentUser;
   const email = user?.email
   
-  
+  console.log(`to jest ${data.id}`)
   
   
 
-  let image = data.imageLinks?.thumbnail;
+  let image = data.volumeInfo.imageLinks?.thumbnail;
   // const cleanText = data.description.replace(/<\/?[^>]+(>|$)/g, "");
   if (image === undefined) {
     image = 'nocover.png'
   }
 
-  if (data.description === undefined) {
-    data.description = 'Description is not avaliable';
+  if (data.volumeInfo.description === undefined) {
+    data.volumeInfo.description = 'Description is not avaliable';
   }
 
   const  addMonths = (date = new Date()) => {
@@ -103,15 +103,15 @@ const style = {
             </div>
             <div className="title-and-author">
               <Typography id="modal-modal-title" variant="h4" component="h2">
-              {data.title}
+              {data.volumeInfo.title}
               </Typography>
-              <h5>{data.authors[0]}</h5>
+              <h5>{data.volumeInfo.authors[0]}</h5>
             </div>
             <Typography
               id="modal-modal-description "
               sx={{ mt: 2, color: "gray", overflow: "auto", textOverflow: "ellipsis"}}
             >
-              {data.description?.replace(/<\/?[^>]+(>|$)/g, "")}
+              {data.volumeInfo.description?.replace(/<\/?[^>]+(>|$)/g, "")}
             </Typography>
             <div className="raiting-and-button">
               <Box
@@ -139,7 +139,7 @@ const style = {
         </Modal>
 
 
-        <NewInBookShareCardMobile title={data.title} author={data.authors[0]} cover={image}/>
+        <NewInBookShareCardMobile title={data.volumeInfo.title} author={data.volumeInfo.authors[0]} cover={image} volumeID={data.id}/>
 
         <Dialog
         open={openPopup}
@@ -150,7 +150,7 @@ const style = {
 
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-          <strong>{data.title}</strong> seems like a good book, hopefully you'll enjoy it!
+          <strong>{data.volumeInfo.title}</strong> seems like a good book, hopefully you'll enjoy it!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -159,14 +159,14 @@ const style = {
       </Dialog>
         <div className="card-on-homepage">
         <div className="img-card-wrapper">
-          <img src={image} alt={data.title}  onClick={handleOpen}/>
+          <img src={image} alt={data.volumeInfo.title}  onClick={handleOpen}/>
 
         </div>
         <div className="title-and-area">
-          <h3>{data.title}</h3>
+          <h3>{data.volumeInfo.title}</h3>
           <h4>Żoliborz</h4>
         </div>
-        <div className="author">{data.authors[0]}</div>
+        <div className="author">{data.volumeInfo.authors[0]}</div>
         <div className="buttons">
           <Button variant="text" size="small" sx={{ color: "blue" }} onClick={addBookToBorrowed} >
             BORROW
