@@ -140,6 +140,7 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
+            console.log(data),
             <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
         ))}
         </>

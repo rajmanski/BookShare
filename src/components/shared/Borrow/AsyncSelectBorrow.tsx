@@ -1,7 +1,7 @@
 import { useState, useEffect, FC, SetStateAction } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, getDoc, doc, DocumentData} from 'firebase/firestore';
 import {db} from '../../../firebase'
 
 interface AsyncAutocompleteBooksInterface{
@@ -14,6 +14,7 @@ interface AsyncAutocompleteBooksInterface{
     cover?: string;
   }>>
 }
+
 
 export const AsyncSelectBorrow:FC<AsyncAutocompleteBooksInterface> = ({setFoundBook}) => {
 
@@ -36,33 +37,43 @@ export const AsyncSelectBorrow:FC<AsyncAutocompleteBooksInterface> = ({setFoundB
       // cover: ''
         }]
 
+        const [booksToBorrow, setBooksToBorrow] = useState({})
+
+        const allOwnedBooksObjects: object[] = [] 
+
 
     useEffect(() => {
-        const getBooksIds = async () => {
+        const getAvailableBooks = async () => {
+            const allOwnedBooksIDs: string[] = []
             const emails: string[] = [];
-            const booksList: string[] = [];
             const querySnapshot = await getDocs(collection(db, `users`));
             querySnapshot.forEach((doc) => {
               emails.push(doc.id);
-              console.log(emails)
             })
+              emails.forEach(async (email) => {
+                const querySnapshot = await getDocs(collection(db, `users/${email}/ownedBooks`));
+                  querySnapshot.forEach((document) => {
+                  allOwnedBooksIDs.push(document.id)
+                })
+                allOwnedBooksIDs.forEach(async (ID) => {
+                  const querySnapshot = await getDoc(doc(db, `users/${email}/ownedBooks`, ID));
+                  if(querySnapshot.data()?.isShared === true){
+                  allOwnedBooksObjects.push(querySnapshot.data()?.volumeID)
+                  console.log(allOwnedBooksObjects[0])
+                  setBooksToBorrow(allOwnedBooksObjects)
+                  }
+                })
+                    // booksToBorrow.forEach((bookID) => {
+                    //     fetch(`https://www.googleapis.com/books/v1/volumes/${bookID}`)
+                    //       .then((response) => response.json())
+                    //       .then((data) => console.log(data))
+                    // })
+                })     
         }
-        getBooksIds()
+        getAvailableBooks()
+        // console.log(booksToBorrow)
     }, [search]);
     
-    // useEffect(() => {
-    //   if (titleChosen !== ''){
-    //     const book: any = searchedBooks.find((book) => book.label == titleChosen)
-    //     setFoundBook({
-    //       volumeID: book.value,
-    //       title: book.title,
-    //       authors: book.authors, 
-    //       // cover: book.cover, 
-    //       pickUpSpot: '', 
-    //       isPublic: false
-    //     })}
-    // }, [titleChosen])
-   
 
     return (
         <Autocomplete

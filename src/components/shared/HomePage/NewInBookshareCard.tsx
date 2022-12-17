@@ -139,7 +139,7 @@ const style = {
         </Modal>
 
 
-        <NewInBookShareCardMobile title={data.title} author={data.authors[0]} cover={image}/>
+        <NewInBookShareCardMobile title={data.title} author={data.authors[0]} cover={image} volumeID={data.volumeID}/>
 
         <Dialog
         open={openPopup}

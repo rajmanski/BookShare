@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions'
 import CardActionArea from '@mui/material/CardActionArea'
 import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router';
 
 
 
@@ -16,20 +17,27 @@ interface CardInterface{
     title: string;
     author: string;
     cover: string;
+    volumeID: string;
 }
 
-export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover}) => {
+export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover, volumeID}) => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  console.log(volumeID)
+
 
   return (
     <Card sx={{ width: '90vw', display: {xs: 'flex', md:'none'} }}>
+
         <CardMedia
         component="img"
         sx={{ width: 70, padding: '10px' }}
         image={cover}
         alt="book cover"
       />
-      <CardContent sx={{ width: '60%', padding: '10px', flex: '1 0 auto' }}>
+      <CardActionArea>
+      <CardContent sx={{ width: '60%', padding: '10px', flex: '1 0 auto' }}
+          onClick={() => navigate(`/bookDetails/${title}`)}>
           <Typography sx={{
             fontSize: '16px'
           }}component="div" variant="h5">
@@ -42,7 +50,6 @@ export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover
             {author}
           </Typography>
         </CardContent>
-        <CardActionArea>
       <CardActions>
       <Button sx={{
             color: '#1976D2', 
