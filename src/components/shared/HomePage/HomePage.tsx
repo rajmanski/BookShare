@@ -12,7 +12,7 @@ export const HomePage = () => {
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
   const [volumeIds, setVolumeIds] = useState<string[]>([]);
-  const [booksInfo, setBooksInfo] = useState<any>([]);
+  const [booksInfo, setBooksInfo] = useState<object[]>([]);
   const [isClicked, setIsClicked] = useState(false);
   const [showLoader, setShowLoader] = useState(true)
   const [volumeMail, setVolumeMail] = useState({});
@@ -60,7 +60,9 @@ export const HomePage = () => {
         );
         const data = await response.json();
         // data.volumeInfo['info'] = 'tekst';
-        responseList.push(data.volumeInfo);
+        // console.log(data)
+        responseList.push(data);
+        // console.log(responseList)
       }
       setBooksInfo(responseList.sort());
       setShowLoader(false);
@@ -140,15 +142,14 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
-            console.log(data),
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
+            <NewInBookshareCard key={number} data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
         ))}
         </>
       )}
       {isClicked && (
         <>
           {booksInfo?.slice(6, 9).map((data, number) => (
-            <NewInBookshareCard key={number}data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
+            <NewInBookshareCard key={number} data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
         ))}
         </>
       )}

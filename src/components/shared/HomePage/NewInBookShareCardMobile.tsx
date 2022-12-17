@@ -37,7 +37,9 @@ export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover
       />
       <CardActionArea>
       <CardContent sx={{ width: '60%', padding: '10px', flex: '1 0 auto' }}
-          onClick={() => navigate(`/bookDetails/${title}`)}>
+          onClick={() => (
+            console.log(volumeID),
+            navigate(`/bookDetails/${volumeID}`))}>
           <Typography sx={{
             fontSize: '16px'
           }}component="div" variant="h5">
