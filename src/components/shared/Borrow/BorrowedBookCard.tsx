@@ -182,7 +182,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>
-          {"I see, it seems that you need more time for read this book!"}
+          {"I see, it seems that you need more time to read this book!"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">Hopefully

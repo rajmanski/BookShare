@@ -42,7 +42,8 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
         width: 204,
         minHeight: 295,
         boxShadow: '0px 0px 2px 0px rgba(66, 68, 90, 0.37)', 
-        position: 'relative'
+        position: 'relative',
+        display: {xs:'none', md:'block'}
         }}>
       <CardActionArea>
         <CardMedia sx={{

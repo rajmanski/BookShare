@@ -12,14 +12,10 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, se
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPopup = () => setOpenPopup(true);
-  const handleClosePopup = () => setOpenPopup(false);
+  const handleClosePopup = () => setOpenPopup(false); // to chyba da się zrobić przez toggle
 
   const user = auth.currentUser;
   const email = user?.email
-  
-  console.log(`to jest ${data.id}`)
-  
-  
 
   let image = data.volumeInfo.imageLinks?.thumbnail;
   // const cleanText = data.description.replace(/<\/?[^>]+(>|$)/g, "");
@@ -139,7 +135,7 @@ const style = {
         </Modal>
 
 
-        <NewInBookShareCardMobile title={data.volumeInfo.title} author={data.volumeInfo.authors[0]} cover={image} volumeID={data.id}/>
+        <NewInBookShareCardMobile title={data.volumeInfo.title} author={data.volumeInfo.authors[0]} cover={image} volumeID={data.id} information={information} setDisplayBook={setDisplayBook} volumeIds={volumeIds}/>
 
         <Dialog
         open={openPopup}
