@@ -35,7 +35,8 @@ export const SharedCardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAutho
         width: 204,
         minHeight: 295,
         boxShadow: '0px 0px 2px 0px rgba(66, 68, 90, 0.37)', 
-        position: 'relative'
+        position: 'relative',
+        display:{xs:'none', md:'block'}
         }}>
       <CardActionArea>
         <CardMedia sx={{
@@ -46,7 +47,7 @@ export const SharedCardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAutho
           component="img"
           height="143"
           image={bookCover}
-          alt="shantaram"
+          alt={bookTitle}
         />
         <CardContent>
           <Typography sx={{

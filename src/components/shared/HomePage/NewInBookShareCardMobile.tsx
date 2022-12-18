@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { FC } from 'react';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,21 +9,60 @@ import CardActions from '@mui/material/CardActions'
 import CardActionArea from '@mui/material/CardActionArea'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router';
-
-
+import { setDoc, doc, deleteDoc } from 'firebase/firestore';
+import { db, auth } from '../../../firebase'
 
 interface CardInterface{
     title: string;
     author: string;
     cover: string;
     volumeID: string;
+    information: any;
+    setDisplayBook: any;
+    volumeIds: any;
 }
 
-export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover, volumeID}) => {
+export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover, volumeID, information, setDisplayBook, volumeIds}) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  console.log(volumeID)
 
+  const user = auth.currentUser;
+  const email = user?.email
+
+  const  addMonths = (date = new Date()) => {
+    date.setMonth(date.getMonth() + 1);
+    return date;
+  }
+
+  const addBookToBorrowed = async () => {
+    let ownerEmail = '';
+    
+    for (let i = 0; i < information.length; i++) {
+      if (information[i]['volumeID'] === volumeIds) {
+        ownerEmail = information[i].email;
+      } 
+    }
+
+    //Adding book to firebase borrowedBooks
+    await setDoc(doc(db, `users/${email}/borrowedBooks`, `${volumeIds}`), {
+      volumeID: volumeIds, 
+      dateOfReturn: addMonths(),
+      originalOwner: ownerEmail,
+      })
+    
+    //Deleting book from owner
+    await deleteDoc(doc(db, `/users/${ownerEmail}/ownedBooks/${volumeIds}`))
+
+    //Seting book a book lended book by the owner
+    await setDoc(doc(db, `users/${email}/lendBooks`, `${volumeIds}`), {
+      volumeID: volumeIds, 
+      dateOfReturn: addMonths(),
+      Borrower: email,
+      })
+      // handleOpenPopup();
+      setDisplayBook(current => !current);
+      navigate('/borrow')
+  }
 
   return (
     <Card sx={{ width: '90vw', display: {xs: 'flex', md:'none'} }}>
@@ -38,7 +76,6 @@ export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover
       <CardActionArea>
       <CardContent sx={{ width: '60%', padding: '10px', flex: '1 0 auto' }}
           onClick={() => (
-            console.log(volumeID),
             navigate(`/bookDetails/${volumeID}`))}>
           <Typography sx={{
             fontSize: '16px'
@@ -62,7 +99,7 @@ export const NewInBookShareCardMobile:FC<CardInterface> = ({title, author, cover
             right: 5
         }}
             size="small" 
-            onClick={() => console.log('ok')}>
+            onClick={addBookToBorrowed}>
           BORROW
         </Button>
       </CardActions>

@@ -20,7 +20,7 @@
     height: 100px;
 }
 
-@media screen and (max-width: 414px){
+@media screen and (max-width: 1024px){
 
     .title-and-search-container{
         margin: 10px;
@@ -35,11 +35,6 @@
         padding: 10px;
         padding-top: 0px;
     }
-
-    .private-books-container{
-        flex-direction: column;
-    }
-
 
 }
 

@@ -5,12 +5,14 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { CardMyBooksPage } from '../../authorised/CardMyBooksPage/CardMyBooksPage';
+import { CardMyBookPageMobile } from '../../authorised/CardMyBooksPage/CardMyBookPageMobile';
 import { SxProps, Theme } from '@mui/material/styles';
 import { getDocs, collection} from 'firebase/firestore';
 import { db } from '../../../firebase'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import '../TabPanel/TabPanel.style.css'
 import { SharedCardMyBooksPage } from '../../authorised/CardMyBooksPage/SharedCardMyBooksPage'
+import { SharedCardMyBooksPageMobile } from '../../authorised/CardMyBooksPage/SharedCardMyBooksPageMobile'
 
 
 interface TabPanelProps {
@@ -178,21 +180,31 @@ useEffect(() => {
     <Box sx={{ 
       width: '100%', 
        }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', display:{ xs: 'none', md:'block'}}}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="private" className='tab-private' {...a11yProps(0)}/>
           <Tab label="shared" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <TabPanel sx={{
-        p: 0
-      }}
+
+      <Box sx={{ borderBottom:1, borderColor: 'divider', display:{ xs:'block', md:'none'}}}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant='fullWidth'>
+          <Tab label="private" className='tab-private' {...a11yProps(0)}/>
+          <Tab label="shared" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+      <TabPanel
         value={value} 
-        index={0}>
+        index={0}
+        
+        >
           <div className='private-books-container'>
             {!privateBooksIDs && <div className='add-books-div'>Add books to your library to see them here</div>}
             {privateBooksDetails && privateBooksDetails.map((book) => (
+              <div>
               <CardMyBooksPage volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
+              <CardMyBookPageMobile volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
+              </div>
             ))}
           </div>
 
@@ -201,7 +213,10 @@ useEffect(() => {
         <div className='private-books-container'>
           {!sharedBooksIDs && <div className='add-books-div'>Share books from your private library to see them here</div>}
           {sharedBooksDetails && sharedBooksDetails.map((book) => (
+            <div>
               <SharedCardMyBooksPage volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
+              <SharedCardMyBooksPageMobile volumeID={book.volumeID} bookCover={book.cover} bookTitle={book.title} bookAuthor={book.authors[0]} setSharedBook={setSharedBook}/>
+            </div>
           ))}
         </div>
       </TabPanel>

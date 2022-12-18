@@ -1,4 +1,5 @@
 import { Button, CircularProgress, TextField } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from "react";
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
@@ -60,9 +61,7 @@ export const HomePage = () => {
         );
         const data = await response.json();
         // data.volumeInfo['info'] = 'tekst';
-        // console.log(data)
         responseList.push(data);
-        // console.log(responseList)
       }
       setBooksInfo(responseList.sort());
       setShowLoader(false);
@@ -102,9 +101,10 @@ export const HomePage = () => {
               InputProps={{
                 endAdornment: (
                   <Button
+                    startIcon={<SearchIcon sx={{display: {xs: 'none', sm: 'block'}}}/>}
                     sx={{
                       bgcolor: "#18a86e",
-                      "&:hover": { backgroundColor: "#405d27" },
+                      "&:hover": { backgroundColor: "#405d27" }
                     }}
                     variant="contained"
                   >

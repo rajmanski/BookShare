@@ -41,6 +41,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
     return (
         <Grid sx={{
             width: '100vw',
+            maxWidth: '1600px',
             mt: 10,
             display: 'flex', 
             justifyContent: 'space-between'
