@@ -233,5 +233,10 @@
 
 .map {
     width: 760px;
-    height: 500px;
+    height: 400px;
+}
+
+.map-inputs {
+    display: flex;
+    gap: 20px;
 }

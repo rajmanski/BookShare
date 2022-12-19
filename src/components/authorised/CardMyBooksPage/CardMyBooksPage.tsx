@@ -2,11 +2,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Box, Button, CardActionArea, CardActions, Modal, TextField } from '@mui/material';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { db } from '../../../firebase'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import { useState } from 'react';
+import { Icon } from 'leaflet';
+import "leaflet/dist/leaflet.css";
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
 
 interface CardMyBooksPageProps{
   volumeID: string;
@@ -21,9 +26,45 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
 
   const auth = getAuth()
   const email = auth.currentUser?.email
+  const [open, setOpen] = useState(false);
+  const [latlng, setLatlng] = useState<any>();
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const style = {
+    width: "800px",
+    height: "600px",
+    position: "absolute",
+    left: "calc(50% - 400px)",
+    top: "15%",
+    backgroundColor: "white",
+    margin: "20px",
+    padding: "20px",
+    border: "none",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: "20px",
+    borderColor: "white",
+    borderRadius: "6px",
+    filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
+    outline: "0",
+  };
 
   const moveToSharedBooks = async (volumeID: string) => {
-    await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {isShared: true})
+    await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {
+      isShared: true,
+      street: street,
+      city: city,
+      latitude: latlng.lat,
+      longitude: latlng.lng,
+    })
+    console.log('SHARED!');
+    console.log(`You can borrow the book here: ${street}, ${city} ' cords: ${latlng.lat}, ${latlng.lng}`)
     setSharedBook(current => !current)
   }
 
@@ -37,7 +78,21 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
     bookCover = 'nocover.png'
   }
   
+  const MapEvents = () => {
+    useMapEvents({
+      click(e) {
+        // setState your coords here
+        // coords exist in "e.latlng.lat" and "e.latlng.lng"
+        console.log(e.latlng.lat);
+        console.log(e.latlng.lng);
+        setLatlng(e.latlng);
+      },
+    });
+    return null;
+}
+
   return (
+    <>
     <Card sx={{ 
         width: 204,
         minHeight: 295,
@@ -87,7 +142,7 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
         }}
             size="small" 
             color="primary"
-            onClick={() => moveToSharedBooks(volumeID)}>
+            onClick={handleOpen}>
           SHARE
         </Button>
         <Button sx={{
@@ -104,5 +159,53 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
         </Button>
       </CardActions>
     </Card>
+    <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="map-title">
+            <h3>Enter the pickup spot:</h3>
+            <div className="map-inputs">
+            <TextField id="outlined-search" label="Enter street name" type="text" onChange={(e) => setStreet(e.target.value)}/>
+            <TextField id="outlined-search" label="Enter city" type="text" onChange={(e) => setCity(e.target.value)}/>
+            <Button variant="contained" onClick={() => moveToSharedBooks(volumeID)}>Start Sharing!</Button>
+            </div>
+          </div>
+          <div className="map" id="map">
+            <h5>Mark on the map</h5>
+            <MapContainer
+              className="map"
+              center={[52.23887604209378, 21.009906761293422]}
+              zoom={13}
+              scrollWheelZoom={false}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {latlng && (
+                <Marker
+                position={[latlng.lat, latlng.lng]}
+                icon={
+                  new Icon({
+                    iconUrl: markerIconPng,
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                  })
+                }
+              >
+                <Popup>Pickup spot: {street}, {city}</Popup>
+              </Marker>
+              )}
+              
+              <MapEvents />
+            </MapContainer>
+          </div>
+        </Box>
+      </Modal>
+    </>
   );
 }

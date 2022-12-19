@@ -130,12 +130,12 @@ export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}
       >
         <Box sx={style}>
           <div className="map-title">
-            <p>Pickup Spot: Frykasy-Rarytasy Wesoła</p>
+            <p>Pickup Spot: {`${information?.street}, ${information?.city}`}</p>
           </div>
           <div className="map" id="map">
             <MapContainer
               className="map"
-              center={[52.23887604209378, 21.009906761293422]}
+              center={[information?.latitude, information?.longitude]}
               zoom={13}
               scrollWheelZoom={false}
             >
@@ -144,7 +144,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Marker
-                position={[52.23887604209378, 21.009906761293422]}
+                position={[information?.latitude, information?.longitude]}
                 icon={
                   new Icon({
                     iconUrl: markerIconPng,
@@ -153,7 +153,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}
                   })
                 }
               >
-                <Popup>Pickup spot</Popup>
+                <Popup>Pickup spot: {`${information?.street}, ${information?.city}`}</Popup>
               </Marker>
             </MapContainer>
           </div>

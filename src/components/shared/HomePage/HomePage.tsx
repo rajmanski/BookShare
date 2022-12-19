@@ -142,14 +142,14 @@ export const HomePage = () => {
         {booksInfo && (
         <>
           {booksInfo.slice(0, 6).map((data, number) => (
-            <NewInBookshareCard key={number} data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
+            <NewInBookshareCard key={number} data={data} volumeIds={volumeIds[number]} volumeMail={volumeMail} information={information[number]} setDisplayBook={setDisplayBook}/>
         ))}
         </>
       )}
       {isClicked && (
         <>
           {booksInfo?.slice(6, 9).map((data, number) => (
-            <NewInBookshareCard key={number} data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail} information={information} setDisplayBook={setDisplayBook}/>
+            <NewInBookshareCard key={number} data={data} volumeIds={volumeIds[number+6]} volumeMail={volumeMail} information={information[number+6]} setDisplayBook={setDisplayBook}/>
         ))}
         </>
       )}
