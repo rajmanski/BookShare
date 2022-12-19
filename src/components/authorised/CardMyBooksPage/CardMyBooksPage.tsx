@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box, Button, CardActionArea, CardActions, Modal } from '@mui/material';
+import { Box, Button, CardActionArea, CardActions, Modal, TextField } from '@mui/material';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { db } from '../../../firebase'
@@ -145,7 +145,12 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
       >
         <Box sx={style}>
           <div className="map-title">
-            <p>Pickup Spot: Frykasy-Rarytasy Wesoła</p>
+            <p>Enter the pickup spot:</p>
+            <div className="map-inputs">
+            <TextField id="outlined-search" label="Enter street name" type="text" />
+            <TextField id="outlined-search" label="Enter city" type="text" />
+            <Button />
+            </div>
           </div>
           <div className="map" id="map">
             <MapContainer
