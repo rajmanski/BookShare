@@ -145,14 +145,15 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
       >
         <Box sx={style}>
           <div className="map-title">
-            <p>Enter the pickup spot:</p>
+            <h3>Enter the pickup spot:</h3>
             <div className="map-inputs">
             <TextField id="outlined-search" label="Enter street name" type="text" />
             <TextField id="outlined-search" label="Enter city" type="text" />
-            <Button />
+            <Button variant="contained">Start Sharing!</Button>
             </div>
           </div>
           <div className="map" id="map">
+            <h5>Mark on the map</h5>
             <MapContainer
               className="map"
               center={[52.23887604209378, 21.009906761293422]}
