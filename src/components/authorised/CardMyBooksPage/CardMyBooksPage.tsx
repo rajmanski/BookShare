@@ -27,6 +27,7 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
   const auth = getAuth()
   const email = auth.currentUser?.email
   const [open, setOpen] = useState(false);
+  const [latlng, setLatlng] = useState<any>();
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -76,6 +77,7 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
         // coords exist in "e.latlng.lat" and "e.latlng.lng"
         console.log(e.latlng.lat);
         console.log(e.latlng.lng);
+        setLatlng(e.latlng);
       },
     });
     return null;
@@ -176,7 +178,8 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker
+              {latlng && (
+                <Marker
                 position={[52.23887604209378, 21.009906761293422]}
                 icon={
                   new Icon({
@@ -188,6 +191,8 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
               >
                 <Popup>Pickup spot</Popup>
               </Marker>
+              )}
+              
               <MapEvents />
             </MapContainer>
           </div>
