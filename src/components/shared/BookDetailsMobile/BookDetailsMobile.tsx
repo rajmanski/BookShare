@@ -24,7 +24,7 @@ export const BookDetailsMobile = () => {
             {book && 
             <div className='book-details-mobile-container'> 
 
-                {bookToDisplay?.volumeInfo.imageLinks.thumbnail && <div className='cover-background'><img src={bookToDisplay?.volumeInfo.imageLinks.thumbnail}></img></div>}
+                {bookToDisplay?.volumeInfo.imageLinks && <div className='cover-background'><img src={bookToDisplay?.volumeInfo.imageLinks.thumbnail}></img></div>}
         
                 <div className='book-details-mobile-title'>{bookToDisplay?.volumeInfo.title}</div>
                 <div className='book-details-mobile-author'>{bookToDisplay?.volumeInfo.authors[0]}</div>
