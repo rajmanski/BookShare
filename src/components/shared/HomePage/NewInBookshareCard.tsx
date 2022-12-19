@@ -33,13 +33,13 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, se
   }
 
   const addBookToBorrowed = async () => {
-    let ownerEmail = '';
+    const ownerEmail = information.email;
     
-    for (let i = 0; i < information.length; i++) {
-      if (information[i]['volumeID'] === volumeIds) {
-        ownerEmail = information[i].email;
-      } 
-    }
+    // for (let i = 0; i < information.length; i++) {
+    //   if (information[i]['volumeID'] === volumeIds) {
+    //     ownerEmail = information[i].email;
+    //   } 
+    // }
 
     //Adding book to firebase borrowedBooks
     await setDoc(doc(db, `users/${email}/borrowedBooks`, `${volumeIds}`), {
@@ -93,9 +93,9 @@ const style = {
         >
           <Box sx={style}>
             <div className="modal-data">
-              <h5>Owner: Piotrek</h5>
+              <h5>Owner: {information.email}</h5>
               <h5>Avaliable from: 4 Dec 2022</h5>
-              <h5>Pick-up spot: ul. Jana Pawła II 28/32</h5>
+              <h5>Pick-up spot: {`${information.street}, ${information.city}`}</h5>
             </div>
             <div className="title-and-author">
               <Typography id="modal-modal-title" variant="h4" component="h2">
@@ -160,7 +160,7 @@ const style = {
         </div>
         <div className="title-and-area">
           <h3>{data.volumeInfo.title}</h3>
-          <h4>Żoliborz</h4>
+          <h4>{information.city}</h4>
         </div>
         <div className="author">{data.volumeInfo.authors[0]}</div>
         <div className="buttons">
