@@ -126,7 +126,7 @@ const style = {
                   gap: "550px",
                 }}
               >
-                <Rating name="simple-controlled" value={2} />
+                <Rating name="simple-controlled" value={data.volumeInfo.averageRating} />
                 <Button
                   sx={{
                     bgcolor: "#18a86e",
