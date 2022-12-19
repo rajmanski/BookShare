@@ -7,7 +7,7 @@ import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { db } from '../../../firebase'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import { useState } from 'react';
 import { Icon } from 'leaflet';
 import "leaflet/dist/leaflet.css";
@@ -69,6 +69,18 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
     bookCover = 'nocover.png'
   }
   
+  const MapEvents = () => {
+    useMapEvents({
+      click(e) {
+        // setState your coords here
+        // coords exist in "e.latlng.lat" and "e.latlng.lng"
+        console.log(e.latlng.lat);
+        console.log(e.latlng.lng);
+      },
+    });
+    return null;
+}
+
   return (
     <>
     <Card sx={{ 
@@ -176,6 +188,7 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
               >
                 <Popup>Pickup spot</Popup>
               </Marker>
+              <MapEvents />
             </MapContainer>
           </div>
         </Box>
