@@ -46,6 +46,10 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, se
       volumeID: volumeIds, 
       dateOfReturn: addMonths(),
       originalOwner: ownerEmail,
+      street: information.street,
+      city: information.city,
+      latitude: information.latitude,
+      longitude: information.longitude,
       })
     
     //Deleting book from owner
@@ -56,6 +60,10 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, se
       volumeID: volumeIds, 
       dateOfReturn: addMonths(),
       Borrower: email,
+      street: information.street,
+      city: information.city,
+      latitude: information.latitude,
+      longitude: information.longitude,
       })
       handleOpenPopup();
       setDisplayBook(current => !current);
