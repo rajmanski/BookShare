@@ -28,11 +28,11 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
   const email = auth.currentUser?.email
   const [open, setOpen] = useState(false);
   const [latlng, setLatlng] = useState<any>();
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setSharedBook(current => !current)
-    console.log('SHARED!');
   }
 
   const style = {
@@ -56,8 +56,16 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
   };
 
   const moveToSharedBooks = async (volumeID: string) => {
-    await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {isShared: true})
-    handleOpen();
+    await updateDoc(doc(db, `users/${email}/ownedBooks`,`${volumeID}`), {
+      isShared: true,
+      street: street,
+      city: city,
+      latitude: latlng.lat,
+      longitude: latlng.lng,
+    })
+    console.log('SHARED!');
+    console.log(`You can borrow the book here: ${street}, ${city} ' cords: ${latlng.lat}, ${latlng.lng}`)
+    setSharedBook(current => !current)
   }
 
   const removeFromLibrary = async () => {
@@ -134,7 +142,7 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
         }}
             size="small" 
             color="primary"
-            onClick={() => moveToSharedBooks(volumeID)}>
+            onClick={handleOpen}>
           SHARE
         </Button>
         <Button sx={{
@@ -161,9 +169,9 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
           <div className="map-title">
             <h3>Enter the pickup spot:</h3>
             <div className="map-inputs">
-            <TextField id="outlined-search" label="Enter street name" type="text" />
-            <TextField id="outlined-search" label="Enter city" type="text" />
-            <Button variant="contained">Start Sharing!</Button>
+            <TextField id="outlined-search" label="Enter street name" type="text" onChange={(e) => setStreet(e.target.value)}/>
+            <TextField id="outlined-search" label="Enter city" type="text" onChange={(e) => setCity(e.target.value)}/>
+            <Button variant="contained" onClick={() => moveToSharedBooks(volumeID)}>Start Sharing!</Button>
             </div>
           </div>
           <div className="map" id="map">
@@ -180,7 +188,7 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
               />
               {latlng && (
                 <Marker
-                position={[52.23887604209378, 21.009906761293422]}
+                position={[latlng.lat, latlng.lng]}
                 icon={
                   new Icon({
                     iconUrl: markerIconPng,
@@ -189,7 +197,7 @@ export const CardMyBooksPage = ({volumeID, bookCover, bookTitle, bookAuthor, set
                   })
                 }
               >
-                <Popup>Pickup spot</Popup>
+                <Popup>Pickup spot: {street}, {city}</Popup>
               </Marker>
               )}
               
