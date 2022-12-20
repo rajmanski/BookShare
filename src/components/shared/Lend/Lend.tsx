@@ -8,17 +8,34 @@ import './Lend.style.css';
 import { LendCard } from "./LendCard";
 
 export const Lend = () => {
+
+ 
     
-    const [volumeID, setVolumeId] = useState<null | string[]>(null);
+    const [dbData, setDbData] = useState();
     const user = auth.currentUser;
     const email = user?.email
 
     const lendBookFetch = async () => {
+        const dataList: any = [];
+        const responseList: any = [];
         //Download data from lendBooks for currently logged user:
         const querySnapshot = await getDocs(collection(db, `users/${email}/lendBooks`));
         querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-    });
+            dataList.push(doc.data());
+            console.log(doc.data());
+        });
+        setDbData(dataList);
+        
+        //Downloading data from API, because now we have got volumeIDs
+        const getApiData = async () => {
+            for (let i = 0; i < dataList.length; i++) {
+              const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${dataList[i].volumeID}`)
+              const data = await response.json();
+              responseList.push(data.volumeInfo);
+            }
+            console.log(responseList);
+          }
+        getApiData();
     }
 
     useEffect(() => {
