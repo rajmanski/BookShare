@@ -12,6 +12,7 @@
 
 .lent-card-section {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 30px;
+    flex-wrap: wrap;
 }
