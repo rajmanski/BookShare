@@ -64,3 +64,7 @@
     text-transform: uppercase;
     color: #1976D2;
 }
+
+.buttons span {
+    color: black;
+}

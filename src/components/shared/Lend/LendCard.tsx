@@ -29,12 +29,8 @@ export const LendCard = ({booksInfo, dbData}) => {
         </div>
         <div className="author">{booksInfo.authors[0]}</div>
         <div className="buttons">
-          <Button variant="text" size="small" sx={{ color: "blue" }}>
-            BORROW
-          </Button>
-          <Button variant="text" size="small" sx={{ color: "blue" }}>
-            DETAILS
-          </Button>
+          <p><span>Borrower:</span> {dbData.Borrower}</p>
+          <p><span>Date of return:</span> {`${dbData.dateOfReturn.toDate().toDateString().split(" ")[1]}, ${dbData.dateOfReturn.toDate().toDateString().split(" ")[2]}, ${dbData.dateOfReturn.toDate().toDateString().split(" ")[3]}`}</p>
         </div>
         </div>
         
