@@ -1,4 +1,3 @@
-import { Button } from '@mui/material'
 import './LendCard.style.css'
 
 export const LendCard = ({booksInfo, dbData}) => {

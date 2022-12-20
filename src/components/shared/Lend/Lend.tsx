@@ -50,7 +50,7 @@ export const Lend = () => {
             <NavBar />
           </div>
           <div className="main-lend-section">
-            <h3>Books that you lent</h3>
+            <h3>Books that you've lent</h3>
             <div className="lent-card-section">
                 {showLoader&& (
                     <CircularProgress size={100} sx={{margin: '0 auto'}}/>
