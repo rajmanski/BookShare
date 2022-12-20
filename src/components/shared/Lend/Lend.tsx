@@ -6,12 +6,13 @@ import { PersistentDrawerLeft } from "../NavBar/Drawer";
 import { NavBar } from "../NavBar/NavBar"
 import './Lend.style.css';
 import { LendCard } from "./LendCard";
+import { CircularProgress } from "@mui/material";
 
 export const Lend = () => {
 
- 
-    
-    const [dbData, setDbData] = useState();
+    const [booksInfo, setBooksInfo] = useState([]);
+    const [dbData, setDbData] = useState([]);
+    const [showLoader, setShowLoader] = useState(true);
     const user = auth.currentUser;
     const email = user?.email
 
@@ -22,7 +23,6 @@ export const Lend = () => {
         const querySnapshot = await getDocs(collection(db, `users/${email}/lendBooks`));
         querySnapshot.forEach((doc) => {
             dataList.push(doc.data());
-            console.log(doc.data());
         });
         setDbData(dataList);
         
@@ -33,10 +33,11 @@ export const Lend = () => {
               const data = await response.json();
               responseList.push(data.volumeInfo);
             }
-            console.log(responseList);
-          }
-        getApiData();
+            setBooksInfo(responseList)
+            setShowLoader(false);
     }
+    getApiData();
+}
 
     useEffect(() => {
         lendBookFetch();
@@ -51,12 +52,19 @@ export const Lend = () => {
           <div className="main-lend-section">
             <h3>Books that you lent</h3>
             <div className="lent-card-section">
-                <div className="lend-card"><LendCard/></div>
-                <div className="lend-card"><LendCard/></div>
-                <div className="lend-card"><LendCard/></div>
+                {showLoader&& (
+                    <CircularProgress size={100} sx={{margin: '0 auto'}}/>
+                 )}
+                {booksInfo && (
+                    <>
+                        {booksInfo.map((data, number) => (
+                    <div className="lend-card"><LendCard key={number} booksInfo={data} dbData={dbData[number]}/></div>
+                ))}
+                    </>
+                )}
             </div>
           </div>
           <Footer />
         </div>
       );
-    };
+}
