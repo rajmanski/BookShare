@@ -29,11 +29,12 @@ export const BorrowModal = () => {
   const handleClose = () => setOpen(false);
 
     const addToBorrowed = async () => {
-      await setDoc(doc(db, `users/${email}/borrowedBooks`, `${foundBook.volumeID}`), {
-        volumeID: foundBook.volumeID, 
-        isShared: false
-        })
+      // await setDoc(doc(db, `users/${email}/borrowedBooks`, `${foundBook.volumeID}`), {
+      //   volumeID: foundBook.volumeID, 
+      //   isShared: false
+      //   })
         // setNewBook(foundBook.volumeID) 
+        console.log('Dodane')
         handleClose()
       }
       
