@@ -1,7 +1,7 @@
 import { useState, useEffect, FC, SetStateAction } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { getDocs, collection, getDoc, doc, DocumentData} from 'firebase/firestore';
+import { getDocs, collection, getDoc, doc, DocumentData, QuerySnapshot} from 'firebase/firestore';
 import {db} from '../../../firebase'
 
 interface AsyncAutocompleteBooksInterface{
@@ -13,6 +13,16 @@ interface AsyncAutocompleteBooksInterface{
     isPublic: boolean; 
     cover?: string;
   }>>
+}
+
+interface BookToBorrow{
+  city: string;
+  email: string;
+  isShared: boolean;
+  latitude: number;
+  longitude: number;
+  street: string;
+  volumeID: string;
 }
 
 
@@ -37,43 +47,67 @@ export const AsyncSelectBorrow:FC<AsyncAutocompleteBooksInterface> = ({setFoundB
       // cover: ''
         }]
 
-        const [booksToBorrow, setBooksToBorrow] = useState({})
+        const [booksToBorrow, setBooksToBorrow] = useState<any>()
 
-        const allOwnedBooksObjects: object[] = [] 
+        const allOwnedBooksObjects: any[] = [] 
+        
+        useEffect(() => {
 
-
-    useEffect(() => {
-        const getAvailableBooks = async () => {
-            const allOwnedBooksIDs: string[] = []
+          const getEmails = async () => {
             const emails: string[] = [];
-            const querySnapshot = await getDocs(collection(db, `users`));
-            querySnapshot.forEach((doc) => {
-              emails.push(doc.id);
+            const users = await getDocs(collection(db, `users`));
+            users.forEach((user) => {
+              emails.push(user.id);
             })
-              emails.forEach(async (email) => {
-                const querySnapshot = await getDocs(collection(db, `users/${email}/ownedBooks`));
-                  querySnapshot.forEach((document) => {
-                  allOwnedBooksIDs.push(document.id)
-                })
-                allOwnedBooksIDs.forEach(async (ID) => {
-                  const querySnapshot = await getDoc(doc(db, `users/${email}/ownedBooks`, ID));
-                  if(querySnapshot.data()?.isShared === true){
-                  allOwnedBooksObjects.push(querySnapshot.data()?.volumeID)
-                  console.log(allOwnedBooksObjects[0])
-                  setBooksToBorrow(allOwnedBooksObjects)
-                  }
-                })
-                    // booksToBorrow.forEach((bookID) => {
-                    //     fetch(`https://www.googleapis.com/books/v1/volumes/${bookID}`)
-                    //       .then((response) => response.json())
-                    //       .then((data) => console.log(data))
-                    // })
-                })     
-        }
-        getAvailableBooks()
-        // console.log(booksToBorrow)
-    }, [search]);
-    
+            return emails
+          }
+
+          const getOwnedBooksIds = async (email: string) => {
+            const allOwnedBooksIds: string[] = []
+            const querySnapshot = await getDocs(collection(db, `users/${email}/ownedBooks`));
+            querySnapshot.forEach((book) => {
+              allOwnedBooksIds.push(book.id)
+            })
+            // console.log(allOwnedBooksIds)
+            return allOwnedBooksIds
+          }
+
+          const getBook = async (email: string, id:string) => {
+            const bookDetails = await getDoc(doc(db, `users/${email}/ownedBooks`, id));
+            // console.log(bookDetails.data())
+            return bookDetails.data()
+          }
+
+
+          const getOwnedBooksDetails = async (email: string) => {
+            const allOwnedBookDetails: any[] = []
+            const allOwnedBooksIds = await getOwnedBooksIds(email)
+            allOwnedBooksIds.forEach(async (id) => {
+              const bookDetails = await getBook(email, id);
+              if(bookDetails?.isShared === true){
+                allOwnedBookDetails.push(bookDetails)
+              }
+            })
+            console.log(allOwnedBookDetails)
+            return allOwnedBookDetails
+          }
+
+
+          const getAllUsersBooksDetails = async () => {
+            const allOwnedBooks: any[] = []
+            const emails: string[] = await getEmails();
+            emails.forEach(async (email) => {
+              const userOwnedBooks = await getOwnedBooksDetails(email);
+              allOwnedBooks.push(userOwnedBooks)
+            })
+            return allOwnedBooks
+          }
+
+          const a = getAllUsersBooksDetails()
+          console.log(a)
+      }, []);
+
+      
 
     return (
         <Autocomplete
