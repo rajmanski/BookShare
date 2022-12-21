@@ -1,3 +1,4 @@
+
 import { useState, useEffect, FC, SetStateAction } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -12,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase";
 
+
 interface AsyncAutocompleteBooksInterface {
   setFoundBook: React.Dispatch<
     SetStateAction<{
@@ -25,11 +27,23 @@ interface AsyncAutocompleteBooksInterface {
   >;
 }
 
+
 export const AsyncSelectBorrow: FC<AsyncAutocompleteBooksInterface> = ({
   setFoundBook,
 }) => {
   const [search, setSearch] = useState("");
   const [searchedBooks, setSearchedBooks] = useState<any>([]);
+
+interface BookToBorrow{
+  city: string;
+  email: string;
+  isShared: boolean;
+  latitude: number;
+  longitude: number;
+  street: string;
+  volumeID: string;
+}
+
 
   const [titleChosen, setTitleChosen] = useState("");
 
@@ -59,6 +73,7 @@ export const AsyncSelectBorrow: FC<AsyncAutocompleteBooksInterface> = ({
       });
     }
 
+
     const getApiData = async () => {
       const responseList: any = [];
       for (let i = 0; i < booksList.length; i++) {
@@ -76,6 +91,7 @@ export const AsyncSelectBorrow: FC<AsyncAutocompleteBooksInterface> = ({
   useEffect(() => {
     getBooksIds()
   }, []);
+
 
 
 
