@@ -86,7 +86,7 @@ return (
     <div className='add-to-library-button'>
       <Button 
         sx={{
-          
+          marginTop: '10px'
         }}
         variant="contained" 
         startIcon={<AddIcon />}
