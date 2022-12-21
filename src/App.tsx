@@ -7,6 +7,7 @@ import { BookDetailsMobile } from './components/shared/BookDetailsMobile/BookDet
 import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Borrow } from './components/shared/Borrow/Borrow';
+import { BooksAvailableToBorrow } from './components/shared/Borrow/BooksAvailableToBorrow' 
 
 const theme = createTheme({
   palette: {
@@ -28,6 +29,9 @@ function App() {
           <Route path='/signup' element={<RegisterPage/>}/>
           <Route path='/borrow' element={<Borrow/>}/>
           <Route path='/bookdetails/:volumeID' element={<BookDetailsMobile/>}/>
+          <Route path='/booksavailabletoborrow' element={<BooksAvailableToBorrow/>}/>
+
+
         </Routes> 
       </div>
     </ThemeProvider>
