@@ -28,6 +28,11 @@
     font-size: 20px;
 }
 
+.error-handling{
+    color: rgb(174, 2, 2);
+    font-size: 16px;
+}
+
 @media screen and (max-width: 600px){
     .register-form-container{
         width: 90vw;

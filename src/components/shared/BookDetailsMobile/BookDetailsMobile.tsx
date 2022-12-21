@@ -1,10 +1,11 @@
 import { useFetch } from '../../useFetch'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { PersistentDrawerLeft } from "../NavBar/Drawer";
 import { useEffect, useState } from "react";
 import { DocumentData } from "firebase/firestore";
 import { Typography, Rating, Button } from '@mui/material';
-import '../BookDetailsMobile/BookDetailsMobile.style.css'
+import '../BookDetailsMobile/BookDetailsMobile.style.css';
+import { getAuth } from 'firebase/auth'
 
 export const BookDetailsMobile = () => {
     
@@ -12,7 +13,10 @@ export const BookDetailsMobile = () => {
     const {data: book, error, isLoading} = useFetch(`https://www.googleapis.com/books/v1/volumes/${volumeID}`)
     const [bookToDisplay, setBookToDisplay] = useState<DocumentData | null>(null)
 
-    
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const navigate = useNavigate();
+
     useEffect(()=> {
         setBookToDisplay(book)
     },[isLoading])
@@ -43,15 +47,30 @@ export const BookDetailsMobile = () => {
                 </div>
                 }
 
+                {user && 
                 <Button variant='contained' sx={{
                     width: '150px',
-                    alignSelf: 'flex-end'
-                }}
-                    
-                >
-                    
-                    Borrow
-                </Button>    
+                    alignSelf: 'flex-end', 
+                    mt: '20px'
+                }} 
+                >Borrow
+                </Button> 
+                }
+
+                {!user && 
+                
+                <Button variant='contained' sx={{
+                    width: '200px',
+                    alignSelf: 'flex-end',
+                    mt: '20px'
+                }} 
+                    onClick={()=> navigate('/signin')}
+
+                >Sign in to borrow
+                </Button> 
+                
+                }
+                   
             </div> 
             }
         </div>
