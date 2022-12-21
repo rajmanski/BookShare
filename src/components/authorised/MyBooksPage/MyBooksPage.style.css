@@ -23,9 +23,7 @@
 @media screen and (max-width: 1024px){
 
     .title-and-search-container{
-        margin: 10px;
-        display: block;
-        text-align: center;
+        display: none;
     }
     .books-in-your-library-title h2{
         font-size: 18px;
