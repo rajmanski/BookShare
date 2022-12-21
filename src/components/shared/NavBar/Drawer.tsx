@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -106,7 +107,7 @@ export const PersistentDrawerLeft = () => {
 
   return (
     <Box sx={{ display: {xs:'flex', lg:'none'} }}>
-      {/* <CssBaseline /> */}
+      <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton

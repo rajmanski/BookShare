@@ -66,6 +66,8 @@ export const RegisterPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confPassword, setConfPassword] = useState('')
+  const [isPasswordSame, setIsPasswordSame] = useState(true)
+
 
 
   const handleChange =
@@ -106,9 +108,9 @@ export const RegisterPage = () => {
 
     const handleSignUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
+      if(password === confPassword){
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          console.log(userCredential.user.email)
           const email = userCredential.user.email;
           return email
         })
@@ -119,6 +121,9 @@ export const RegisterPage = () => {
         .catch((error) => {
           console.log(error.message);
         });
+      } else {
+        setIsPasswordSame(false)
+      }
     }
 
    return (
@@ -188,8 +193,10 @@ export const RegisterPage = () => {
         </FormControl>           
     </div>    
 
-   
-    
+        {isPasswordSame == false && 
+             <div className='error-handling'>Passwords are different</div>
+        }
+       
         <Button sx={{
           width: '100%', 
           mb: '10px',
