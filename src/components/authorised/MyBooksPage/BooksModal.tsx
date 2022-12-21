@@ -12,7 +12,7 @@ import '../MyBooksPage/BooksModal.style.css'
 import { setDoc, doc} from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import {db, auth} from '../../../firebase' 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface BooksModalInterface{
   setNewBook: (value: string) => void;
@@ -37,6 +37,8 @@ export const BooksModal:FC<BooksModalInterface> = ({setNewBook, setSharedBook}) 
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const navigate = useNavigate()
 
   const [foundBook, setFoundBook] = useState({
     volumeID: '',
@@ -87,26 +89,58 @@ return (
 
 
 <div className='books-modal-container'>
-  <Fab sx={{
-    display: {xs: 'none', md: 'block'},
-    position: 'fixed', 
-    bottom: '250px', 
-    right: '200px'
-    }}
-    variant="extended" color="primary" aria-label="add" onClick={handleOpen}>
-    Add a new book
-    <AddIcon sx={{ ml: 1 }} />
-  </Fab>
 
-  <Fab sx={{
-    display: {xs: 'block', md: 'none'},
-    position: 'fixed', 
-    bottom: '140px', 
-    right: '50px'
-    }}
-    variant="extended" color="primary" aria-label="add" onClick={handleOpen}>
-    <AddIcon/>
-  </Fab>
+  {email &&  
+    <div>
+    <Fab sx={{
+      display: {xs: 'none', md: 'block'},
+      position: 'fixed', 
+      bottom: '250px', 
+      right: '200px'
+      }}
+      variant="extended" color="primary" aria-label="add" onClick={handleOpen}>
+      Add a new book
+      <AddIcon sx={{ ml: 1 }} />
+    </Fab>
+
+    <Fab sx={{
+      display: {xs: 'block', md: 'none'},
+      position: 'fixed', 
+      bottom: '140px', 
+      right: '50px'
+      }}
+      variant="extended" color="primary" aria-label="add" onClick={handleOpen}>
+      <AddIcon/>
+    </Fab>
+    </div>
+  }
+
+  {!email &&
+    <div>
+    <Fab sx={{
+      display: {xs: 'none', md: 'block'},
+      position: 'fixed', 
+      bottom: '250px', 
+      right: '200px'
+      }}
+      variant="extended" color="primary" aria-label="add" onClick={()=> navigate('/signin')}>
+      Sign in to add a new book
+      <AddIcon sx={{ ml: 1 }} />
+    </Fab>
+
+    <Fab sx={{
+      display: {xs: 'block', md: 'none'},
+      position: 'fixed', 
+      bottom: '140px', 
+      right: '30px'
+      }}
+      variant="extended" color="primary" aria-label="add" onClick={()=> navigate('/signin')}>
+        Sign in to add a book
+      <AddIcon sx={{ ml: 1 }}/>
+    </Fab>
+    </div>
+  }
+  
 
 <Modal sx={{
   display: {xs:'none', md:'block'}
@@ -118,26 +152,13 @@ return (
 >
 
   <Box sx={styleBigScreens}>
-    {email && 
+  
     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
       mb: '20px'
     }}>
       Add a new book to your library
     </Typography>
-    }
-
-    {!email && 
-    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
-      mb: '20px',
-      fontSize: '18px', 
-      textAlign: 'center',
-      fontWeight: '400'
-    }}>
-      <Link to='/signin'>Sign in</Link> to add books to your library. 
-    </Typography>
-    }
-    
-    {email && 
+   
     <div>
     <AsyncAutocompleteBooks setFoundBook={setFoundBook}/>
     
@@ -157,19 +178,6 @@ return (
       </Button>
     </div>
     </div>
-  }
-
-      {!email && 
-      <div>
-      <div className='add-to-library-button'>
-        <Button 
-          variant="contained" 
-          onClick={handleClose}>
-            Maybe later
-        </Button>
-      </div>
-      </div>
-    }
   </Box>
 
 </Modal>
