@@ -2,7 +2,7 @@ import './LendCard.style.css'
 
 export const LendCard = ({booksInfo, dbData}) => {
 
-  let image = booksInfo.imageLinks.thumbnail;
+  let image = booksInfo.imageLinks?.thumbnail;
 
   if (image === undefined) {
     image = 'nocover.png'
@@ -10,6 +10,10 @@ export const LendCard = ({booksInfo, dbData}) => {
 
   if (booksInfo.title.length > 45) {
     booksInfo.title = booksInfo.title.slice(0, 45) + "...";
+  }
+
+  if (dbData.Borrower.length > 20) {
+    dbData.Borrower = dbData.Borrower.slice(0,15) + '...'; 
   }
 
 //   if (booksInfo.volumeInfo?.description === undefined) {
@@ -28,8 +32,8 @@ export const LendCard = ({booksInfo, dbData}) => {
         </div>
         <div className="author">{booksInfo.authors[0]}</div>
         <div className="buttons">
-          <p><span>Borrower:</span> {dbData.Borrower}</p>
-          <p><span>Date of return:</span> {`${dbData.dateOfReturn.toDate().toDateString().split(" ")[1]}, ${dbData.dateOfReturn.toDate().toDateString().split(" ")[2]}, ${dbData.dateOfReturn.toDate().toDateString().split(" ")[3]}`}</p>
+          <p><span>Borrower:</span><br></br> {dbData.Borrower}</p>
+          <p><span>Date of return:</span><br></br> {`${dbData.dateOfReturn.toDate().toDateString().split(" ")[1]}, ${dbData.dateOfReturn.toDate().toDateString().split(" ")[2]}, ${dbData.dateOfReturn.toDate().toDateString().split(" ")[3]}`}</p>
         </div>
         </div>
         
