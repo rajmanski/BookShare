@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Borrow } from './components/shared/Borrow/Borrow';
 import { BooksAvailableToBorrow } from './components/shared/Borrow/BooksAvailableToBorrow' 
+import { Lend } from './components/shared/Lend/Lend';
 
 const theme = createTheme({
   palette: {
@@ -28,6 +29,7 @@ function App() {
           <Route path='/signin' element={<LoginPage/>}/>
           <Route path='/signup' element={<RegisterPage/>}/>
           <Route path='/borrow' element={<Borrow/>}/>
+          <Route path='/lend' element={<Lend/>}/>
           <Route path='/bookdetails/:volumeID' element={<BookDetailsMobile/>}/>
           <Route path='/booksavailabletoborrow' element={<BooksAvailableToBorrow/>}/>
 
