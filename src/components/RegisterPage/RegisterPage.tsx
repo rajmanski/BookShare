@@ -67,7 +67,7 @@ export const RegisterPage = () => {
   const [password, setPassword] = useState('')
   const [confPassword, setConfPassword] = useState('')
   const [isPasswordSame, setIsPasswordSame] = useState(true)
-
+  const [error, setError] = useState<string | null>(null)
 
 
   const handleChange =
@@ -107,7 +107,8 @@ export const RegisterPage = () => {
 
 
     const handleSignUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault()
+      // e.preventDefault()
+      setIsPasswordSame(true)
       if(password === confPassword){
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -120,6 +121,7 @@ export const RegisterPage = () => {
         .then(() => navigate("/mybooks"))
         .catch((error) => {
           console.log(error.message);
+          setError(error.message);
         });
       } else {
         setIsPasswordSame(false)
@@ -144,6 +146,7 @@ export const RegisterPage = () => {
               type={'email'}
               // value={values.password}
               onChange={(e) => setEmail(e.target.value)} 
+              required
               /> 
       </FormControl>
 
@@ -156,6 +159,7 @@ export const RegisterPage = () => {
           type={values.showPassword ? 'text' : 'password'}
           value={values.password}
           onChange={handleChange('password')}
+          required={true}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -178,6 +182,7 @@ export const RegisterPage = () => {
             type={confValues.showConfPassword ? 'text' : 'password'}
             value={confValues.confPassword}
             onChange={handleChangeConf('confPassword')}
+            required={true}
             endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -194,7 +199,15 @@ export const RegisterPage = () => {
     </div>    
 
         {isPasswordSame == false && 
-             <div className='error-handling'>Passwords are different</div>
+          <div className='error-handling'>Passwords are different</div>
+        }
+
+        {error === 'Firebase: Error (auth/invalid-email).'  && 
+          <div className='error-handling'>Invalid email</div>
+        }
+
+        {error === 'Firebase: Error (auth/email-already-in-use).'  && 
+          <div className='error-handling'>Email already in use</div>
         }
        
         <Button sx={{
