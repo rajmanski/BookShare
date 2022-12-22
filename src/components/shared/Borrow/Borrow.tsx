@@ -140,9 +140,9 @@ export const Borrow = () => {
               </div>
             </div>
             <div className="second-card-container">
-              {/* <div className="second-card-img">
+              <div className="second-card-img">
                 <img src="harry.jpg" alt="Shantaram" />
-              </div> */}
+              </div>
               <div className="second-card-comment">
                 <div className="top">
                   <div className="rating">
@@ -201,14 +201,14 @@ export const Borrow = () => {
                   <FavoriteIcon sx={{ color: "gray" }} />
                 </div>
               </div>
-              {/* <div className="third-card-img">
+              <div className="third-card-img">
                 <img src="king.jpg" alt="Shantaram" />
-              </div> */}
+              </div>
             </div>
             <div className="forth-card-container">
-              {/* <div className="forth-card-img">
+              <div className="forth-card-img">
                 <img src="jo.jpg" alt="Shantaram" />
-              </div> */}
+              </div>
               <div className="forth-card-comment">
                 <div className="top">
                   <div className="rating">

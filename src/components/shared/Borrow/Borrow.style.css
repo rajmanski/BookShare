@@ -161,7 +161,7 @@
     align-items: center;
 }
 
-.second-card-img {
+.second-card-img img {
     width: 263px;
     height: 400px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -182,7 +182,7 @@
     border-radius: 4px;
 }
 
-.third-card-img {
+.third-card-img img {
     width: 230px;
     height: 349px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -203,7 +203,7 @@
     border-radius: 4px;
 }
 
-.forth-card-img {
+.forth-card-img img {
     width: 268px;
     height: 349px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
