@@ -5,6 +5,7 @@ import Divider from '@mui/material/Divider';
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
+    margin: '0 auto',
     ...theme.typography.body2,
     '& [role="separator"]': {
       margin: theme.spacing(0, 2),
@@ -34,7 +35,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
                 <li>Piotr Rajmański</li>
                 <li>Junior Frontend Developer</li>
                 <li>LinkedIn</li>
-                <li>GitHub</li>
+                <li><a href='https://github.com/rajmanski'>GitHub</a></li>
                 <li>tel. +48</li>
             </ul>)
 
