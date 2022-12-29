@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import { Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import Typography from '@mui/material/Typography'
-import { useState, FC } from 'react'
+import { useState, FC, SetStateAction } from 'react'
 // import { setDoc, doc} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import {db} from '../../../firebase' 
@@ -79,7 +79,9 @@ return (
     }}>
     Find a book to borrow from other user    
     </Typography>
-    <AsyncSelectBorrow setFoundBook={setFoundBook}/>
+    <AsyncSelectBorrow setFoundBook={setFoundBook} setFoundBookMainSearch={function (value: SetStateAction<string>): void {
+          throw new Error('Function not implemented.')
+        } } />
     
     
 

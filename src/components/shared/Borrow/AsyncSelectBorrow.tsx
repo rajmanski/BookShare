@@ -5,9 +5,6 @@ import TextField from "@mui/material/TextField";
 import {
   getDocs,
   collection,
-  getDoc,
-  doc,
-  DocumentData,
   query,
   where,
 } from "firebase/firestore";
@@ -25,13 +22,14 @@ interface AsyncAutocompleteBooksInterface {
       cover?: string;
     }>
   >;
+  setFoundBookMainSearch: React.Dispatch<React.SetStateAction<string>>
+
 }
 
 
 export const AsyncSelectBorrow: FC<AsyncAutocompleteBooksInterface> = ({
-  setFoundBook,
+  setFoundBook, setFoundBookMainSearch
 }) => {
-  const [search, setSearch] = useState("");
   const [searchedBooks, setSearchedBooks] = useState<any>([]);
 
 interface BookToBorrow{
@@ -73,7 +71,6 @@ interface BookToBorrow{
       });
     }
 
-
     const getApiData = async () => {
       const responseList: any = [];
       for (let i = 0; i < booksList.length; i++) {
@@ -92,7 +89,14 @@ interface BookToBorrow{
     getBooksIds()
   }, []);
 
-
+      // const foundBookID = searchedBooks.
+      useEffect(() => {
+        if (titleChosen !== ''){
+          let foundBookID = searchedBooks.find((book) => book.volumeInfo.title == titleChosen).id
+          setFoundBookMainSearch(foundBookID)
+        }
+      }, [titleChosen])
+  
 
 
   return (
@@ -104,10 +108,10 @@ interface BookToBorrow{
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search for a title you want to add"
+          label="Search for a title"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             //   if(e.currentTarget.value.length%5 == 0){
-            setSearch(e.currentTarget.value);
+            // console.log(e.currentTarget.value)
           }}
           //   }
           InputProps={{
@@ -115,6 +119,7 @@ interface BookToBorrow{
             type: "search",
           }}
         />
+        
       )}
     />
   );
