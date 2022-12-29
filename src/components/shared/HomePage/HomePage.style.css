@@ -127,7 +127,7 @@ img {
     object-fit: cover;
 }
 
-.title-and-area {
+/* .title-and-area {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -136,7 +136,7 @@ img {
     width: 345px;
     height: 64px;
     border-radius: 4px 4px 0px 0px;
-}
+} */
 
 .author {
     display: flex;

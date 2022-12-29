@@ -105,7 +105,7 @@ export const BorrowedBookCard = ({ data, information, volumeIds, setDisplayBook}
           <div className="title">
             <strong>{data.title}</strong>
           </div>
-          <div className="owner">Owner: {information?.originalOwner}</div>
+          {/* <div className="owner">Owner: {information?.originalOwner}</div> */}
           <div className="return-date">
             Return by: <span>{`${information?.dateOfReturn.toDate().toDateString().split(" ")[1]}, ${information?.dateOfReturn.toDate().toDateString().split(" ")[2]}, ${information?.dateOfReturn.toDate().toDateString().split(" ")[3]}`}</span>
           </div>

@@ -15,6 +15,7 @@ import { PersistentDrawerLeft } from "../NavBar/Drawer";
 import { BorrowedBookCard } from "./BorrowedBookCard";
 import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
+import { BorrowedBookCardMobile } from "./BorrowedBookCardMobile";
 
 
 
@@ -126,12 +127,13 @@ export const Borrow = () => {
 
   
   return (
-    <div className="borrow-page-container">
+    <div>
       <PersistentDrawerLeft/>
       <NavBar />
+      <div className="borrow-page-container">
       <div className="main-content">
         <div className="borrowed-books">
-          <h3>Books you have Borrowed</h3>
+          <h3>Books you have borrowed</h3>
           <div className="borrowed-books-container">
           {showLoader&& (
           <CircularProgress size={100} sx={{margin: '0 auto'}}/>
@@ -139,7 +141,10 @@ export const Borrow = () => {
         {bookInfo && (
         <>
           {bookInfo.map((data, number) => (
+            <div>
             <BorrowedBookCard key={number} data={data} information={information[number]} volumeIds={volumeIds[number]} setDisplayBook={setDisplayBook}/>
+            <BorrowedBookCardMobile key={number} data={data} information={information[number]} volumeIds={volumeIds[number]} setDisplayBook={setDisplayBook} />
+            </div>
         ))}
         </>
       )}
@@ -413,11 +418,11 @@ to reflect the deep satisfying experience this novel is.
               </>
             )}
           </div>
-          <div className="borrow-book-button">
+          {/* <div className="borrow-book-button">
             <Button variant="outlined" sx={{ width: "207px", height: "42px" }} onClick={() => setShowMore(true)}>
               SHOW MORE BOOKS
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -426,6 +431,7 @@ to reflect the deep satisfying experience this novel is.
         src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
       ></script>
+    </div>
     </div>
   );
 };
