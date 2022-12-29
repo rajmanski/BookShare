@@ -1,6 +1,7 @@
 import { Button, CircularProgress, TextField } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Footer } from "../../Footer/Footer";
 import { NavBar } from "../NavBar/NavBar";
 import "./HomePage.style.css";
@@ -8,8 +9,12 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { NewInBookshareCard } from "./NewInBookshareCard";
 import { PersistentDrawerLeft } from "../NavBar/Drawer";
+import { AsyncSelectBorrow } from "../Borrow/AsyncSelectBorrow";
 
 export const HomePage = () => {
+
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState([]);
   const [volumeIds, setVolumeIds] = useState<string[]>([]);
@@ -19,6 +24,17 @@ export const HomePage = () => {
   const [volumeMail, setVolumeMail] = useState({});
   const [information, setInformation] = useState([]);
   const [displayBook, setDisplayBook] = useState(true)
+
+  const [foundBookMainSearch, setFoundBookMainSearch] = useState('')
+
+
+  const [foundBook, setFoundBook] = useState({
+    volumeID: '',
+    title: 'Title', 
+    authors: ['Author'],
+    pickUpSpot: '', 
+    isPublic: false
+  }) 
 
 
 
@@ -94,25 +110,22 @@ export const HomePage = () => {
             Become a member of 30.000+ Bookshare community!
           </p>
           <div className="search-input">
-            <TextField
-              fullWidth
-              id="fullWidth"
-              placeholder="Search for a title or an author"
-              InputProps={{
-                endAdornment: (
-                  <Button
-                    startIcon={<SearchIcon sx={{display: {xs: 'none', sm: 'block'}}}/>}
-                    sx={{
-                      bgcolor: "#18a86e",
-                      "&:hover": { backgroundColor: "#405d27" }
-                    }}
-                    variant="contained"
-                  >
-                    Search
-                  </Button>
-                ),
+
+            <AsyncSelectBorrow setFoundBook={setFoundBook} setFoundBookMainSearch={setFoundBookMainSearch}/>
+            <Button
+              startIcon={<SearchIcon sx={{display: {xs: 'none', sm: 'block'}}}/>}
+              sx={{
+              bgcolor: "#18a86e",
+              "&:hover": { backgroundColor: "#405d27" }
               }}
-            />
+              variant="contained"
+              onClick={() => (
+                navigate(`/bookDetails/${foundBookMainSearch}`)
+                )}
+            >
+              Search
+            </Button>
+
           </div>
         </div>
         <div className="images">
