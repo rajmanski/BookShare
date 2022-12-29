@@ -6,6 +6,7 @@ import { DocumentData } from "firebase/firestore";
 import { Typography, Rating, Button } from '@mui/material';
 import '../BookDetailsMobile/BookDetailsMobile.style.css';
 import { getAuth } from 'firebase/auth'
+import { NavBar } from '../NavBar/NavBar';
 
 export const BookDetailsMobile = () => {
     
@@ -23,6 +24,7 @@ export const BookDetailsMobile = () => {
 
     return(
         <div>
+            <NavBar/>
             <PersistentDrawerLeft/>
 
             {book && 
