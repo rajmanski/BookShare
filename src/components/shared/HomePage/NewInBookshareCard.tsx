@@ -4,6 +4,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { auth, db } from "../../../firebase";
 import { NewInBookShareCardMobile } from "./NewInBookShareCardMobile";
 import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea, CardActions } from '@mui/material';
+
 
 export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, setDisplayBook}) => {
 
@@ -12,7 +17,7 @@ export const NewInBookshareCard = ({data, volumeIds, volumeMail, information, se
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPopup = () => setOpenPopup(true);
-  const handleClosePopup = () => setOpenPopup(false); // to chyba da się zrobić przez toggle
+  const handleClosePopup = () => setOpenPopup(false);
 
   const user = auth.currentUser;
   const email = user?.email
@@ -101,7 +106,6 @@ const style = {
         >
           <Box sx={style}>
             <div className="modal-data">
-              <h5>Owner: {information.email}</h5>
               <h5>Avaliable from: 4 Dec 2022</h5>
               <h5>Pick-up spot: {`${information.street}, ${information.city}`}</h5>
             </div>
@@ -161,26 +165,85 @@ const style = {
           <Button onClick={handleClosePopup}>Ok</Button>
         </DialogActions>
       </Dialog>
-        <div className="card-on-homepage">
-        <div className="img-card-wrapper">
-          <img src={image} alt={data.volumeInfo.title}  onClick={handleOpen}/>
 
-        </div>
-        <div className="title-and-area">
-          <h3>{data.volumeInfo.title}</h3>
-          <h4>{information.city}</h4>
-        </div>
-        <div className="author">{data.volumeInfo.authors[0]}</div>
-        <div className="buttons">
-          <Button variant="text" size="small" sx={{ color: "blue" }} onClick={addBookToBorrowed} >
-            BORROW
-          </Button>
-          <Button variant="text" size="small" sx={{ color: "blue" }}  onClick={handleOpen}>
+
+      <Card sx={{ 
+        width: '345px',
+        minHeight: '550px',
+        boxShadow: '0px 0px 2px 0px rgba(66, 68, 90, 0.37)', 
+        position: 'relative',
+        display: {xs:'none', md:'block'}
+        }}>
+      <CardActionArea onClick={handleOpen}>
+        <CardMedia sx={{
+            objectFit:'contain', 
+            padding: '10px',
+        }}
+          component="img"
+          height="300px"
+          image={image}
+          alt={data.volumeInfo.title}
+        />
+        <CardContent>
+          <Typography sx={{
+            fontFamily: 'Roboto, sans-serif',
+            fontSize: 28,
+            fontWeight: 400 
+          }}
+            gutterBottom variant="h5" 
+            component="p">
+            {data.volumeInfo.title}
+          </Typography>
+          <Typography sx={{
+            fontFamily: 'Roboto, sans-serif',
+            fontSize: 20,
+            mt: '20px',
+            fontWeight: 400, 
+            // minHeight: 45  
+          }}
+            variant="h4" color="text.secondary">
+           {data.volumeInfo.authors[0]}
+          </Typography>
+          <Typography sx={{
+            fontFamily: 'Roboto, sans-serif',
+            fontSize: 18,
+            mt: '20px',
+            fontWeight: 400, 
+            color: '#5BC49C'
+          }}
+            variant="h4" color="text.secondary">
+           {information.city}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button sx={{
+            color: '#1976D2', 
+            fontWeight: 400,
+            textDecoration: 'toUpperCase', 
+            position: 'absolute', 
+            bottom: 5
+
+        }}
+            size="small" 
+            color="primary"
+            onClick={addBookToBorrowed}>
+          BORROW
+        </Button>
+        <Button sx={{
+           position: 'absolute', 
+           bottom: 5, 
+           right: 5,
+           color: '#1976D2' 
+
+        }}
+            size="small"
+            onClick={handleOpen}>
             DETAILS
-          </Button>
-          <FavoriteIcon sx={{ color: "gray" }} />
-        </div>
-        </div> 
+        </Button>
+      </CardActions>
+    </Card>
+
       </> 
     )
 }
