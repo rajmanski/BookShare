@@ -330,7 +330,7 @@ div[class*='card-container'] img{
     };
 }
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 1300px){
 
     .main-section-bottom h3{
         font-size: 18px;
@@ -338,6 +338,10 @@ div[class*='card-container'] img{
 
     div[class*='card-container'] img{
         height: 250px;
+    }
+
+    .borrowed-books h3{
+        font-size: 18px;
     }
 
 }

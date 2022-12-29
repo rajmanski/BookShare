@@ -32,3 +32,17 @@
 .book-details-mobile-rating{
     margin-top: 10px;
 }
+
+@media screen and (min-width: 1200px){
+
+    .book-details-mobile-container{
+        margin-top: 70px;
+    }
+
+    .book-details-mobile-container img{
+        width: 300px;
+        align-self: center;
+    }
+    
+
+}
