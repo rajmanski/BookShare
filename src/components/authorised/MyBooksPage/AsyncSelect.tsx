@@ -110,9 +110,7 @@ export const AsyncAutocompleteBooks:FC<AsyncAutocompleteBooksInterface> = ({setF
             {...params}
             label="Search for a title you want to add"
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              if(e.currentTarget.value.length%5 == 0){
                 setSearch(e.currentTarget.value)}}
-              }
             InputProps={{
               ...params.InputProps,
               type: 'search',
